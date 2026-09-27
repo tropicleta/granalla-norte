@@ -30,8 +30,8 @@ const jsonLd = {
   name: site.name,
   url: site.url,
   email: site.email,
-  logo: site.logo,
-  image: site.images.hero,
+  logo: new URL(site.logo, site.url).href,
+  image: new URL(site.images.hero, site.url).href,
   description: site.description,
   areaServed: ["Tierra Amarilla", "Copiapó", "Región de Atacama"],
   address: {

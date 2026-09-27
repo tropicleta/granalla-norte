@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  distDir: process.env.NEXT_BUILD_DIR || ".next",
   images: {
     // Imágenes actuales alojadas en el CDN de Hostinger/Zyro.
     // Recomendado: migrarlas a /public o a un bucket propio antes de dar de baja el sitio antiguo.

@@ -61,7 +61,13 @@ export default function ContactoPage() {
               </ul>
             </div>
           </aside>
-          <ContactForm services={services.map((s) => s.title)} />
+          {process.env.RESEND_API_KEY ? <ContactForm services={services.map((s) => s.title)} /> : (
+            <div className="rounded-[var(--radius-card)] bg-white p-8 shadow-[var(--shadow-card)] sm:p-10">
+              <h2 className="font-display text-2xl font-semibold text-olive-900">Solicita tu cotización por correo</h2>
+              <p className="mt-4 text-ink/75">Cuéntanos qué servicio necesitas, la ubicación de tu proyecto y los plazos estimados.</p>
+              <a href={`mailto:${site.email}?subject=Solicitud%20de%20cotizaci%C3%B3n`} className="mt-8 inline-flex rounded-full bg-copper px-6 py-3.5 font-semibold text-white hover:bg-copper-600">Escribir a Granalla Norte</a>
+            </div>
+          )}
         </Container>
       </section>
     </>

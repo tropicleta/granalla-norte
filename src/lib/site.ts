@@ -1,7 +1,7 @@
 // Contenido centralizado del sitio. Migrado desde granallanorte.cl (Hostinger Website Builder).
 // Editar aquí actualiza todas las páginas.
 
-const CDN = "https://assets.zyrosite.com/AE05RMExr5Ur5ex3";
+const CDN = "/img";
 
 export const site = {
   name: "Granalla Norte",

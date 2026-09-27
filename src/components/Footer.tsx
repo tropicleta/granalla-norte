@@ -43,6 +43,7 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li><Link href="/admin" className="hover:text-cream">Administración</Link></li>
           </ul>
         </div>
 

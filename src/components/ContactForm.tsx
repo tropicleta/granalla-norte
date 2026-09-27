@@ -15,7 +15,8 @@ export function ContactForm({ services }: { services: string[] }) {
     e.preventDefault();
     setStatus("sending");
     setError("");
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     try {
       const res = await fetch("/api/contacto", {
         method: "POST",
@@ -25,7 +26,7 @@ export function ContactForm({ services }: { services: string[] }) {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "No pudimos enviar el mensaje.");
       setStatus("ok");
-      e.currentTarget?.reset();
+      form.reset();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "No pudimos enviar el mensaje.");

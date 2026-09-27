@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 /**
  * Recibe el formulario de contacto.
  * Si RESEND_API_KEY está definida, envía el correo vía Resend (https://resend.com).
- * Sin clave, solo registra en consola (útil en desarrollo).
+ * Sin clave, informa que el envío no está disponible.
  *
  * Variables de entorno:
  *   RESEND_API_KEY   clave de Resend
@@ -16,6 +16,10 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
+    return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
+  }
+
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
     return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
   }
 
@@ -42,8 +46,7 @@ export async function POST(req: Request) {
 
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    console.info("[contacto] RESEND_API_KEY no configurada. Mensaje:\n" + lines);
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ error: `El formulario no está disponible. Escríbenos a ${site.email}.` }, { status: 503 });
   }
 
   const res = await fetch("https://api.resend.com/emails", {

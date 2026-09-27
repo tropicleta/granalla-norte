@@ -38,6 +38,7 @@ export function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={() => setOpen(false)}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                     isActive(item.href) ? "bg-white/10 text-khaki" : "text-cream/80 hover:text-cream"
@@ -84,13 +85,14 @@ export function Header() {
                   className={`block rounded-lg px-3 py-3 text-base ${
                     isActive(item.href) ? "text-khaki" : "text-cream/90"
                   }`}
+                  onClick={() => setOpen(false)}
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
             <li className="pt-2">
-              <Link href="/contacto" className="block rounded-full bg-copper px-5 py-3 text-center font-semibold text-white">
+              <Link href="/contacto" onClick={() => setOpen(false)} className="block rounded-full bg-copper px-5 py-3 text-center font-semibold text-white">
                 Cotizar proyecto
               </Link>
             </li>

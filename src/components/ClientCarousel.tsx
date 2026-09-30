@@ -3,7 +3,7 @@ import { Container } from "./ui";
 import styles from "./ClientCarousel.module.css";
 
 const brands = [
-  { name: "Minera Candelaria", logo: "candelaria", white: true },
+  { name: "Lundin Mining Candelaria", logo: "lundin-candelaria", light: true },
   { name: "Fenix Gold", logo: "fenix-gold" },
   { name: "Kinross", logo: "kinross" },
   { name: "Branda", logo: "branda" },
@@ -26,8 +26,8 @@ export function ClientCarousel() {
               <ul key={copy} className={styles.group} aria-hidden={copy === 1 ? true : undefined}>
                 {brands.map(brand => (
                   <li key={brand.logo} className={styles.item}>
-                    <div className={styles.card}>
-                      <Image src={`/img/clients/${brand.logo}.png`} alt={copy === 0 ? brand.name : ""} width={220} height={100} sizes="220px" className={`${styles.logo} ${brand.white ? styles.white : ""}`} />
+                    <div className={`${styles.card} ${brand.light ? styles.light : ""}`}>
+                      <Image src={`/img/clients/${brand.logo}.png`} alt={copy === 0 ? brand.name : ""} width={220} height={100} sizes="220px" className={styles.logo} />
                     </div>
                   </li>
                 ))}

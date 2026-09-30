@@ -39,8 +39,8 @@
   object-fit: contain;
 }
 
-.white {
-  filter: brightness(0) invert(1);
+.light {
+  background: white;
 }
 
 @keyframes clients-scroll {

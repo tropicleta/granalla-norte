@@ -46,7 +46,7 @@ export type ServiceLine = {
 export const services: ServiceLine[] = [
   {
     slug: "minerales",
-    kicker: "01 · Suministro",
+    kicker: "02 · Suministro",
     title: "Venta de minerales no metálicos",
     summary:
       "Insumos para caminos, control de polvo e industria, con entregas seguras y puntuales en faena.",
@@ -60,7 +60,7 @@ export const services: ServiceLine[] = [
   },
   {
     slug: "asesorias",
-    kicker: "02 · Ingeniería",
+    kicker: "03 · Ingeniería",
     title: "Asesorías y consultoría especializada",
     summary:
       "Monitoreo de vibraciones y acompañamiento técnico de ingenieros en cada etapa de tu proyecto.",
@@ -73,7 +73,7 @@ export const services: ServiceLine[] = [
   },
   {
     slug: "obras-civiles",
-    kicker: "03 · Construcción",
+    kicker: "04 · Construcción",
     title: "Obras civiles e infraestructura",
     summary:
       "Obras menores y mejoras de infraestructura para comunidades e industria, con mano de obra local.",
@@ -86,9 +86,9 @@ export const services: ServiceLine[] = [
   },
 ];
 
-services.push({
+services.unshift({
   slug: "mantencion-de-caminos",
-  kicker: "04 · Caminos",
+  kicker: "01 · Caminos",
   title: "Mantención de caminos",
   summary: "Maquinaria, suministros y obras para conservar caminos y accesos mineros en condiciones operativas.",
   image: "/img/caminos.svg",

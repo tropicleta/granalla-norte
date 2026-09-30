@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 // Fuentes autoalojadas (sin dependencia de Google Fonts en build ni en runtime)
 import "@fontsource-variable/dm-sans";
-import "@fontsource/chakra-petch/500.css";
-import "@fontsource/chakra-petch/600.css";
-import "@fontsource/chakra-petch/700.css";
+import "@fontsource-variable/outfit";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";

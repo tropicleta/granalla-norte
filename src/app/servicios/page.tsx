@@ -26,10 +26,10 @@ export default function ServiciosPage() {
           <div className="min-w-0 p-6 sm:p-9 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
             <h2 id={`titulo-${s.slug}`} className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">{s.title}</h2>
-            <p className="mt-4 leading-relaxed text-cream/85 sm:text-justify">{s.summary}</p>
+            <p className="mt-4 leading-relaxed text-cream/85 text-body">{s.summary}</p>
             <ul className="mt-6 divide-y divide-white/15 border-y border-white/15">{s.items.map(i => <li key={i.name} className="flex gap-3 py-4">
               <span className="mt-2 size-2 shrink-0 rotate-45 bg-khaki" aria-hidden />
-              <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-1 text-sm leading-relaxed text-cream/80 sm:text-justify">{i.detail}</p></div>
+              <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-1 text-sm leading-relaxed text-cream/80 text-body">{i.detail}</p></div>
             </li>)}</ul>
             <div className="mt-6 flex flex-wrap gap-4">
               {s.slug === "mantencion-de-caminos" && <Link href="/maquinaria" className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver maquinaria para arriendo <Arrow /></Link>}

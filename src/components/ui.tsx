@@ -43,7 +43,7 @@ export function SectionTitle({
       >
         {title}
       </h2>
-      {intro && <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-cream/75" : "text-ink/70"}`}>{intro}</p>}
+      {intro && <p className={`text-body mt-4 text-lg leading-relaxed ${dark ? "text-cream/75" : "text-ink/70"}`}>{intro}</p>}
     </div>
   );
 }
@@ -89,7 +89,7 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
         <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-cream text-balance sm:text-6xl">
           {title}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-cream/75">{intro}</p>
+        <p className="text-body mt-6 max-w-2xl text-lg leading-relaxed text-cream/75">{intro}</p>
       </Container>
       <div className="chevron absolute inset-x-0 bottom-0 h-1.5 opacity-50" aria-hidden />
     </section>
@@ -122,7 +122,7 @@ export function PostCard({ post }: { post: Post }) {
             {post.title}
           </Link>
         </h3>
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink/70">{post.excerpt}</p>
+        <p className="text-body mt-2 line-clamp-3 text-sm leading-relaxed text-ink/70">{post.excerpt}</p>
         <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-semibold text-copper-600">
           Ver proyecto <Arrow />
         </span>
@@ -141,7 +141,7 @@ export function CtaBand() {
               <h2 className="font-display text-3xl font-semibold text-cream text-balance sm:text-4xl">
                 ¿Tienes una faena, camino u obra que resolver?
               </h2>
-              <p className="mt-3 max-w-xl text-cream/75">
+              <p className="text-body mt-3 max-w-xl text-cream/75">
                 Cuéntanos qué necesitas y te respondemos con una propuesta técnica y comercial.
               </p>
             </div>

@@ -70,7 +70,7 @@ export default async function PostPage({ params }: Props) {
           </div>
           <div className="mx-auto mt-12 max-w-2xl space-y-5 text-lg leading-relaxed text-ink/80">
             {post.body.map((p, i) => (
-              <p key={i} className="whitespace-pre-wrap">{p}</p>
+              <p key={i} className="text-body whitespace-pre-wrap">{p}</p>
             ))}
             {!!post.highlights?.length && (
               <div className="mt-10 rounded-[var(--radius-card)] bg-sand-300 p-7">

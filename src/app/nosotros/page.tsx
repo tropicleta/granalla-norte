@@ -32,11 +32,11 @@ export default function NosotrosPage() {
           <div className="space-y-12">
             <div>
               <SectionTitle eyebrow="Misión" title="Lo que hacemos cada día" />
-              <p className="mt-5 text-lg leading-relaxed text-ink/75">{about.mission}</p>
+              <p className="text-body mt-5 text-lg leading-relaxed text-ink/75">{about.mission}</p>
             </div>
             <div>
               <SectionTitle eyebrow="Visión" title="Hacia dónde vamos" />
-              <p className="mt-5 text-lg leading-relaxed text-ink/75">{about.vision}</p>
+              <p className="text-body mt-5 text-lg leading-relaxed text-ink/75">{about.vision}</p>
             </div>
           </div>
         </Container>
@@ -50,7 +50,7 @@ export default function NosotrosPage() {
               <li key={v.title} className="rounded-[var(--radius-card)] bg-white p-7 shadow-[var(--shadow-card)]">
                 <span className="font-display text-sm font-semibold text-copper-600">0{i + 1}</span>
                 <p className="mt-3 font-display text-xl font-semibold text-olive-900">{v.title}</p>
-                <p className="mt-2 text-ink/70">{v.text}</p>
+                <p className="text-body mt-2 text-ink/70">{v.text}</p>
               </li>
             ))}
           </ul>

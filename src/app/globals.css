@@ -36,6 +36,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Párrafos de contenido: criterio común en escritorio y móvil. */
+.text-body {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
 ::selection {
   background: var(--color-khaki);
   color: var(--color-olive-950);

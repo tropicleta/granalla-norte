@@ -27,7 +27,7 @@ export default async function Home() {
           <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-tight text-cream text-balance sm:text-6xl lg:text-7xl">
             Soluciones mineras hechas en el <span className="text-khaki">norte</span>, por gente del norte.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/80">
+          <p className="text-body mt-6 max-w-xl text-lg leading-relaxed text-cream/80">
             Suministro de minerales no metálicos, monitoreo de tronaduras, obras civiles y mantención de caminos para la minería y las
             comunidades de Atacama.
           </p>
@@ -82,7 +82,7 @@ export default async function Home() {
                       {s.title}
                     </Link>
                   </h3>
-                  <p className="mt-3 text-cream/80">{s.summary}</p>
+                  <p className="text-body mt-3 text-cream/80">{s.summary}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {s.items.map((i) => (
                       <li key={i.name} className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-cream/90">
@@ -114,7 +114,7 @@ export default async function Home() {
               {about.values.map((v) => (
                 <li key={v.title} className="border-l-2 border-khaki pl-4">
                   <p className="font-semibold text-cream">{v.title}</p>
-                  <p className="mt-1 text-sm text-cream/70">{v.text}</p>
+                  <p className="text-body mt-1 text-sm text-cream/70">{v.text}</p>
                 </li>
               ))}
             </ul>

@@ -78,7 +78,7 @@ export default function NewsManager() {
     <div className={styles.heading}><div><span className={styles.eyebrow}>Administración / Contenido</span><h1>{article ? creating ? "Nueva noticia" : "Editar noticia" : "Noticias y proyectos"}</h1><p>{article ? "Completa la información y elige cuándo publicarla." : "Publica novedades y mantén al día los proyectos de Granalla Norte."}</p></div>
       {article ? <button className={styles.button} onClick={close} disabled={busy}>← Volver a la lista</button> : <button className={styles.primary} onClick={() => edit()} disabled={loading || !configured}>＋ Nueva noticia</button>}
     </div>
-    {error && <div role="alert" className={styles.error}>{error} <a href="/admin/login" target="_blank" rel="noreferrer" className="underline">Acceso de administrador</a></div>}
+    {error && <div role="alert" className={styles.error}>{error} {error.startsWith("Tu sesión venció.") && <a href="/admin/login" target="_blank" rel="noreferrer" className="underline">Acceso de administrador</a>}</div>}
     {notice && <p role="status" className={styles.notice}>{notice}</p>}
     {!loading && !configured && <p className={styles.error}>El editor está preparado, pero falta conectar el almacenamiento compartido. Las noticias actuales siguen visibles.</p>}
     {loading ? <p role="status">Cargando noticias…</p> : article ? <form className={styles.form} onSubmit={save}>

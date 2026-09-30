@@ -1,4 +1,4 @@
-import { get, put, list, BlobPreconditionFailedError } from "@vercel/blob";
+import { get, head, put, list, BlobPreconditionFailedError, BlobNotFoundError } from "@vercel/blob";
 import { createHash, randomUUID } from "node:crypto";
 import { ContentError } from "./content-model";
 
@@ -15,9 +15,22 @@ export async function readBytes(path: string): Promise<{ bytes: Uint8Array; etag
     try { const bytes = await fs.readFile(`${local()}/${path}`); return { bytes, etag: createHash("sha256").update(bytes).digest("hex") }; }
     catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return null; throw error; }
   }
-  const result = await get(`cms/${path}`, { access: "private", useCache: false });
-  if (!result || result.statusCode !== 200) return null;
-  return { bytes: new Uint8Array(await new Response(result.stream).arrayBuffer()), etag: result.blob.etag };
+  // Delivery can return a weak HTTP ETag. Conditional writes require the
+  // storage API's ETag; bracket the uncached read to keep bytes and version together.
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const before = await head(`cms/${path}`);
+      const result = await get(`cms/${path}`, { access: "private", useCache: false });
+      if (!result || result.statusCode !== 200) continue;
+      const bytes = new Uint8Array(await new Response(result.stream).arrayBuffer());
+      const after = await head(`cms/${path}`);
+      if (before.etag === after.etag) return { bytes, etag: after.etag };
+    } catch (error) {
+      if (error instanceof BlobNotFoundError) return null;
+      throw error;
+    }
+  }
+  throw new ContentError("Hay cambios simultáneos. Vuelve a intentar en unos segundos.", 409);
 }
 export async function writeBytes(path: string, bytes: Uint8Array, etag?: string, contentType = "application/json") {
   ready(); safePath(path);

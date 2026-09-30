@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Container, CtaBand, Eyebrow, PostCard, SectionTitle, Arrow } from "@/components/ui";
 import { YouTubeLite } from "@/components/YouTubeLite";
-import { about, clients, pillars, services, site } from "@/lib/site";
+import { about, services, site } from "@/lib/site";
+import { ClientCarousel } from "@/components/ClientCarousel";
 import { publishedArticles } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
@@ -40,19 +41,7 @@ export default async function Home() {
         <div className="chevron absolute inset-x-0 bottom-0 h-1.5 opacity-50" aria-hidden />
       </section>
 
-      {/* CIFRAS */}
-      <section aria-label="Granalla Norte en cifras" className="border-b border-sand bg-sand-300">
-        <Container>
-          <dl className="grid grid-cols-2 divide-sand lg:grid-cols-4 lg:divide-x">
-            {pillars.map((p) => (
-              <div key={p.label} className="flex flex-col px-2 py-8 lg:px-8">
-                <dt className="order-2 mt-1 text-sm text-ink/65">{p.label}</dt>
-                <dd className="font-display text-3xl font-semibold text-olive-900 sm:text-4xl">{p.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
+      <ClientCarousel />
 
       {/* SERVICIOS */}
       <section className="py-24">
@@ -156,22 +145,6 @@ export default async function Home() {
               <PostCard key={p.slug} post={p} />
             ))}
           </div>
-        </Container>
-      </section>
-
-      {/* CLIENTES */}
-      <section aria-labelledby="clientes" className="border-y border-sand bg-sand-300 py-14">
-        <Container>
-          <h2 id="clientes" className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-khaki-700">
-            Han confiado en nosotros
-          </h2>
-          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {clients.map((c) => (
-              <li key={c} className="font-display text-lg font-semibold text-olive-700/80 sm:text-xl">
-                {c}
-              </li>
-            ))}
-          </ul>
         </Container>
       </section>
 

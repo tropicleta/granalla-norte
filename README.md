@@ -89,7 +89,7 @@ existe VERCEL. No usarlo como almacenamiento de producción.
 ## Pendientes antes de publicar
 1. **Teléfono / WhatsApp / dirección**: completar `phone` y `whatsapp` en `src/lib/site.ts` (el sitio actual no los publica).
 2. **Imágenes**: incluidas en `public/img/`; la web no depende del CDN de Hostinger.
-3. **Logos de clientes**: se muestran como texto. Reemplazar por SVG/PNG individuales con autorización de cada cliente.
+3. **Logos de clientes**: carrusel con las cinco marcas del sitio anterior, alojadas en `public/img/clients/`; incluye pausa y respeta la preferencia de movimiento reducido.
 4. **Logo**: idealmente en SVG (hoy es PNG).
 5. Las URLs antiguas redirigen de forma permanente (308) a las nuevas (`next.config.ts`).
 

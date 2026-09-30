@@ -86,22 +86,6 @@ export const services: ServiceLine[] = [
   },
 ];
 
-export const pillars = [
-  { value: "3", label: "líneas de servicio integradas" },
-  { value: "40 t", label: "de cloruro de sodio entregadas a Maricunga" },
-  { value: "121 m²", label: "de cobertizo comunitario en Villa Los Forjadores" },
-  { value: "100%", label: "equipos con mano de obra local" },
-];
-
-export const clients = [
-  "Kinross · Minera Maricunga",
-  "Minera Candelaria",
-  "Minera Altair",
-  "Fenix Gold",
-  "Laria",
-  "Branda",
-];
-
 export type Post = {
   slug: string;
   title: string;

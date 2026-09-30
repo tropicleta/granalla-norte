@@ -1,0 +1,59 @@
+.viewport {
+  margin-top: 1.75rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: clients-scroll 32s linear infinite;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  width: clamp(190px, 20vw, 260px);
+  padding-right: 1rem;
+}
+
+.card {
+  display: flex;
+  height: 132px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: var(--color-olive-900);
+  padding: 1.5rem;
+}
+
+.logo {
+  width: 100%;
+  height: 82px;
+  object-fit: contain;
+}
+
+.white {
+  filter: brightness(0) invert(1);
+}
+
+.track[data-paused="true"],
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes clients-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport { overflow-x: auto; mask-image: none; }
+  .track { animation: none; }
+  .group[aria-hidden="true"], .pause { display: none; }
+}

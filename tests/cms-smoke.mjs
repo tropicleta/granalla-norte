@@ -35,11 +35,20 @@ try {
   assert.equal(login.status, 200); cookie = login.headers.get("set-cookie").split(";")[0];
   for (const path of ["/admin/noticias", "/admin/mensajes"]) assert.equal((await call(path)).status, 200);
   let catalog = await json(await call("/api/admin/noticias"));
-  assert.equal(catalog.articles.length, 4); assert.equal(catalog.configured, true);
+  assert.equal(catalog.articles.length, 11); assert.equal(catalog.configured, true);
+  assert.equal(catalog.articles.filter(p => p.status === "published").length, 10);
+  assert.equal(catalog.articles.find(p => p.slug === "mejora-sede-social-hermanos-carrizos").status, "draft");
+  assert.equal((await call("/noticias/mejora-sede-social-hermanos-carrizos", "GET", undefined, false)).status, 404);
   const oldArticle = catalog.articles[0];
   const edited = { ...oldArticle, title: "Título editado de noticia anterior" };
   let saved = await json(await call("/api/admin/noticias", "PUT", { article: edited, version: catalog.version }));
   assert.ok((await (await call(`/noticias/${oldArticle.slug}`, "GET", undefined, false)).text()).includes(edited.title));
+  const recovered = catalog.articles.find(p => p.slug === "seminario-del-mes-de-la-mineria-2024");
+  saved = await json(await call("/api/admin/noticias", "PUT", { article: { ...recovered, title: "Seminario recuperado editado", status: "draft" }, version: saved.version }));
+  const afterRecoveryEdit = await json(await call("/api/admin/noticias"));
+  assert.equal(afterRecoveryEdit.articles.filter(p => p.slug === recovered.slug).length, 1);
+  assert.equal(afterRecoveryEdit.articles.find(p => p.slug === recovered.slug).title, "Seminario recuperado editado");
+  assert.equal((await call(`/noticias/${recovered.slug}`, "GET", undefined, false)).status, 404, "Recovered entries keep saved draft states");
   assert.equal((await call("/api/admin/noticias", "PUT", { article: oldArticle, version: catalog.version })).status, 409);
   assert.equal((await call("/api/admin/noticias", "PUT", { article: oldArticle, version: saved.version }, true, { Origin: "https://evil.example" })).status, 403);
   const upload = new FormData();
@@ -82,13 +91,13 @@ try {
   assert.equal((await call("/api/contacto", "POST", { ...contact, website: "spam" }, false)).status, 200);
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5);
   await stop(); await start();
-  catalog = await json(await call("/api/admin/noticias")); assert.equal(catalog.articles.length, 5); assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).title, edited.title);
+  catalog = await json(await call("/api/admin/noticias")); assert.equal(catalog.articles.length, 12); assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).title, edited.title);
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5); assert.equal(inbox.messages.find(m => m.id === originalMessage.id).status, "archived");
   assert.equal((await call("/api/contacto", "POST", contact, false)).status, 429, "Quota survives a process restart");
   await stop(); delete env.CONTENT_LOCAL_DIR; await start();
   assert.equal((await call("/api/contacto", "POST", contact, false)).status, 503, "Never report receipt without persistent storage");
   assert.equal((await call("/api/admin/mensajes")).status, 503);
-  const unavailable = await json(await call("/api/admin/noticias")); assert.equal(unavailable.configured, false); assert.equal(unavailable.articles.length, 4);
+  const unavailable = await json(await call("/api/admin/noticias")); assert.equal(unavailable.configured, false); assert.equal(unavailable.articles.length, 11);
   console.log("PASS: legacy edit, new draft, image upload/privacy, publish/unpublish, public listing/detail/sitemap, conflicting writes, input validation, contact persistence, private inbox, archive/read, distributed quota and server restart.");
 } finally {
   await stop();

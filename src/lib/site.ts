@@ -1,6 +1,8 @@
 // Contenido centralizado del sitio. Migrado desde granallanorte.cl (Hostinger Website Builder).
 // Editar aquí actualiza todas las páginas.
 
+import recoveredNews from "./recovered-news.json";
+
 const CDN = "/img";
 
 export const site = {
@@ -187,6 +189,12 @@ export const posts: Post[] = [
     ],
   },
 ];
+
+posts.push(...recoveredNews.map(({ slug, title, date, location, category, image, excerpt, body, ...rest }) => ({
+  slug, title, date, location, category: category as Post["category"], image, excerpt, body,
+  client: "client" in rest ? rest.client : undefined,
+  highlights: "highlights" in rest ? rest.highlights : undefined,
+})));
 
 export const about = {
   intro:

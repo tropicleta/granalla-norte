@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 const origin = "http://127.0.0.1:3100";
 const password = randomBytes(24).toString("hex");
@@ -49,6 +50,20 @@ try {
     assert.equal(response.status,308,legacy);
     assert.equal((await fetch(new URL(response.headers.get("location"),origin))).status,200);
   }
+  const recovered = JSON.parse(await readFile(new URL("../src/lib/recovered-news.json", import.meta.url), "utf8"));
+  for (const post of recovered) {
+    const response = await fetch(origin + "/" + (post.legacySlug || post.slug), { redirect: "manual" });
+    assert.equal(response.status, 308);
+    const page = await fetch(new URL(response.headers.get("location"), origin));
+    assert.equal(page.status, 200);
+    const html = await page.text();
+    assert.ok(html.includes(post.title));
+    for (const video of post.videos || []) assert.ok(html.includes(video), "Original videos remain available");
+  }
+  assert.equal((await fetch(origin + "/noticias/mejora-sede-social-hermanos-carrizos")).status, 404);
+  const favicon = Buffer.from(await (await fetch(origin + "/favicon.ico")).arrayBuffer());
+  assert.equal(favicon.readUInt16LE(2), 1);
+  assert.deepEqual(favicon, await readFile(new URL("../src/app/favicon.ico", import.meta.url)));
   const denied = await fetch(`${origin}/admin`, { redirect: "manual" });
   assert.equal(denied.status, 307); assert.ok(denied.headers.get("location").endsWith("/admin/login"));
   const loginPage = await fetch(`${origin}/admin/login`);

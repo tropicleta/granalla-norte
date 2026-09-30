@@ -31,6 +31,13 @@ src/
 
 ## Noticias y mensajes compartidos
 
+Archivo de Hostinger recuperado el 30/09/2026: seis noticias públicas de 2024 y
+un borrador de Hermanos Carrizos pendiente de revisión. El catálogo incorpora
+solo entradas recuperadas que falten; cualquier edición o estado guardado en
+el almacén prevalece. El próximo guardado persiste el catálogo combinado.
+Portadas y fotos se alojan en `public/img`; los videos originales se conservan.
+La procedencia y las discrepancias están en `docs/recuperacion-hostinger.md`.
+
 /admin/noticias permite crear y editar noticias, previsualizar, guardar borradores,
 publicar y retirar una publicación eligiendo Borrador. Incluye título, fecha,
 categoría, resumen, ubicación, mandante, párrafos, destacados y hasta 12 imágenes.

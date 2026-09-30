@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import recoveredNews from "./src/lib/recovered-news.json";
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_BUILD_DIR || ".next",
@@ -13,6 +14,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     // Mantiene el SEO de las URLs del sitio anterior.
     return [
+      ...recoveredNews.map(post => ({ source: `/${"legacySlug" in post ? post.legacySlug : post.slug}`, destination: `/noticias/${post.slug}`, permanent: true })),
       { source: "/granalla-norte", destination: "/nosotros", permanent: true },
       { source: "/-granlla-norte-presente-en-la-expo-forede-2025-", destination: "/noticias/expo-forede-2025", permanent: true },
       { source: "/ventas-de-cloruro-de-sodio-para-minera-maricunga", destination: "/noticias/ventas-de-cloruro-de-sodio-para-minera-maricunga", permanent: true },

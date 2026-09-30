@@ -3,12 +3,21 @@ import { posts } from "./site";
 import { type Article, type InboxMessage, ContentError } from "./content-model";
 import { readJson, writeJson, storageConfigured } from "./content-storage";
 import { createHash } from "node:crypto";
+import recoveredNews from "./recovered-news.json";
+import recoveredDraft from "./recovered-draft.json";
 
 const original: Article[] = posts.map(p => ({ ...p, images: [p.image], status: "published", updatedAt: `${p.date}T12:00:00.000Z` }));
+const recoveredSlugs = new Set(recoveredNews.map(p => p.slug));
+const recovered: Article[] = [...original.filter(p => recoveredSlugs.has(p.slug)), recoveredDraft as Article];
+// Import only missing archive entries. Existing edits and draft states take precedence.
+function withRecovered(articles: Article[]) {
+  const known = new Set(articles.map(p => p.slug));
+  return [...articles, ...recovered.filter(p => !known.has(p.slug))];
+}
 export async function catalog() {
-  if (!storageConfigured()) return { articles: original, version: "initial", configured: false };
+  if (!storageConfigured()) return { articles: withRecovered(original), version: "initial", configured: false };
   const stored = await readJson<Article[]>("articles.json");
-  return { articles: stored?.value ?? original, version: stored?.etag ?? "initial", configured: true };
+  return { articles: withRecovered(stored?.value ?? original), version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedArticles = cache(async () => (await catalog()).articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date)));
 export async function saveArticle(article: Article, version: string, create: boolean) {

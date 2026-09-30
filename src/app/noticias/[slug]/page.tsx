@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Container, CtaBand, PostCard } from "@/components/ui";
 import { formatDate } from "@/lib/site";
 import { publishedArticles } from "@/lib/content";
+import recoveredNews from "@/lib/recovered-news.json";
+import { YouTubeLite } from "@/components/YouTubeLite";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -27,6 +29,7 @@ export default async function PostPage({ params }: Props) {
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
   const related = posts.filter((p) => p.slug !== slug).slice(0, 3);
+  const videos = recoveredNews.find(p => p.slug === slug)?.videos ?? [];
 
   return (
     <>
@@ -84,6 +87,7 @@ export default async function PostPage({ params }: Props) {
             )}
           </div>
           {post.images.length > 1 && <div className="mt-10 grid gap-5 sm:grid-cols-2">{post.images.slice(1).map((url, index) => <div key={url} className="relative aspect-[4/3] overflow-hidden rounded-2xl"><Image src={url} unoptimized={url.startsWith("/api/media/")} alt={`${post.title} — imagen ${index + 2}`} fill sizes="(min-width: 640px) 450px, 100vw" className="object-cover" /></div>)}</div>}
+          {!!videos.length && <section className="mt-12 space-y-6" aria-label="Videos de la actividad">{videos.map((id, index) => <YouTubeLite key={id} id={id} title={`${post.title} — video ${index + 1}`} />)}</section>}
         </Container>
       </article>
 

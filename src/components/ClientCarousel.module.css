@@ -43,17 +43,6 @@
   filter: brightness(0) invert(1);
 }
 
-.track[data-paused="true"],
-.viewport:hover .track {
-  animation-play-state: paused;
-}
-
 @keyframes clients-scroll {
   to { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .viewport { overflow-x: auto; mask-image: none; }
-  .track { animation: none; }
-  .group[aria-hidden="true"], .pause { display: none; }
 }

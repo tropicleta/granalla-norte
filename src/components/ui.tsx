@@ -102,6 +102,7 @@ export function PostCard({ post }: { post: Post }) {
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={post.image}
+          unoptimized={post.image.startsWith("/api/media/")}
           alt=""
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

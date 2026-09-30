@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Container, CtaBand, PageHero, PostCard } from "@/components/ui";
-import { posts } from "@/lib/site";
+import { publishedArticles } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Proyectos y noticias",
   description: "Obras comunitarias, suministro a faenas y novedades de Granalla Norte en la Región de Atacama.",
 };
 
-export default function NoticiasPage() {
-  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+export const dynamic = "force-dynamic";
+export default async function NoticiasPage() {
+  const sorted = await publishedArticles();
   return (
     <>
       <PageHero

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { Container, PageHero } from "@/components/ui";
 import { services, site } from "@/lib/site";
+import { storageConfigured } from "@/lib/content-storage";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -61,7 +64,7 @@ export default function ContactoPage() {
               </ul>
             </div>
           </aside>
-          {process.env.RESEND_API_KEY ? <ContactForm services={services.map((s) => s.title)} /> : (
+          {storageConfigured() ? <ContactForm services={services.map((s) => s.title)} /> : (
             <div className="rounded-[var(--radius-card)] bg-white p-8 shadow-[var(--shadow-card)] sm:p-10">
               <h2 className="font-display text-2xl font-semibold text-olive-900">Solicita tu cotización por correo</h2>
               <p className="mt-4 text-ink/75">Cuéntanos qué servicio necesitas, la ubicación de tu proyecto y los plazos estimados.</p>

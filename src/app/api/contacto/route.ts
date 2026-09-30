@@ -1,69 +1,24 @@
-import { NextResponse } from "next/server";
-import { site } from "@/lib/site";
+import { randomUUID } from "node:crypto";
+import { apiError, limitedJson, privateJson } from "@/lib/admin-api";
+import { ContentError, parseContact, record, type InboxMessage } from "@/lib/content-model";
+import { contactQuota, messagePath } from "@/lib/content";
+import { writeJson } from "@/lib/content-storage";
+import { isSameOrigin } from "@/lib/request-origin";
 
-/**
- * Recibe el formulario de contacto.
- * Si RESEND_API_KEY está definida, envía el correo vía Resend (https://resend.com).
- * Sin clave, informa que el envío no está disponible.
- *
- * Variables de entorno:
- *   RESEND_API_KEY   clave de Resend
- *   CONTACT_TO       destino (por defecto el correo del sitio)
- *   CONTACT_FROM     remitente verificado, ej. "Web Granalla <web@granallanorte.cl>"
- */
-export async function POST(req: Request) {
-  let body: Record<string, string>;
+export const runtime = "nodejs";
+export async function POST(request: Request) {
   try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
-  }
-
-  if (!body || typeof body !== "object" || Array.isArray(body)) {
-    return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
-  }
-
-  if (body.website) return NextResponse.json({ ok: true }); // honeypot
-
-  const email = String(body.email ?? "").trim();
-  const mensaje = String(body.mensaje ?? "").trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ error: "Ingresa un correo válido." }, { status: 422 });
-  }
-  if (mensaje.length < 10) {
-    return NextResponse.json({ error: "Cuéntanos un poco más en el mensaje." }, { status: 422 });
-  }
-
-  const lines = [
-    `Nombre: ${body.nombre ?? "-"}`,
-    `Empresa: ${body.empresa ?? "-"}`,
-    `Correo: ${email}`,
-    `Teléfono: ${body.telefono ?? "-"}`,
-    `Servicio: ${body.servicio ?? "-"}`,
-    "",
-    mensaje,
-  ].join("\n");
-
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    return NextResponse.json({ error: `El formulario no está disponible. Escríbenos a ${site.email}.` }, { status: 503 });
-  }
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM ?? "Web Granalla Norte <onboarding@resend.dev>",
-      to: [process.env.CONTACT_TO ?? site.email],
-      reply_to: email,
-      subject: `Nueva solicitud web — ${body.servicio || "Contacto"}`,
-      text: lines,
-    }),
-  });
-
-  if (!res.ok) {
-    console.error("[contacto] Resend error", await res.text());
-    return NextResponse.json({ error: "No pudimos enviar el mensaje. Escríbenos directo al correo." }, { status: 502 });
-  }
-  return NextResponse.json({ ok: true });
+    const body = record(await limitedJson(request, 20000));
+    if (!isSameOrigin(request)) throw new ContentError("Envía el mensaje desde el formulario de la página.", 403);
+    if (body.website) return privateJson({ ok: true });
+    const fields = parseContact(body);
+    // Vercel overwrites this header; do not trust a client-supplied X-Forwarded-For.
+    const ip = process.env.VERCEL ? request.headers.get("x-vercel-forwarded-for") || "unknown" : "local";
+    await contactQuota(ip);
+    // Reverse timestamp gives newest-first storage pagination.
+    const id = `${String(9999999999999 - Date.now()).padStart(13, "0")}-${randomUUID()}`;
+    const message: InboxMessage = { ...fields, id, createdAt: new Date().toISOString(), status: "new" };
+    await writeJson(messagePath(id), message);
+    return privateJson({ ok: true }, 201);
+  } catch (error) { return apiError(error); }
 }

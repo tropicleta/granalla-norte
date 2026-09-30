@@ -2,9 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink, Container, CtaBand, Eyebrow, PostCard, SectionTitle, Arrow } from "@/components/ui";
 import { YouTubeLite } from "@/components/YouTubeLite";
-import { about, clients, pillars, posts, services, site } from "@/lib/site";
+import { about, clients, pillars, services, site } from "@/lib/site";
+import { publishedArticles } from "@/lib/content";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+export default async function Home() {
+  const posts = (await publishedArticles()).slice(0, 4);
   return (
     <>
       {/* HERO — propuesta de valor clara + CTA, en vez del carrusel de noticias */}

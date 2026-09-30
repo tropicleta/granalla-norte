@@ -50,19 +50,19 @@ export function ContactForm({ services }: { services: string[] }) {
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm font-medium text-olive-900">
           Nombre
-          <input name="nombre" autoComplete="name" required className={field} />
+          <input name="nombre" autoComplete="name" required maxLength={150} className={field} />
         </label>
         <label className="block text-sm font-medium text-olive-900">
           Empresa
-          <input name="empresa" autoComplete="organization" className={field} />
+          <input name="empresa" autoComplete="organization" maxLength={200} className={field} />
         </label>
         <label className="block text-sm font-medium text-olive-900">
           Correo electrónico *
-          <input name="email" type="email" autoComplete="email" required className={field} />
+          <input name="email" type="email" autoComplete="email" maxLength={254} required className={field} />
         </label>
         <label className="block text-sm font-medium text-olive-900">
           Teléfono
-          <input name="telefono" type="tel" autoComplete="tel" className={field} />
+          <input name="telefono" type="tel" autoComplete="tel" maxLength={50} className={field} />
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Servicio de interés
@@ -78,7 +78,7 @@ export function ContactForm({ services }: { services: string[] }) {
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Mensaje *
-          <textarea name="mensaje" rows={5} required minLength={10} className={field} placeholder="Cantidades, ubicación de faena, plazos…" />
+          <textarea name="mensaje" rows={5} required minLength={10} maxLength={10000} className={field} placeholder="Cantidades, ubicación de faena, plazos…" />
         </label>
         {/* honeypot anti-spam */}
         <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
@@ -89,6 +89,7 @@ export function ContactForm({ services }: { services: string[] }) {
           {error}
         </p>
       )}
+      <p className="mt-5 text-xs text-ink/65">Usaremos tus datos de contacto para responder a esta solicitud. Solo el administrador puede consultar el mensaje.</p>
 
       <button
         type="submit"

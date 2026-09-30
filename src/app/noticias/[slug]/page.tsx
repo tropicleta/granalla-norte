@@ -3,17 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, CtaBand, PostCard } from "@/components/ui";
-import { formatDate, posts } from "@/lib/site";
+import { formatDate } from "@/lib/site";
+import { publishedArticles } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post = (await publishedArticles()).find((p) => p.slug === slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -24,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
+  const posts = await publishedArticles();
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
   const related = posts.filter((p) => p.slug !== slug).slice(0, 3);
@@ -63,17 +63,17 @@ export default async function PostPage({ params }: Props) {
 
         <Container className="-mt-2 max-w-4xl py-14">
           <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
-            <Image src={post.image} alt="" fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" />
+            <Image src={post.image} unoptimized={post.image.startsWith("/api/media/")} alt={post.title} fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" />
           </div>
           <div className="mx-auto mt-12 max-w-2xl space-y-5 text-lg leading-relaxed text-ink/80">
             {post.body.map((p, i) => (
-              <p key={i}>{p}</p>
+              <p key={i} className="whitespace-pre-wrap">{p}</p>
             ))}
-            {post.highlights && (
+            {!!post.highlights?.length && (
               <div className="mt-10 rounded-[var(--radius-card)] bg-sand-300 p-7">
                 <h2 className="font-display text-xl font-semibold text-olive-900">Alcance del trabajo</h2>
                 <ul className="mt-4 space-y-3 text-base">
-                  {post.highlights.map((h) => (
+                  {post.highlights?.map((h) => (
                     <li key={h} className="flex gap-3">
                       <span className="mt-2 size-2 shrink-0 rotate-45 bg-copper" aria-hidden />
                       {h}
@@ -83,6 +83,7 @@ export default async function PostPage({ params }: Props) {
               </div>
             )}
           </div>
+          {post.images.length > 1 && <div className="mt-10 grid gap-5 sm:grid-cols-2">{post.images.slice(1).map((url, index) => <div key={url} className="relative aspect-[4/3] overflow-hidden rounded-2xl"><Image src={url} unoptimized={url.startsWith("/api/media/")} alt={`${post.title} — imagen ${index + 2}`} fill sizes="(min-width: 640px) 450px, 100vw" className="object-cover" /></div>)}</div>}
         </Container>
       </article>
 

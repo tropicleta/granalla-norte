@@ -11,7 +11,7 @@ export const site = {
   tagline: "Minería, obras civiles y asesoría técnica en Tierra Amarilla",
   description:
     "Granalla Norte entrega venta de minerales no metálicos, monitoreo de tronaduras, consultoría minera y obras civiles con mano de obra local en Tierra Amarilla y Copiapó, Región de Atacama.",
-  email: "granalla.norte@gmail.com",
+  email: "contacto@granallanorte.cl",
   // TODO: completar con datos reales (el sitio actual no publica teléfono ni dirección).
   phone: "",
   whatsapp: "",

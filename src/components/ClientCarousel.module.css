@@ -40,7 +40,12 @@
 }
 
 .light {
-  background: white;
+  background: var(--color-olive-900);
+}
+
+.light .logo {
+  filter: grayscale(1) invert(1) brightness(2);
+  mix-blend-mode: screen;
 }
 
 @keyframes clients-scroll {

@@ -18,7 +18,7 @@ export default function NosotrosPage() {
         intro={about.intro}
       />
 
-      <section className="py-24">
+      <section className="py-12 sm:py-16">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
             <Image
@@ -42,7 +42,7 @@ export default function NosotrosPage() {
         </Container>
       </section>
 
-      <section className="border-y border-sand bg-sand-300 py-20">
+      <section className="border-y border-sand bg-sand-300 py-12 sm:py-16">
         <Container>
           <SectionTitle eyebrow="Valores" title="Cómo trabajamos" center />
           <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

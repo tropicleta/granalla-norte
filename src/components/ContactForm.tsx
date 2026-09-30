@@ -5,7 +5,7 @@ import { useState } from "react";
 type Status = "idle" | "sending" | "ok" | "error";
 
 const field =
-  "mt-2 block w-full rounded-xl border border-olive-900/15 bg-white px-4 py-3 text-ink placeholder:text-ink/40 focus:border-olive-700 focus:outline-none focus:ring-2 focus:ring-khaki/60";
+  "mt-2 block w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-cream placeholder:text-cream/50 focus:border-khaki focus:outline-none focus:ring-2 focus:ring-khaki/60";
 
 export function ContactForm({ services }: { services: string[] }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -35,10 +35,10 @@ export function ContactForm({ services }: { services: string[] }) {
 
   if (status === "ok") {
     return (
-      <div role="status" className="rounded-[var(--radius-card)] bg-sand-300 p-10">
-        <p className="font-display text-2xl font-semibold text-olive-900">¡Mensaje recibido!</p>
-        <p className="mt-3 text-ink/75">Te responderemos a la brevedad al correo que nos indicaste.</p>
-        <button onClick={() => setStatus("idle")} className="mt-6 text-sm font-semibold text-copper-600 underline">
+      <div role="status" className="rounded-[var(--radius-card)] bg-olive-900 p-8 text-cream">
+        <p className="font-display text-2xl font-semibold">¡Mensaje recibido!</p>
+        <p className="text-body mt-3 text-cream/85">Tu solicitud quedó guardada. Te responderemos al correo que nos indicaste.</p>
+        <button onClick={() => setStatus("idle")} className="mt-6 text-sm font-semibold text-khaki underline">
           Enviar otro mensaje
         </button>
       </div>
@@ -46,10 +46,12 @@ export function ContactForm({ services }: { services: string[] }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-[var(--radius-card)] bg-white p-8 shadow-[var(--shadow-card)] sm:p-10" noValidate={false}>
+    <form onSubmit={onSubmit} className="contact-form rounded-[var(--radius-card)] border border-white/15 bg-olive-950 p-6 text-cream shadow-[var(--shadow-card)] sm:p-8" noValidate={false}>
+      <h2 className="font-display text-2xl font-semibold sm:text-3xl">Envíanos un mensaje</h2>
+      <p className="text-body mb-6 mt-2 text-sm leading-relaxed text-cream/80">Cuéntanos el servicio, la ubicación y los plazos de tu proyecto. Los campos con * son obligatorios.</p>
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm font-medium text-olive-900">
-          Nombre
+          Nombre *
           <input name="nombre" autoComplete="name" required maxLength={150} className={field} />
         </label>
         <label className="block text-sm font-medium text-olive-900">
@@ -89,7 +91,7 @@ export function ContactForm({ services }: { services: string[] }) {
           {error}
         </p>
       )}
-      <p className="mt-5 text-xs text-ink/65">Usaremos tus datos de contacto para responder a esta solicitud. Solo el administrador puede consultar el mensaje.</p>
+      <p className="text-body mt-5 text-xs leading-relaxed text-cream/75">Usaremos tus datos de contacto para responder a esta solicitud. Solo el administrador puede consultar el mensaje.</p>
 
       <button
         type="submit"

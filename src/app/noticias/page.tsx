@@ -17,7 +17,7 @@ export default async function NoticiasPage() {
         title="Trabajo que se ve en terreno"
         intro="Obras comunitarias, suministro a faenas y presencia en la industria. Lo último de Granalla Norte."
       />
-      <section className="py-20">
+      <section className="py-12 sm:py-16">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sorted.map((p) => (

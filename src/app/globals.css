@@ -44,6 +44,9 @@ body {
   overflow-wrap: break-word;
 }
 
+.contact-form label { color: var(--color-cream); }
+.contact-form option { background: var(--color-olive-950); color: var(--color-cream); }
+
 ::selection {
   background: var(--color-khaki);
   color: var(--color-olive-950);

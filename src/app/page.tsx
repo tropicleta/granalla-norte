@@ -22,7 +22,7 @@ export default async function Home() {
           className="-z-10 object-cover opacity-45"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-950 via-olive-950/85 to-olive-950/30" aria-hidden />
-        <Container className="py-24 sm:py-32 lg:py-40">
+        <Container className="py-16 sm:py-20 lg:py-24">
           <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
           <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-tight text-cream text-balance sm:text-6xl lg:text-7xl">
             Soluciones mineras hechas en el <span className="text-khaki">norte</span>, por gente del norte.
@@ -44,7 +44,7 @@ export default async function Home() {
       <ClientCarousel />
 
       {/* SERVICIOS */}
-      <section className="py-24">
+      <section className="py-12 sm:py-16">
         <Container>
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
@@ -57,7 +57,7 @@ export default async function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {services.map((s) => (
               <article
                 key={s.slug}
@@ -101,7 +101,7 @@ export default async function Home() {
       </section>
 
       {/* NOSOTROS + VIDEO */}
-      <section className="topo bg-olive-900 py-24">
+      <section className="topo bg-olive-900 py-12 sm:py-16">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionTitle
@@ -129,7 +129,7 @@ export default async function Home() {
       </section>
 
       {/* PROYECTOS */}
-      <section className="py-24">
+      <section className="py-12 sm:py-16">
         <Container>
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
@@ -140,7 +140,7 @@ export default async function Home() {
               Ver todos
             </ButtonLink>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {posts.map((p) => (
               <PostCard key={p.slug} post={p} />
             ))}

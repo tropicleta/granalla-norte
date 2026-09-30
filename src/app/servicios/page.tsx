@@ -15,7 +15,7 @@ export default function ServiciosPage() {
     <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
       <Container><ul className="flex gap-2 overflow-x-auto py-3 text-sm">{services.map(s => <li key={s.slug} className="shrink-0"><a href={`#${s.slug}`} className="block rounded-full px-4 py-2 font-medium text-olive-800 hover:bg-sand-300">{s.title}</a></li>)}</ul></Container>
     </nav>
-    <Container className="space-y-8 py-12 sm:space-y-12 sm:py-20">
+    <Container className="space-y-6 py-10 sm:space-y-8 sm:py-12">
       {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
         <div className="grid lg:grid-cols-2">
           <div className={`relative min-h-64 sm:min-h-80 lg:min-h-[420px] ${idx % 2 ? "lg:order-2" : ""}`}>

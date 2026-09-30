@@ -84,7 +84,7 @@ export function Arrow({ className = "size-4" }: { className?: string }) {
 export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
   return (
     <section className="topo relative overflow-hidden bg-olive-900">
-      <Container className="py-20 sm:py-28">
+      <Container className="py-12 sm:py-16">
         <Eyebrow dark>{eyebrow}</Eyebrow>
         <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-cream text-balance sm:text-6xl">
           {title}
@@ -133,9 +133,9 @@ export function PostCard({ post }: { post: Post }) {
 
 export function CtaBand() {
   return (
-    <section className="bg-cream py-20">
+    <section className="bg-cream py-10 sm:py-12">
       <Container>
-        <div className="topo relative overflow-hidden rounded-[2rem] bg-olive-900 px-6 py-14 sm:px-14 sm:py-16">
+        <div className="topo relative overflow-hidden rounded-[2rem] bg-olive-900 px-6 py-8 sm:px-10 sm:py-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
             <div>
               <h2 className="font-display text-3xl font-semibold text-cream text-balance sm:text-4xl">

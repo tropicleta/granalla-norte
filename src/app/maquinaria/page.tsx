@@ -12,7 +12,7 @@ export default async function Page() {
   const machines = await publishedMachines();
   return <>
     <PageHero eyebrow="Mantención de caminos / Arriendo" title="Equipos para trabajar en terreno" intro="Camiones y maquinaria para apoyar el transporte, riego, nivelación y compactación de caminos. Coordina con nuestro equipo las características y condiciones de arriendo." />
-    <Container className="py-14 sm:py-20">
+    <Container className="py-10 sm:py-12">
       <Link href="/servicios#mantencion-de-caminos" className="text-sm font-semibold text-copper-600 underline underline-offset-4">← Mantención de caminos</Link>
       {machines.some(m => m.demo) && <p className="text-body mt-6 rounded-xl border border-sand bg-sand-300 p-5 text-sm leading-relaxed text-olive-900">Estamos preparando nuestro catálogo. Los equipos marcados como «Ejemplo» son ilustrativos; sus fichas y disponibilidad se actualizarán con la información de la flota real.</p>}
       <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">{machines.map(m => <article key={m.id} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">

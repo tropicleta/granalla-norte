@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="topo bg-olive-950 text-cream/80">
       <div className="chevron h-2 opacity-60" aria-hidden />
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-12 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-10 sm:px-6 md:grid-cols-12 lg:px-8">
         <div className="md:col-span-5">
           <Image src={site.logo} alt={site.name} width={170} height={54} className="h-12 w-auto" />
           <p className="text-body mt-5 max-w-sm text-sm leading-relaxed">

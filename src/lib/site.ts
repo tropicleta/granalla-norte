@@ -86,6 +86,19 @@ export const services: ServiceLine[] = [
   },
 ];
 
+services.push({
+  slug: "mantencion-de-caminos",
+  kicker: "04 · Caminos",
+  title: "Mantención de caminos",
+  summary: "Maquinaria, suministros y obras para conservar caminos y accesos mineros en condiciones operativas.",
+  image: "/img/caminos.svg",
+  items: [
+    { name: "Arriendo de maquinaria", detail: "Camiones y equipos para movimiento de tierra, riego, nivelación y compactación. Consulta el catálogo y coordina disponibilidad." },
+    { name: "Venta de suministros", detail: "Estabilizado, cloruro de sodio y bischofita para mejorar la superficie y controlar el polvo en caminos." },
+    { name: "Obras para caminos", detail: "Perfilado, reparación de superficies, compactación y mejoramiento de accesos según las necesidades del terreno." },
+  ],
+});
+
 export type Post = {
   slug: string;
   title: string;

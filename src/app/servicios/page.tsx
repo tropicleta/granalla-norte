@@ -1,65 +1,44 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Container, CtaBand, PageHero } from "@/components/ui";
+import Link from "next/link";
+import { Container, CtaBand, PageHero, Arrow } from "@/components/ui";
 import { services } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Servicios",
-  description:
-    "Venta de cloruro de sodio, sílice, bischofita y estabilizado; monitoreo de tronaduras; consultoría minera y obras civiles en Tierra Amarilla y Copiapó.",
+  description: "Minerales no metálicos, monitoreo de tronaduras, obras civiles y mantención de caminos: maquinaria, suministros y obras en Atacama.",
 };
 
 export default function ServiciosPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Servicios"
-        title="Suministramos, medimos y construimos"
-        intro="Soluciones confiables para la industria y la comunidad: minerales no metálicos, asesorías especializadas y obras civiles para potenciar tus proyectos."
-      />
-
-      {/* Índice rápido */}
-      <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
-        <Container>
-          <ul className="flex gap-2 overflow-x-auto py-3 text-sm">
-            {services.map((s) => (
-              <li key={s.slug} className="shrink-0">
-                <a href={`#${s.slug}`} className="block rounded-full px-4 py-2 font-medium text-olive-800 hover:bg-sand-300">
-                  {s.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </nav>
-
-      {services.map((s, idx) => (
-        <section key={s.slug} id={s.slug} className={`scroll-mt-36 py-20 sm:py-24 ${idx % 2 ? "bg-sand-300" : ""}`}>
-          <Container className="grid items-start gap-12 lg:grid-cols-2">
-            <div className={`relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)] ${idx % 2 ? "lg:order-2" : ""}`}>
-              <Image src={s.image} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+  return <>
+    <PageHero eyebrow="Servicios" title="Soluciones para cada etapa en terreno" intro="Cuatro líneas de servicio para la minería y las comunidades de Atacama: suministro de minerales, asesoría técnica, obras civiles y mantención de caminos." />
+    <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
+      <Container><ul className="flex gap-2 overflow-x-auto py-3 text-sm">{services.map(s => <li key={s.slug} className="shrink-0"><a href={`#${s.slug}`} className="block rounded-full px-4 py-2 font-medium text-olive-800 hover:bg-sand-300">{s.title}</a></li>)}</ul></Container>
+    </nav>
+    <Container className="space-y-8 py-12 sm:space-y-12 sm:py-20">
+      {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
+        <div className="grid lg:grid-cols-2">
+          <div className={`relative min-h-64 sm:min-h-80 lg:min-h-[420px] ${idx % 2 ? "lg:order-2" : ""}`}>
+            <Image src={s.image} alt={s.slug === "mantencion-de-caminos" ? "Ilustración de un camino minero y equipos de trabajo" : ""} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-olive-950/45 to-transparent" aria-hidden />
+            {s.slug === "mantencion-de-caminos" && <span className="absolute bottom-5 left-6 rounded-full bg-olive-950/80 px-3 py-1 text-xs text-cream/90">Ilustración referencial</span>}
+          </div>
+          <div className="min-w-0 p-6 sm:p-9 lg:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
+            <h2 id={`titulo-${s.slug}`} className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">{s.title}</h2>
+            <p className="mt-4 leading-relaxed text-cream/85 sm:text-justify">{s.summary}</p>
+            <ul className="mt-6 divide-y divide-white/15 border-y border-white/15">{s.items.map(i => <li key={i.name} className="flex gap-3 py-4">
+              <span className="mt-2 size-2 shrink-0 rotate-45 bg-khaki" aria-hidden />
+              <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-1 text-sm leading-relaxed text-cream/80 sm:text-justify">{i.detail}</p></div>
+            </li>)}</ul>
+            <div className="mt-6 flex flex-wrap gap-4">
+              {s.slug === "mantencion-de-caminos" && <Link href="/maquinaria" className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver maquinaria para arriendo <Arrow /></Link>}
+              <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki-700">{s.kicker}</p>
-              <h2 className="mt-3 font-display text-3xl font-semibold text-olive-900 sm:text-4xl">{s.title}</h2>
-              <p className="mt-4 text-lg text-ink/70">{s.summary}</p>
-              <ul className="mt-8 divide-y divide-olive-900/10 border-y border-olive-900/10">
-                {s.items.map((i) => (
-                  <li key={i.name} className="flex gap-4 py-5">
-                    <span className="mt-1.5 size-2.5 shrink-0 rotate-45 bg-copper" aria-hidden />
-                    <div>
-                      <p className="font-semibold text-olive-900">{i.name}</p>
-                      <p className="mt-1 text-ink/70">{i.detail}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Container>
-        </section>
-      ))}
-
-      <CtaBand />
-    </>
-  );
+          </div>
+        </div>
+      </section>)}
+    </Container>
+    <CtaBand />
+  </>;
 }

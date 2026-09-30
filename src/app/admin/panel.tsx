@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
 import styles from "./panel.module.css";
 
 type Module = "Inventario" | "Finanzas" | "Obras" | "Maquinaria";
@@ -91,7 +92,7 @@ export default function AdminPanel() {
   return <div className={styles.shell}>
     <aside className={styles.sidebar}>
       <p className={styles.eyebrow}>GRANALLA NORTE</p><h1>Administración</h1><p className={styles.muted}>Control y operación</p>
-      <nav aria-label="Módulos de administración">{(["Resumen",...modules] as const).map(name => <button key={name} aria-current={section === name ? "page" : undefined} onClick={() => {setSection(name);setQuery("");setShowForm(false);setEditing(null);}}>{name}<span aria-hidden>→</span></button>)}</nav>
+      <nav aria-label="Módulos de administración">{(["Resumen",...modules] as const).map(name => name === "Maquinaria" ? <Link key={name} href="/admin/maquinaria" className="flex justify-between rounded-lg px-4 py-3">{name}<span aria-hidden>→</span></Link> : <button key={name} aria-current={section === name ? "page" : undefined} onClick={() => {setSection(name);setQuery("");setShowForm(false);setEditing(null);}}>{name}<span aria-hidden>→</span></button>)}</nav>
       <p className={styles.sidebarNote}>Obras civiles<br/>Minerales no metálicos<br/>Movimiento de tierra</p>
     </aside>
     <div className={styles.content}>

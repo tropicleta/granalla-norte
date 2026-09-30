@@ -46,3 +46,7 @@
 @keyframes clients-scroll {
   to { transform: translateX(-50%); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: clients-scroll 32s linear infinite !important; }
+}

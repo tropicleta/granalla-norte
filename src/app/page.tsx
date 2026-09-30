@@ -28,7 +28,7 @@ export default async function Home() {
             Soluciones mineras hechas en el <span className="text-khaki">norte</span>, por gente del norte.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/80">
-            Suministro de minerales no metálicos, monitoreo de tronaduras y obras civiles para la minería y las
+            Suministro de minerales no metálicos, monitoreo de tronaduras, obras civiles y mantención de caminos para la minería y las
             comunidades de Atacama.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
@@ -49,7 +49,7 @@ export default async function Home() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
               eyebrow="Qué hacemos"
-              title="Tres líneas de servicio, un solo proveedor en terreno"
+              title="Cuatro líneas de servicio, un solo proveedor en terreno"
               intro="Desde el camino de acceso hasta la obra comunitaria: suministramos, medimos y construimos."
             />
             <ButtonLink href="/servicios" variant="outline">
@@ -57,18 +57,18 @@ export default async function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {services.map((s) => (
               <article
                 key={s.slug}
-                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)]"
+                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 shadow-[var(--shadow-card)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={s.image}
                     alt=""
                     fill
-                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-olive-950/70 to-transparent" aria-hidden />
@@ -77,20 +77,20 @@ export default async function Home() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-display text-xl font-semibold text-olive-900">
+                  <h3 className="font-display text-xl font-semibold text-cream">
                     <Link href={`/servicios#${s.slug}`} className="after:absolute after:inset-0">
                       {s.title}
                     </Link>
                   </h3>
-                  <p className="mt-3 text-ink/70">{s.summary}</p>
+                  <p className="mt-3 text-cream/80">{s.summary}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {s.items.map((i) => (
-                      <li key={i.name} className="rounded-full bg-sand-300 px-3 py-1 text-xs font-medium text-olive-800">
+                      <li key={i.name} className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-cream/90">
                         {i.name}
                       </li>
                     ))}
                   </ul>
-                  <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-copper-600">
+                  <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-khaki">
                     Conocer más <Arrow />
                   </span>
                 </div>

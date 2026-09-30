@@ -40,9 +40,13 @@ try {
   assert.equal(catalog.articles.find(p => p.slug === "mejora-sede-social-hermanos-carrizos").status, "draft");
   assert.equal((await call("/noticias/mejora-sede-social-hermanos-carrizos", "GET", undefined, false)).status, 404);
   const oldArticle = catalog.articles[0];
-  const edited = { ...oldArticle, title: "Título editado de noticia anterior" };
+  const edited = { ...oldArticle, title: "Título editado de noticia anterior", category: "Monitoreo de tronaduras" };
   let saved = await json(await call("/api/admin/noticias", "PUT", { article: edited, version: catalog.version }));
   assert.ok((await (await call(`/noticias/${oldArticle.slug}`, "GET", undefined, false)).text()).includes(edited.title));
+  assert.equal(saved.article.category, edited.category);
+  for (const category of ["", "x", "x".repeat(61), null, "Categoría\ninválida"]) {
+    assert.equal((await call("/api/admin/noticias", "PUT", { article: { ...edited, category }, version: saved.version })).status, 422);
+  }
   const recovered = catalog.articles.find(p => p.slug === "seminario-del-mes-de-la-mineria-2024");
   saved = await json(await call("/api/admin/noticias", "PUT", { article: { ...recovered, title: "Seminario recuperado editado", status: "draft" }, version: saved.version }));
   const afterRecoveryEdit = await json(await call("/api/admin/noticias"));
@@ -56,8 +60,9 @@ try {
   const image = await json(await fetch(origin + "/api/admin/imagenes", { method: "POST", headers: { Origin: origin, Cookie: cookie }, body: upload }), 201);
   assert.equal((await call(image.url, "GET", undefined, false)).status, 404, "Unpublished images stay private");
   assert.equal((await call(image.url)).status, 200);
-  const draft = { ...oldArticle, slug: "prueba-noticia-nueva", title: "Noticia de prueba nueva", status: "draft", images: [image.url], date: "2026-09-30", body: ["Texto de prueba <script>alert(1)</script>"] };
+  const draft = { ...oldArticle, slug: "prueba-noticia-nueva", title: "Noticia de prueba nueva", category: "  Capacitación   comunitaria  ", status: "draft", images: [image.url], date: "2026-09-30", body: ["Texto de prueba <script>alert(1)</script>"] };
   saved = await json(await call("/api/admin/noticias", "POST", { article: draft, version: saved.version }), 201);
+  assert.equal(saved.article.category, "Capacitación comunitaria");
   assert.equal((await call(`/noticias/${draft.slug}`, "GET", undefined, false)).status, 404);
   assert.ok(!(await (await call("/noticias", "GET", undefined, false)).text()).includes(draft.title));
   const published = { ...saved.article, status: "published" };
@@ -92,6 +97,8 @@ try {
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5);
   await stop(); await start();
   catalog = await json(await call("/api/admin/noticias")); assert.equal(catalog.articles.length, 12); assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).title, edited.title);
+  assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).category, "Monitoreo de tronaduras");
+  assert.equal(catalog.articles.find(p => p.slug === draft.slug).category, "Capacitación comunitaria");
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5); assert.equal(inbox.messages.find(m => m.id === originalMessage.id).status, "archived");
   assert.equal((await call("/api/contacto", "POST", contact, false)).status, 429, "Quota survives a process restart");
   await stop(); delete env.CONTENT_LOCAL_DIR; await start();

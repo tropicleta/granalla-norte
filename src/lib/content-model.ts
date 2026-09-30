@@ -1,4 +1,5 @@
 import type { Post } from "./site";
+import { normalizeCategory } from "./news-categories";
 
 export type Article = Post & { status: "draft" | "published"; images: string[]; updatedAt: string };
 export type InboxMessage = {
@@ -25,7 +26,8 @@ export function parseArticle(value: unknown): Article {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new ContentError("La dirección solo admite letras minúsculas, números y guiones.", 422);
   const date = text(input.date, "la fecha", 10, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0, 10) !== date) throw new ContentError("Fecha inválida.", 422);
-  if (!["Minerales", "Obras civiles", "Eventos"].includes(String(input.category))) throw new ContentError("Selecciona una categoría.", 422);
+  const category = normalizeCategory(text(input.category, "la categoría", 60, 2));
+  if (category.length < 2 || /[\u0000-\u001f\u007f]/.test(input.category as string)) throw new ContentError("Escribe una categoría de entre 2 y 60 caracteres, en una sola línea.", 422);
   if (input.status !== "draft" && input.status !== "published") throw new ContentError("Estado inválido.", 422);
   if (!Array.isArray(input.images) || input.images.length > 12 || !input.images.every(validImage)) throw new ContentError("Selecciona hasta 12 imágenes válidas.", 422);
   if (input.status === "published" && !input.images.length) throw new ContentError("Agrega una imagen de portada antes de publicar.", 422);
@@ -39,7 +41,7 @@ export function parseArticle(value: unknown): Article {
     slug, date, title: text(input.title, "el título", 200, 3),
     excerpt: text(input.excerpt, "el resumen", 500, 10),
     location: text(input.location, "la ubicación", 200), client: text(input.client ?? "", "el mandante", 200),
-    category: input.category as Post["category"], status: input.status,
+    category, status: input.status,
     images: [...new Set(input.images)], image: input.images[0] || "", body,
     highlights: highlights.map(p => text(p, "el punto destacado", 500)).filter(Boolean), updatedAt: new Date().toISOString(),
   };

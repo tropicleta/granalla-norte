@@ -92,7 +92,7 @@ export type Post = {
   date: string; // ISO
   location: string;
   client?: string;
-  category: "Minerales" | "Obras civiles" | "Eventos";
+  category: string;
   image: string;
   excerpt: string;
   body: string[];

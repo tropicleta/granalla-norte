@@ -41,6 +41,10 @@ La procedencia y las discrepancias están en `docs/recuperacion-hostinger.md`.
 /admin/noticias permite crear y editar noticias, previsualizar, guardar borradores,
 publicar y retirar una publicación eligiendo Borrador. Incluye título, fecha,
 categoría, resumen, ubicación, mandante, párrafos, destacados y hasta 12 imágenes.
+El selector incluye Monitoreo de tronaduras y permite añadir categorías de 2 a 60
+caracteres. Al guardar una noticia, su categoría queda disponible en las demás
+noticias y en el filtro del administrador; se reutilizan nombres existentes sin
+duplicarlos por diferencias de mayúsculas o espacios.
 Las noticias originales se conservan como datos iniciales con sus mismas URLs;
 la primera edición guarda el catálogo completo. Las URLs quedan fijas al guardar.
 La primera imagen es la portada. El servidor valida y convierte las imágenes en

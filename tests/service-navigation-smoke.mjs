@@ -12,7 +12,7 @@ for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales", "ases
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
 }
 for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales"]) {
-  const html = await page(`/servicios/${slug}`);
+  const html = await page(`/servicios/${slug === "minerales" ? "minerales-no-metalicos" : slug}`);
   assert.ok(html.includes("Arriendo de maquinaria"));
   assert.ok(html.includes('href="/maquinaria"'));
 }

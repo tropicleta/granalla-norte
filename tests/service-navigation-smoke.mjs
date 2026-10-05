@@ -7,11 +7,11 @@ async function page(path) {
   return (await response.text()).split("<main")[1].split("</main>")[0];
 }
 const listing = await page("/servicios");
-assert.equal((listing.match(/También puedes arrendar equipos/g) || []).length, 2);
+assert.equal((listing.match(/También puedes arrendar equipos/g) || []).length, 3);
 for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales", "asesorias"]) {
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
 }
-for (const slug of ["obras-civiles", "mantencion-de-caminos"]) {
+for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales"]) {
   const html = await page(`/servicios/${slug}`);
   assert.ok(html.includes("Arriendo de maquinaria"));
   assert.ok(html.includes('href="/maquinaria"'));

@@ -96,7 +96,7 @@ export default async function Home() {
                   </ul>
                   <div className="mt-auto space-y-3 pt-6">
                     <Link href={servicePath(s.slug)} className="inline-flex items-center gap-1 text-sm font-semibold text-khaki hover:underline">Conocer más <Arrow /></Link>
-                    {["obras-civiles", "mantencion-de-caminos"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
+                    {["obras-civiles", "mantencion-de-caminos", "minerales"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
                     <Link href={sectorProjectsPath(s.slug)} className="block rounded-xl border border-white/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"><span className="block text-xs text-khaki">Experiencia en {projectSectors.find(item => item.slug === s.slug)?.label.toLowerCase()}</span><span className="mt-1 flex items-center justify-between gap-2 text-sm font-semibold text-cream">Ver proyectos y noticias <Arrow /></span></Link>
                   </div>
                 </div>

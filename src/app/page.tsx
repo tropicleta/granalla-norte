@@ -67,13 +67,13 @@ export default async function Home() {
                 key={s.slug}
                 className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 shadow-[var(--shadow-card)]"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[16/9] overflow-hidden bg-olive-950">
                   <Image
                     src={s.image}
                     alt=""
                     fill
                     sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    className="object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-olive-950/70 to-transparent" aria-hidden />
                   <span className="absolute bottom-4 left-5 text-xs font-semibold uppercase tracking-[0.18em] text-khaki">
@@ -97,6 +97,7 @@ export default async function Home() {
                   <div className="mt-auto space-y-3 pt-6">
                     <Link href={servicePath(s.slug)} className="inline-flex items-center gap-1 text-sm font-semibold text-khaki hover:underline">Conocer más <Arrow /></Link>
                     {["obras-civiles", "mantencion-de-caminos", "minerales"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
+                    {s.slug === "asesorias" && <Link href="/equipos-monitoreo" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de geófonos y sismógrafos <Arrow /></Link>}
                     <Link href={sectorProjectsPath(s.slug)} className="block rounded-xl border border-white/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"><span className="block text-xs text-khaki">Experiencia en {projectSectors.find(item => item.slug === s.slug)?.label.toLowerCase()}</span><span className="mt-1 flex items-center justify-between gap-2 text-sm font-semibold text-cream">Ver proyectos y noticias <Arrow /></span></Link>
                   </div>
                 </div>

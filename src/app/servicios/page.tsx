@@ -5,6 +5,7 @@ import { services } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
 import { publishedArticles } from "@/lib/content";
+import { MonitoringAccess } from "@/components/MonitoringAccess";
 import { MachineryAccess } from "@/components/MachineryAccess";
 import { ServiceProjects } from "@/components/ServiceProjects";
 
@@ -21,9 +22,8 @@ export default async function ServiciosPage() {
     <Container className="space-y-6 py-10 sm:space-y-8 sm:py-12">
       {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
         <div className="grid lg:grid-cols-2">
-          <div className={`relative min-h-64 sm:min-h-80 lg:min-h-[420px] ${idx % 2 ? "lg:order-2" : ""}`}>
-            <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-olive-950/45 to-transparent" aria-hidden />
+          <div className={`self-start p-6 pb-0 sm:p-9 sm:pb-0 lg:p-8 ${idx % 2 ? "lg:order-2" : ""}`}>
+            <Image src={s.image} alt={s.title} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full rounded-2xl" />
           </div>
           <div className="min-w-0 p-6 sm:p-9 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
@@ -37,7 +37,7 @@ export default async function ServiciosPage() {
               <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
               <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
-            <MachineryAccess serviceSlug={s.slug} />
+            <MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} />
           </div>
         </div>
         <ServiceProjects serviceSlug={s.slug} articles={articles} dark />

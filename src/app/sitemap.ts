@@ -6,7 +6,7 @@ import { serviceDetails } from "@/lib/service-details";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await publishedArticles();
-  const pages = ["", "/nosotros", "/servicios", "/maquinaria", "/noticias", "/contacto"].map((p) => ({
+  const pages = ["", "/nosotros", "/servicios", "/maquinaria", "/equipos-monitoreo", "/noticias", "/contacto"].map((p) => ({
     url: `${site.url}${p}`,
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.8,

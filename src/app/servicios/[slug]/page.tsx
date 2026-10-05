@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, CtaBand, PageHero } from "@/components/ui";
+import { MonitoringAccess } from "@/components/MonitoringAccess";
 import { MachineryAccess } from "@/components/MachineryAccess";
 import { ServiceProjects } from "@/components/ServiceProjects";
 import { services, site } from "@/lib/site";
@@ -50,8 +51,8 @@ export default async function ServicePage({ params }: Props) {
           <ul className="mt-6 space-y-4">{service.items.map(item => <li key={item.name}><h3 className="font-semibold text-olive-900">{item.name}</h3><p className="text-body mt-1 text-ink/75">{item.detail}</p></li>)}</ul>
         </div>
         <div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)]"><Image src={service.image} alt={service.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div>
-          <MachineryAccess serviceSlug={service.slug} />
+          <div className="overflow-hidden rounded-[var(--radius-card)]"><Image src={service.image} alt={service.title} width={1600} height={900} sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" /></div>
+          <MachineryAccess serviceSlug={service.slug} /><MonitoringAccess serviceSlug={service.slug} />
           <aside className="mt-6 rounded-[var(--radius-card)] bg-sand-300 p-7">
             <h2 className="font-display text-2xl font-semibold text-olive-900">Datos para cotizar</h2>
             <ul className="my-5 list-disc space-y-3 pl-5 text-ink/80">{detail.quote.map(item => <li key={item}>{item}</li>)}</ul>

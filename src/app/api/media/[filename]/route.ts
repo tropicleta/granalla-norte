@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { configuredPassword, SESSION_COOKIE, verifySession } from "@/lib/admin-session";
 import { publishedArticles } from "@/lib/content";
+import { publishedMonitoringEquipment } from "@/lib/monitoring";
 import { publishedMachines } from "@/lib/machinery";
 import { readBytes } from "@/lib/content-storage";
 
@@ -12,8 +13,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ fil
     const admin = await verifySession((await cookies()).get(SESSION_COOKIE)?.value, configuredPassword());
     if (!admin) {
       const url = `/api/media/${filename}`;
-      const [articles, machines] = await Promise.all([publishedArticles(), publishedMachines()]);
-      if (!articles.some(p => p.images.includes(url)) && !machines.some(m => m.image === url)) return new Response(null, { status: 404 });
+      const [articles, machines, equipment] = await Promise.all([publishedArticles(), publishedMachines(), publishedMonitoringEquipment()]);
+      if (!articles.some(p => p.images.includes(url)) && !machines.some(m => m.image === url) && !equipment.some(m => m.image === url)) return new Response(null, { status: 404 });
     }
     const file = await readBytes(`images/${filename}`);
     if (!file) return new Response(null, { status: 404 });

@@ -127,7 +127,7 @@ export const brochureMachines: Machine[] = [
     "updatedAt": ""
   }
 ];
-export function parseMachine(value: unknown): Machine {
+export function parseMachine(value: unknown, allowedTypes: readonly string[] = machineryTypes): Machine {
   const input = record(value);
   const labels: Record<string, string> = { id: "identificador", name: "nombre", model: "marca y modelo", capacity: "capacidad", description: "descripción", image: "imagen", type: "tipo de equipo" };
   const field = (key: string, max: number, min = 0) => {
@@ -137,7 +137,7 @@ export function parseMachine(value: unknown): Machine {
   const id = field("id", 100, 3);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) throw new ContentError("Identificador de equipo inválido.", 422);
   const type = field("type", 60, 1);
-  if (!machineryTypes.some(t => t === type)) throw new ContentError("Selecciona un tipo de equipo válido.", 422);
+  if (!allowedTypes.includes(type)) throw new ContentError("Selecciona un tipo de equipo válido.", 422);
   const image = field("image", 200);
   if (image && !validImage(image)) throw new ContentError("Selecciona una imagen válida.", 422);
   if (input.status !== "published" && input.status !== "draft") throw new ContentError("Visibilidad inválida.", 422);

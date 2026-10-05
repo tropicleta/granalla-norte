@@ -15,17 +15,18 @@ export default function NosotrosPage() {
       />
 
       <section className="py-12 sm:py-16">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
+        <Container className="grid items-center gap-10">
+          <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
             <Image
               src={site.images.team}
               alt="Equipo de Granalla Norte"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              width={1598}
+              height={722}
+              sizes="(min-width: 1280px) 1200px, 100vw"
+              className="h-auto w-full"
             />
           </div>
-          <div className="space-y-12">
+          <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <SectionTitle eyebrow="Nuestro enfoque" title="De la necesidad a la ejecución" />
               <p className="text-body mt-5 text-lg leading-relaxed text-ink/75">{about.mission}</p>

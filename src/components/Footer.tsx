@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { services, site } from "@/lib/site";
+import { servicePath } from "@/lib/service-details";
 
 export function Footer() {
   return (
@@ -10,11 +11,11 @@ export function Footer() {
         <div className="md:col-span-5">
           <Image src={site.logo} alt={site.name} width={170} height={54} className="h-12 w-auto" />
           <p className="text-body mt-5 max-w-sm text-sm leading-relaxed">
-            Suministro, ingeniería y obras civiles para la minería de Atacama, con equipos de Tierra Amarilla.
+            Ejecución, abastecimiento, caminos y monitoreo para la minería de Atacama, con coordinación local en Tierra Amarilla.
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-6 inline-block font-display text-lg text-khaki underline-offset-4 hover:underline"
+            className="mt-6 inline-block break-all font-display text-base text-khaki underline-offset-4 hover:underline"
           >
             {site.email}
           </a>
@@ -25,7 +26,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {services.map((s) => (
               <li key={s.slug}>
-                <Link href={`/servicios#${s.slug}`} className="hover:text-cream">
+                <Link href={servicePath(s.slug)} className="hover:text-cream">
                   {s.title}
                 </Link>
               </li>

@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
+import { businessId, serializeJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
   openGraph: {
     type: "website",
     locale: "es_CL",
@@ -25,9 +27,11 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": businessId,
   name: site.name,
   url: site.url,
   email: site.email,
+  ...(site.phone ? { telephone: site.phone } : {}),
   logo: new URL(site.logo, site.url).href,
   image: new URL(site.images.hero, site.url).href,
   description: site.description,
@@ -55,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
       </body>
     </html>
   );

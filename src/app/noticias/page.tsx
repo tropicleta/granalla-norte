@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container, CtaBand, PageHero, PostCard } from "@/components/ui";
 import { publishedArticles } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Proyectos y noticias",
-  description: "Obras comunitarias, suministro a faenas y novedades de Granalla Norte en la Región de Atacama.",
-};
+export const metadata = pageMetadata("/noticias", "Proyectos mineros y obras comunitarias en Atacama", "Revisa proyectos de Granalla Norte: obras comunitarias, suministro de minerales y servicios para faenas en Tierra Amarilla y la Región de Atacama.");
 
 export const dynamic = "force-dynamic";
 export default async function NoticiasPage() {

@@ -1,17 +1,15 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, CtaBand, PageHero, Arrow } from "@/components/ui";
 import { services } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { servicePath } from "@/lib/service-details";
 
-export const metadata: Metadata = {
-  title: "Servicios",
-  description: "Minerales no metálicos, monitoreo de tronaduras, obras civiles y mantención de caminos: maquinaria, suministros y obras en Atacama.",
-};
+export const metadata = pageMetadata("/servicios", "Servicios para minería y obras civiles en Atacama", "Obras civiles, movimiento de tierra, caminos, suministro y abastecimiento, maquinaria y monitoreo de tronaduras en Tierra Amarilla y Atacama.");
 
 export default function ServiciosPage() {
   return <>
-    <PageHero eyebrow="Servicios" title="Soluciones para cada etapa en terreno" intro="Cuatro líneas de servicio para la minería y las comunidades de Atacama: suministro de minerales, asesoría técnica, obras civiles y mantención de caminos." />
+    <PageHero eyebrow="Servicios" title="Servicios mineros y obras civiles en Atacama" intro="Obras civiles y movimiento de tierra, caminos y control de polvo, suministro y abastecimiento, y monitoreo de tronaduras. Capacidades que se combinan según alcance, recursos, logística y plazo." />
     <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
       <Container><ul className="flex gap-2 overflow-x-auto py-3 text-sm">{services.map(s => <li key={s.slug} className="shrink-0"><a href={`#${s.slug}`} className="block rounded-full px-4 py-2 font-medium text-olive-800 hover:bg-sand-300">{s.title}</a></li>)}</ul></Container>
     </nav>
@@ -19,9 +17,8 @@ export default function ServiciosPage() {
       {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
         <div className="grid lg:grid-cols-2">
           <div className={`relative min-h-64 sm:min-h-80 lg:min-h-[420px] ${idx % 2 ? "lg:order-2" : ""}`}>
-            <Image src={s.image} alt={s.slug === "mantencion-de-caminos" ? "Ilustración de un camino minero y equipos de trabajo" : ""} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+            <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-olive-950/45 to-transparent" aria-hidden />
-            {s.slug === "mantencion-de-caminos" && <span className="absolute bottom-5 left-6 rounded-full bg-olive-950/80 px-3 py-1 text-xs text-cream/90">Ilustración referencial</span>}
           </div>
           <div className="min-w-0 p-6 sm:p-9 lg:p-10">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
@@ -32,6 +29,7 @@ export default function ServiciosPage() {
               <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-1 text-sm leading-relaxed text-cream/80 text-body">{i.detail}</p></div>
             </li>)}</ul>
             <div className="mt-6 flex flex-wrap gap-4">
+              <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
               {s.slug === "mantencion-de-caminos" && <Link href="/maquinaria" className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver maquinaria para arriendo <Arrow /></Link>}
               <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>

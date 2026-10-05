@@ -1,17 +1,131 @@
 import { ContentError, record, validImage } from "./content-model";
 
-export const machineryTypes = ["Camión tolva", "Camión aljibe", "Motoniveladora", "Rodillo compactador", "Excavadora", "Retroexcavadora", "Otro"] as const;
+export const machineryTypes = ["Camión tolva", "Camión aljibe", "Motoniveladora", "Rodillo compactador", "Excavadora", "Cargador frontal", "Camión pluma", "Otro"] as const;
 export type Machine = {
   id: string; name: string; type: string; model: string; capacity: string;
   description: string; image: string; availability: "confirm" | "available" | "maintenance";
   status: "draft" | "published"; demo: boolean; updatedAt: string;
 };
 export const availabilityLabels = { confirm: "Disponibilidad por confirmar", available: "Disponible para consulta", maintenance: "En mantención" };
-export const demoMachines: Machine[] = [
-  { id: "ejemplo-tolva", name: "Camión tolva", type: "Camión tolva", model: "", capacity: "", description: "Ejemplo de equipo para traslado de áridos y material de relleno en trabajos de caminos.", image: "", availability: "confirm", status: "published", demo: true, updatedAt: "" },
-  { id: "ejemplo-aljibe", name: "Camión aljibe", type: "Camión aljibe", model: "", capacity: "", description: "Ejemplo de equipo para riego de superficies y apoyo al control de polvo en caminos.", image: "", availability: "confirm", status: "published", demo: true, updatedAt: "" },
-  { id: "ejemplo-motoniveladora", name: "Motoniveladora", type: "Motoniveladora", model: "", capacity: "", description: "Ejemplo de maquinaria para perfilado y nivelación de caminos y accesos.", image: "", availability: "confirm", status: "published", demo: true, updatedAt: "" },
-  { id: "ejemplo-rodillo", name: "Rodillo compactador", type: "Rodillo compactador", model: "", capacity: "", description: "Ejemplo de maquinaria para compactación de superficies y capas de estabilizado.", image: "", availability: "confirm", status: "published", demo: true, updatedAt: "" },
+// Catálogo documentado en BROCHURE MAQUINARIA.pdf. La asignación se confirma por proyecto.
+export const brochureMachines: Machine[] = [
+  {
+    "id": "motoniveladora-rg200b",
+    "name": "Motoniveladora RG200B",
+    "type": "Motoniveladora",
+    "model": "RG200B",
+    "capacity": "Año 2021",
+    "description": "Perfilado, nivelación y conformación de caminos.",
+    "image": "/img/motoniveladora-rg200b-referencial.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "rodillo-new-holland-v110",
+    "name": "Rodillo New Holland V110",
+    "type": "Rodillo compactador",
+    "model": "New Holland V110",
+    "capacity": "Año 2024",
+    "description": "Compactación y terminación de superficies.",
+    "image": "/img/brochure/rodillo.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "excavadora-doosan-dx225",
+    "name": "Excavadora Doosan DX225",
+    "type": "Excavadora",
+    "model": "Doosan DX225",
+    "capacity": "Año 2024",
+    "description": "Excavación y movimiento de tierra.",
+    "image": "/img/brochure/excavadoras.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "excavadora-doosan-dx210",
+    "name": "Excavadora Doosan DX210",
+    "type": "Excavadora",
+    "model": "Doosan DX210",
+    "capacity": "Año 2026",
+    "description": "Excavación y apoyo en frentes que requieren mayor movilidad de desplazamiento.",
+    "image": "/img/excavadora-dx210-referencial.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "cargador-doosan-sd310",
+    "name": "Cargador Doosan SD310",
+    "type": "Cargador frontal",
+    "model": "Doosan SD310",
+    "capacity": "3 m³ · Año 2024",
+    "description": "Carga, acopio y distribución de material.",
+    "image": "/img/brochure/cargador.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "aljibe-jac-3311",
+    "name": "Camión aljibe JAC 3311",
+    "type": "Camión aljibe",
+    "model": "JAC 3311",
+    "capacity": "15 m³ · Año 2019",
+    "description": "Humectación, apoyo al control de polvo y abastecimiento de agua en terreno.",
+    "image": "/img/aljibe-jac-referencial.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "aljibe-iveco-trakker",
+    "name": "Camión aljibe Iveco Trakker",
+    "type": "Camión aljibe",
+    "model": "Iveco Trakker",
+    "capacity": "30 m³ · Año 2018",
+    "description": "Abastecimiento de agua para frentes de trabajo y humectación de caminos.",
+    "image": "/img/brochure/aljibe.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "tolva-jac-3262",
+    "name": "Camión tolva JAC 3262",
+    "type": "Camión tolva",
+    "model": "JAC 3262",
+    "capacity": "15 m³ · Año 2022",
+    "description": "Transporte y descarga de material.",
+    "image": "/img/tolva-jac-3262-referencial.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  },
+  {
+    "id": "camion-pluma",
+    "name": "Camión pluma",
+    "type": "Camión pluma",
+    "model": "",
+    "capacity": "8 t · Año 2026",
+    "description": "Izaje y apoyo en maniobras en terreno.",
+    "image": "/img/brochure/pluma.jpg",
+    "availability": "confirm",
+    "status": "published",
+    "demo": false,
+    "updatedAt": ""
+  }
 ];
 export function parseMachine(value: unknown): Machine {
   const input = record(value);

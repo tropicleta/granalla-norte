@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { Container, PageHero } from "@/components/ui";
@@ -6,7 +6,7 @@ import { services, site } from "@/lib/site";
 import { storageConfigured } from "@/lib/content-storage";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Contacto", description: "Cotiza mantención de caminos, maquinaria, minerales, monitoreo de tronaduras y obras civiles con Granalla Norte." };
+export const metadata = pageMetadata("/contacto", "Cotizar servicios mineros y obras en Atacama", "Cotiza mantención de caminos, arriendo de maquinaria, minerales, monitoreo de tronaduras y obras civiles en Atacama con Granalla Norte.");
 export default function ContactoPage() {
   return <>
     <PageHero eyebrow="Contacto" title="Conversemos sobre tu proyecto" intro="Mantención de caminos, maquinaria, suministros, asesoría u obras: cuéntanos qué necesitas y coordinemos una solución para tu proyecto." />
@@ -19,7 +19,7 @@ export default function ContactoPage() {
           <dl className="mt-6 space-y-5 border-y border-white/15 py-6 text-sm">
             <div><dt className="text-cream/65">Correo de contacto</dt><dd className="mt-2"><a href={`mailto:${site.email}`} className="break-all font-semibold text-khaki underline-offset-4 hover:underline">{site.email}</a></dd></div>
             <div><dt className="text-cream/65">Zona de operación</dt><dd className="mt-2 leading-relaxed">Tierra Amarilla, Copiapó y Región de Atacama</dd></div>
-            {site.phone && <div><dt className="text-cream/65">Teléfono</dt><dd className="mt-2"><a href={`tel:${site.phone}`} className="text-khaki">{site.phone}</a></dd></div>}
+            {site.phone && <div><dt className="text-cream/65">Teléfono</dt><dd className="mt-2"><a href={`tel:${site.phone}`} className="text-khaki">{site.phoneDisplay}</a></dd></div>}
           </dl>
           <h3 className="mt-6 font-semibold">¿En qué podemos ayudarte?</h3>
           <ul className="mt-3 space-y-3 text-sm text-cream/85">{services.map(s => <li key={s.slug}><Link href={`/servicios#${s.slug}`} className="inline-flex gap-2 hover:text-khaki"><span aria-hidden className="text-khaki">↗</span>{s.title}</Link></li>)}</ul>

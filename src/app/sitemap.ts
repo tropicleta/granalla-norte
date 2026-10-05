@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { publishedArticles } from "@/lib/content";
+import { serviceDetails } from "@/lib/service-details";
 
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -11,5 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: p === "" ? 1 : 0.8,
   }));
   const news = posts.map((p) => ({ url: `${site.url}/noticias/${p.slug}`, lastModified: p.updatedAt, priority: 0.6 }));
-  return [...pages, ...news];
+  const services = serviceDetails.map(s => ({ url: `${site.url}/servicios/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.9 }));
+  return [...pages, ...services, ...news];
 }

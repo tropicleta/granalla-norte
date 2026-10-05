@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, CtaBand, PostCard } from "@/components/ui";
-import { formatDate } from "@/lib/site";
+import { formatDate, site } from "@/lib/site";
+import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
+import { serviceDetails } from "@/lib/service-details";
 import { publishedArticles } from "@/lib/content";
 import recoveredNews from "@/lib/recovered-news.json";
 import { YouTubeLite } from "@/components/YouTubeLite";
@@ -17,9 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = (await publishedArticles()).find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: post.title,
-    description: post.excerpt,
-    openGraph: { type: "article", images: [{ url: post.image }], publishedTime: post.date },
+    ...pageMetadata(`/noticias/${slug}`, post.title, post.excerpt, post.image),
+    openGraph: { ...pageMetadata(`/noticias/${slug}`, post.title, post.excerpt, post.image).openGraph, type: "article", publishedTime: post.date, ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}) },
   };
 }
 
@@ -30,6 +31,8 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
   const related = posts.filter((p) => p.slug !== slug).slice(0, 3);
   const videos = recoveredNews.find(p => p.slug === slug)?.videos ?? [];
+  const service = serviceDetails.find(s => s.projectCategories.includes(post.category));
+  const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description: post.excerpt, image: new URL(post.image, site.url).href, datePublished: post.date, ...(post.updatedAt ? { dateModified: post.updatedAt } : {}), author: { "@id": businessId }, publisher: { "@id": businessId }, mainEntityOfPage: `${site.url}/noticias/${post.slug}` };
 
   return (
     <>
@@ -101,7 +104,9 @@ export default async function PostPage({ params }: Props) {
           </div>
         </Container>
       </section>
+      {service && <Container className="pb-10"><Link href={`/servicios/${service.slug}`} className="font-semibold text-copper-600 underline underline-offset-4">Conocer el servicio: {service.title}</Link></Container>}
       <CtaBand />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
     </>
   );
 }

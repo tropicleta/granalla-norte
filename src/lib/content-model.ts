@@ -18,7 +18,7 @@ function text(value: unknown, label: string, max: number, min = 0) {
   return value.trim();
 }
 export function validImage(value: unknown): value is string {
-  return typeof value === "string" && (/^\/img\/[a-zA-Z0-9_.-]+$/.test(value) || /^\/api\/media\/[a-f0-9-]{36}\.webp$/.test(value));
+  return typeof value === "string" && (/^\/img\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_.-]+$/.test(value) || /^\/api\/media\/[a-f0-9-]{36}\.webp$/.test(value));
 }
 export function parseArticle(value: unknown): Article {
   const input = record(value);

@@ -21,7 +21,7 @@ src/
   app/
     page.tsx             Inicio
     nosotros/            Quiénes somos, misión, visión y valores
-    servicios/           3 líneas de servicio con anclas (#minerales, #asesorias, #obras-civiles)
+    servicios/           4 líneas de servicio con anclas y páginas propias en [slug]/
     noticias/[slug]/     Noticias publicadas (lectura dinámica)
     contacto/            Formulario + canales
     api/contacto/        Recepción persistente de mensajes privados
@@ -30,6 +30,10 @@ src/
 ```
 
 ## Noticias y mensajes compartidos
+
+La configuración SEO y los pasos pendientes para Search Console y Perfil de
+Empresa están en `docs/seo-atacama.md`. La verificación por etiqueta HTML usa
+`GOOGLE_SITE_VERIFICATION` (solo el valor de content proporcionado por Google).
 
 Archivo de Hostinger recuperado el 30/09/2026: seis noticias públicas de 2024 y
 un borrador de Hermanos Carrizos pendiente de revisión. El catálogo incorpora

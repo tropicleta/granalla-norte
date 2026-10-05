@@ -5,6 +5,10 @@ import { YouTubeLite } from "@/components/YouTubeLite";
 import { about, services, site } from "@/lib/site";
 import { ClientCarousel } from "@/components/ClientCarousel";
 import { publishedArticles } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
+import { servicePath } from "@/lib/service-details";
+
+export const metadata = pageMetadata("", "Servicios mineros y mantención de caminos en Atacama", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
@@ -15,7 +19,7 @@ export default async function Home() {
       <section className="relative isolate overflow-hidden bg-olive-950">
         <Image
           src={site.images.hero}
-          alt="Equipo de Granalla Norte en faena en Tierra Amarilla"
+          alt="Maquinaria en trabajos de movimiento de tierra en Atacama"
           fill
           priority
           sizes="100vw"
@@ -25,11 +29,10 @@ export default async function Home() {
         <Container className="py-16 sm:py-20 lg:py-24">
           <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
           <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-tight text-cream text-balance sm:text-6xl lg:text-7xl">
-            Soluciones mineras hechas en el <span className="text-khaki">norte</span>, por gente del norte.
+            Servicios mineros y mantención de caminos en <span className="text-khaki">Atacama</span>.
           </h1>
           <p className="text-body mt-6 max-w-xl text-lg leading-relaxed text-cream/80">
-            Suministro de minerales no metálicos, monitoreo de tronaduras, obras civiles y mantención de caminos para la minería y las
-            comunidades de Atacama.
+            Obras civiles, movimiento de tierra, caminos, maquinaria y abastecimiento, con coordinación local para responder a las necesidades de tu operación.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <ButtonLink href="/contacto">Cotizar proyecto</ButtonLink>
@@ -50,7 +53,7 @@ export default async function Home() {
             <SectionTitle
               eyebrow="Qué hacemos"
               title="Cuatro líneas de servicio, un solo proveedor en terreno"
-              intro="Desde el camino de acceso hasta la obra comunitaria: suministramos, medimos y construimos."
+              intro="Ejecución, abastecimiento, logística y monitoreo coordinados según cada requerimiento."
             />
             <ButtonLink href="/servicios" variant="outline">
               Ver todos los servicios
@@ -78,7 +81,7 @@ export default async function Home() {
                 </div>
                 <div className="flex flex-1 flex-col p-7">
                   <h3 className="font-display text-xl font-semibold text-cream">
-                    <Link href={`/servicios#${s.slug}`} className="after:absolute after:inset-0">
+                    <Link href={servicePath(s.slug)} className="after:absolute after:inset-0">
                       {s.title}
                     </Link>
                   </h3>
@@ -107,7 +110,7 @@ export default async function Home() {
             <SectionTitle
               dark
               eyebrow="Quiénes somos"
-              title="Innovación minera al servicio de Tierra Amarilla"
+              title="Capacidad local para ejecutar, abastecer y responder"
               intro={about.intro}
             />
             <ul className="mt-10 grid gap-5 sm:grid-cols-2">

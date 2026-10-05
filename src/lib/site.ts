@@ -8,21 +8,22 @@ const CDN = "/img";
 export const site = {
   name: "Granalla Norte",
   url: "https://www.granallanorte.cl",
-  tagline: "Minería, obras civiles y asesoría técnica en Tierra Amarilla",
+  tagline: "Capacidad local para ejecutar, abastecer y responder en terreno",
   description:
-    "Granalla Norte entrega venta de minerales no metálicos, monitoreo de tronaduras, consultoría minera y obras civiles con mano de obra local en Tierra Amarilla y Copiapó, Región de Atacama.",
-  email: "contacto@granallanorte.cl",
-  // TODO: completar con datos reales (el sitio actual no publica teléfono ni dirección).
+    "Granalla Norte integra obras civiles, movimiento de tierra, mantención de caminos, arriendo de maquinaria, suministro y monitoreo de tronaduras en Tierra Amarilla y Atacama.",
+  email: "granalla.norte@gmail.com",
   phone: "",
+  phoneDisplay: "",
   whatsapp: "",
   address: "Tierra Amarilla, Región de Atacama, Chile",
   youtubeId: "h5RxcxaMmoc",
   logo: `${CDN}/logo-granalla-norte-a-color---copia1-YD0D4vr2LwFKXxV3.png`,
   images: {
-    hero: `${CDN}/img_3465-YX4z68W28NHqE0bl.JPEG`,
-    minerals: `${CDN}/20250513_111619-Yg2yB1nM3ohMrnV4.jpg`,
+    hero: `${CDN}/brochure/faena.jpg`,
+    team: `${CDN}/brochure/equipo-local.jpg`,
+    minerals: `${CDN}/brochure/suministro.jpg`,
     consulting: `${CDN}/img_3418-mxB8q33xG0tEa0Wp.JPEG`,
-    civil: `${CDN}/whatsapp-image-2024-03-19-at-15.57.22-1-mk35WbZKpofqnR69.jpeg`,
+    civil: `${CDN}/brochure/obras.jpg`,
     clients: `${CDN}/pie-de-paina-m7Vk11oJBDSLDaZb.jpg`,
   },
   nav: [
@@ -45,59 +46,58 @@ export type ServiceLine = {
 
 export const services: ServiceLine[] = [
   {
-    slug: "minerales",
-    kicker: "02 · Suministro",
-    title: "Venta de minerales no metálicos",
+    slug: "obras-civiles",
+    kicker: "01 · Obras",
+    title: "Obras civiles y movimiento de tierra",
     summary:
-      "Insumos para caminos, control de polvo e industria, con entregas seguras y puntuales en faena.",
+      "Ejecución y coordinación de trabajos de terreno para operaciones, proyectos y comunidades, con recursos y mano de obra local.",
+    image: site.images.civil,
+    items: [
+      { name: "Movimiento de tierra", detail: "Excavación, carguío, retiro, limpieza y preparación de terreno según alcance." },
+      { name: "Mejoras de infraestructura", detail: "Bienestar comunitario y operaciones industriales más eficientes." },
+      { name: "Mano de obra local", detail: "Seguridad, eficiencia y calidad en cada etapa, con equipos de Tierra Amarilla." },
+    ],
+  },
+  {
+    slug: "mantencion-de-caminos",
+    kicker: "02 · Caminos",
+    title: "Mantención de caminos",
+    summary: "Habilitación y conservación de caminos: perfilado, nivelación, conformación, compactación y humectación según terreno y tránsito.",
+    image: "/img/brochure/caminos.jpg",
+    items: [
+      { name: "Arriendo de maquinaria", detail: "Motoniveladora RG200B, rodillo New Holland V110 y camiones aljibe, con asignación según acceso, frente de trabajo y programación." },
+      { name: "Venta de suministros", detail: "Estabilizado y cloruro de sodio para caminos; suministro y logística coordinados según el requerimiento." },
+      { name: "Obras para caminos", detail: "Perfilado, nivelación, conformación, compactación, humectación y control de polvo según las condiciones operacionales." },
+    ],
+  },
+  {
+    slug: "minerales",
+    kicker: "03 · Abastecimiento",
+    title: "Suministro y abastecimiento",
+    summary:
+      "Materiales, insumos y logística coordinados según el alcance, el formato y las condiciones de cada proyecto.",
     image: site.images.minerals,
     items: [
       { name: "Cloruro de sodio", detail: "Estabilización de caminos, control de polvo y procesos industriales." },
-      { name: "Sílice de cuarzo", detail: "Para fundición, construcción y otras industrias, con calidad y pureza garantizadas." },
-      { name: "Bischofita", detail: "Alternativa ecológica para estabilizado y control de polvo, eficiente y sustentable." },
+      { name: "Sílice de cuarzo", detail: "Suministro para requerimientos industriales y proyectos, con especificaciones a coordinar." },
+      { name: "Arena y gravilla", detail: "Materiales para obras civiles y preparación de superficies, según las especificaciones del proyecto." },
       { name: "Estabilizado", detail: "Mejora caminos y zonas de tránsito con mayor durabilidad y eficiencia operativa." },
     ],
   },
   {
     slug: "asesorias",
-    kicker: "03 · Ingeniería",
-    title: "Asesorías y consultoría especializada",
+    kicker: "04 · Monitoreo",
+    title: "Monitoreo de tronaduras",
     summary:
-      "Monitoreo de vibraciones y acompañamiento técnico de ingenieros en cada etapa de tu proyecto.",
+      "Equipos, instalación, monitoreo, análisis e informes técnicos para acompañar las operaciones mineras.",
     image: site.images.consulting,
     items: [
-      { name: "Monitoreo de tronaduras", detail: "Sismógrafos y geófonos con reportes claros y precisos. Opción de render." },
-      { name: "Gestión de compras", detail: "Adquisiciones eficientes y seguras, con optimización de recursos." },
-      { name: "Consultoría minera", detail: "Acompañamiento técnico y estratégico de ingenieros con experiencia en faena." },
-    ],
-  },
-  {
-    slug: "obras-civiles",
-    kicker: "04 · Construcción",
-    title: "Obras civiles e infraestructura",
-    summary:
-      "Obras menores y mejoras de infraestructura para comunidades e industria, con mano de obra local.",
-    image: site.images.civil,
-    items: [
-      { name: "Obras menores", detail: "Mejoran la funcionalidad de espacios comunitarios e industriales." },
-      { name: "Mejoras de infraestructura", detail: "Bienestar comunitario y operaciones industriales más eficientes." },
-      { name: "Mano de obra local", detail: "Seguridad, eficiencia y calidad en cada etapa, con equipos de Tierra Amarilla." },
+      { name: "Equipos e instalación", detail: "Coordinación de equipos y puntos de medición según el requerimiento." },
+      { name: "Monitoreo y análisis", detail: "Registro y análisis de vibraciones asociadas a las tronaduras." },
+      { name: "Informes técnicos", detail: "Seguimiento y entrega de antecedentes técnicos de las mediciones." },
     ],
   },
 ];
-
-services.unshift({
-  slug: "mantencion-de-caminos",
-  kicker: "01 · Caminos",
-  title: "Mantención de caminos",
-  summary: "Maquinaria, suministros y obras para conservar caminos y accesos mineros en condiciones operativas.",
-  image: "/img/caminos.svg",
-  items: [
-    { name: "Arriendo de maquinaria", detail: "Camiones y equipos para movimiento de tierra, riego, nivelación y compactación. Consulta el catálogo y coordina disponibilidad." },
-    { name: "Venta de suministros", detail: "Estabilizado, cloruro de sodio y bischofita para mejorar la superficie y controlar el polvo en caminos." },
-    { name: "Obras para caminos", detail: "Perfilado, reparación de superficies, compactación y mejoramiento de accesos según las necesidades del terreno." },
-  ],
-});
 
 export type Post = {
   slug: string;
@@ -195,16 +195,16 @@ posts.push(...recoveredNews.map(({ slug, title, date, location, category, image,
 
 export const about = {
   intro:
-    "Somos una empresa sostenible de Tierra Amarilla dedicada a prestar servicios a la minería: suministro de minerales no metálicos, obras civiles, asesoría y monitoreo de vibraciones. Trabajamos con un equipo local altamente capacitado, comprometido con el medio ambiente, la calidad y la seguridad.",
+    "Somos una empresa local de Tierra Amarilla que apoya operaciones y proyectos mineros, integrando ejecución en terreno, abastecimiento, logística y coordinación de recursos. Articulamos nuestras capacidades según el alcance, los plazos y las condiciones reales de cada requerimiento.",
   mission:
-    "Ofrecer soluciones completas y sostenibles a la industria minera, mejorando la eficiencia operativa y asegurando la seguridad y el bienestar de nuestros trabajadores y comunidades. Innovamos con tecnología y prácticas responsables para reducir el impacto ambiental y aumentar el valor para nuestros clientes.",
+    "Coordinar los recursos necesarios para transformar una necesidad operativa en una solución ejecutable. Integramos suministro, logística, ejecución y seguimiento, adaptándonos a las condiciones del proyecto.",
   vision:
-    "Ser líderes en la industria minera, reconocidos por soluciones sostenibles e innovadoras que mejoren la eficiencia operativa y promuevan el bienestar de las comunidades. Un socio confiable y responsable en cada proyecto, con impacto positivo y duradero.",
+    "Consolidar nuestra capacidad de respuesta local como un socio cercano para operaciones y proyectos de Atacama, con conocimiento del territorio, coordinación en terreno y vínculos con sus comunidades.",
   values: [
-    { title: "Seguridad primero", text: "Protocolos de faena en cada obra y entrega." },
-    { title: "Talento local", text: "Contratamos y formamos en Tierra Amarilla." },
-    { title: "Sostenibilidad", text: "Insumos y prácticas de menor impacto ambiental." },
-    { title: "Cumplimiento", text: "Plazos y reportes claros, sin sorpresas." },
+    { title: "Ejecución", text: "Recursos coordinados para llevar cada requerimiento a terreno." },
+    { title: "Presencia local", text: "Cercanía territorial y conocimiento del entorno minero de Atacama." },
+    { title: "Capacidad de respuesta", text: "Adaptación a condiciones, plazos e imprevistos operacionales." },
+    { title: "Empleo y comunidad", text: "Priorizamos oportunidades laborales locales y apoyamos iniciativas del territorio." },
   ],
 };
 

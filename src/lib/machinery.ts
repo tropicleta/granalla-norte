@@ -1,12 +1,24 @@
 import { cache } from "react";
 import { ContentError } from "./content-model";
 import { readJson, writeJson, storageConfigured } from "./content-storage";
-import { demoMachines, type Machine } from "./machinery-model";
+import { brochureMachines, type Machine } from "./machinery-model";
 
 export async function machineryCatalog() {
-  if (!storageConfigured()) return { machines: demoMachines, version: "initial", configured: false };
+  if (!storageConfigured()) return { machines: brochureMachines, version: "initial", configured: false };
   const stored = await readJson<Machine[]>("machinery.json");
-  return { machines: stored?.value ?? demoMachines, version: stored?.etag ?? "initial", configured: true };
+  // Keep edited records (including drafts); replace the old example fleet and
+  // add brochure equipment that has not yet been saved in the administrator.
+  const savedMachines = (stored?.value ?? [])
+    .filter(m => !m.demo && !["Retroexcavadora", "Camión cama baja"].includes(m.type)
+      && !["retroexcavadoras", "camion-cama-baja"].includes(m.id))
+    .map(m => {
+      const brochure = brochureMachines.find(item => item.id === m.id);
+      const oldCatalogPhoto = m.id === "tolva-jac-3262" && m.image === "/img/brochure/tolva.jpg";
+      return brochure && (!m.image || oldCatalogPhoto) ? { ...m, image: brochure.image } : m;
+    });
+  const savedIds = new Set(savedMachines.map(m => m.id));
+  const machines = [...savedMachines, ...brochureMachines.filter(m => !savedIds.has(m.id))];
+  return { machines, version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedMachines = cache(async () => (await machineryCatalog()).machines.filter(m => m.status === "published"));
 export async function saveMachine(machine: Machine, version: string, create: boolean) {

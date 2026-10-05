@@ -16,13 +16,13 @@ export default function NosotrosPage() {
 
       <section className="py-12 sm:py-16">
         <Container className="grid items-center gap-10">
-          <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
+          <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
             <Image
               src={site.images.team}
               alt="Equipo de Granalla Norte"
               width={1598}
               height={722}
-              sizes="(min-width: 1280px) 1200px, 100vw"
+              sizes="(min-width: 768px) 768px, 100vw"
               className="h-auto w-full"
             />
           </div>
@@ -68,11 +68,11 @@ export default function NosotrosPage() {
           </ol>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             <article className="overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
-              <div className="relative aspect-[16/9]"><Image src={site.images.civil} alt="Trabajos de terreno documentados en el dossier de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div>
+              <div className="relative h-52 sm:h-60"><Image src={site.images.civil} alt="Trabajos de terreno documentados en el dossier de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" /></div>
               <div className="p-7"><p className="font-display text-4xl font-semibold text-khaki">22 días</p><h3 className="mt-3 font-display text-2xl font-semibold">Movilización y ejecución</h3><p className="text-body mt-3 leading-relaxed text-cream/80">Un trabajo inicialmente proyectado para más de dos meses se ejecutó en 22 días, mediante organización de recursos y coordinación en terreno.</p></div>
             </article>
             <article className="overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
-              <div className="relative aspect-[16/9]"><Image src={site.images.minerals} alt="Maxisacos de cloruro de sodio de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" /></div>
+              <div className="relative h-52 sm:h-60"><Image src={site.images.minerals} alt="Maxisacos de cloruro de sodio de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" /></div>
               <div className="p-7"><p className="font-display text-4xl font-semibold text-khaki">200 toneladas</p><h3 className="mt-3 font-display text-2xl font-semibold">Logística adaptada a la operación</h3><p className="text-body mt-3 leading-relaxed text-cream/80">Cloruro de sodio en maxisacos de 1.000 kg, con entregas parciales coordinadas según la capacidad de almacenamiento del cliente y sin agregar costos de bodegaje.</p></div>
             </article>
           </div>

@@ -21,23 +21,27 @@ export default async function ServiciosPage() {
     </nav>
     <Container className="space-y-6 py-10 sm:space-y-8 sm:py-12">
       {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
-        <div className="grid lg:grid-cols-2">
-          <div className={`self-start p-6 pb-0 sm:p-9 sm:pb-0 lg:p-8 ${idx % 2 ? "lg:order-2" : ""}`}>
-            <Image src={s.image} alt={s.title} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full rounded-2xl" />
+        <div className="p-6 sm:p-8">
+          <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
+            <div className={idx % 2 ? "lg:order-2" : ""}>
+              <Image src={s.image} alt={s.title} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="mx-auto h-auto max-h-72 w-full rounded-2xl object-contain" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
+              <h2 id={`titulo-${s.slug}`} className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">{s.title}</h2>
+              <p className="mt-4 leading-relaxed text-cream/85 text-body">{s.summary}</p>
+            </div>
           </div>
-          <div className="min-w-0 p-6 sm:p-9 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>
-            <h2 id={`titulo-${s.slug}`} className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">{s.title}</h2>
-            <p className="mt-4 leading-relaxed text-cream/85 text-body">{s.summary}</p>
-            <ul className="mt-6 divide-y divide-white/15 border-y border-white/15">{s.items.map(i => <li key={i.name} className="flex gap-3 py-4">
-              <span className="mt-2 size-2 shrink-0 rotate-45 bg-khaki" aria-hidden />
-              <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-1 text-sm leading-relaxed text-cream/80 text-body">{i.detail}</p></div>
-            </li>)}</ul>
-            <div className="mt-6 flex flex-wrap gap-4">
+          <ul className={`mt-6 grid gap-5 border-y border-white/15 py-5 ${s.items.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"}`}>{s.items.map(i => <li key={i.name} className="flex gap-3">
+            <span className="mt-2 size-2 shrink-0 rotate-45 bg-khaki" aria-hidden />
+            <div className="min-w-0"><h3 className="font-semibold text-cream">{i.name}</h3><p className="mt-2 text-sm leading-relaxed text-cream/80 text-body">{i.detail}</p></div>
+          </li>)}</ul>
+          <div className="grid items-center gap-x-8 lg:grid-cols-2">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
               <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
-            <MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} />
+            <div><MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} /></div>
           </div>
         </div>
         <ServiceProjects serviceSlug={s.slug} articles={articles} dark />

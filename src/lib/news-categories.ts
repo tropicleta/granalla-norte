@@ -1,4 +1,4 @@
-export const defaultNewsCategories = ["Eventos", "Minerales", "Obras civiles", "Monitoreo de tronaduras"];
+export const defaultNewsCategories = ["Eventos", "Minerales", "Obras civiles", "Caminos", "Monitoreo de tronaduras"];
 export const normalizeCategory = (value: string) => value.normalize("NFC").trim().replace(/\s+/g, " ");
 export const categoryKey = (value: string) => normalizeCategory(value).toLocaleLowerCase("es-CL");
 

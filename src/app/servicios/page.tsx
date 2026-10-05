@@ -4,10 +4,15 @@ import { Container, CtaBand, PageHero, Arrow } from "@/components/ui";
 import { services } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
+import { publishedArticles } from "@/lib/content";
+import { MachineryAccess } from "@/components/MachineryAccess";
+import { ServiceProjects } from "@/components/ServiceProjects";
 
 export const metadata = pageMetadata("/servicios", "Servicios para minería y obras civiles en Atacama", "Obras civiles, movimiento de tierra, caminos, suministro y abastecimiento, maquinaria y monitoreo de tronaduras en Tierra Amarilla y Atacama.");
 
-export default function ServiciosPage() {
+export const dynamic = "force-dynamic";
+export default async function ServiciosPage() {
+  const articles = await publishedArticles();
   return <>
     <PageHero eyebrow="Servicios" title="Servicios mineros y obras civiles en Atacama" intro="Obras civiles y movimiento de tierra, caminos y control de polvo, suministro y abastecimiento, y monitoreo de tronaduras. Capacidades que se combinan según alcance, recursos, logística y plazo." />
     <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
@@ -30,11 +35,12 @@ export default function ServiciosPage() {
             </li>)}</ul>
             <div className="mt-6 flex flex-wrap gap-4">
               <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
-              {s.slug === "mantencion-de-caminos" && <Link href="/maquinaria" className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver maquinaria para arriendo <Arrow /></Link>}
               <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
+            <MachineryAccess serviceSlug={s.slug} />
           </div>
         </div>
+        <ServiceProjects serviceSlug={s.slug} articles={articles} dark />
       </section>)}
     </Container>
     <CtaBand />

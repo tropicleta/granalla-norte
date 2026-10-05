@@ -7,6 +7,7 @@ import { ClientCarousel } from "@/components/ClientCarousel";
 import { publishedArticles } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
+import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
 
 export const metadata = pageMetadata("", "Servicios mineros y mantención de caminos en Atacama", site.description);
 
@@ -81,7 +82,7 @@ export default async function Home() {
                 </div>
                 <div className="flex flex-1 flex-col p-7">
                   <h3 className="font-display text-xl font-semibold text-cream">
-                    <Link href={servicePath(s.slug)} className="after:absolute after:inset-0">
+                    <Link href={servicePath(s.slug)} className="hover:text-khaki">
                       {s.title}
                     </Link>
                   </h3>
@@ -93,9 +94,11 @@ export default async function Home() {
                       </li>
                     ))}
                   </ul>
-                  <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-khaki">
-                    Conocer más <Arrow />
-                  </span>
+                  <div className="mt-auto space-y-3 pt-6">
+                    <Link href={servicePath(s.slug)} className="inline-flex items-center gap-1 text-sm font-semibold text-khaki hover:underline">Conocer más <Arrow /></Link>
+                    {["obras-civiles", "mantencion-de-caminos"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
+                    <Link href={sectorProjectsPath(s.slug)} className="block rounded-xl border border-white/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"><span className="block text-xs text-khaki">Experiencia en {projectSectors.find(item => item.slug === s.slug)?.label.toLowerCase()}</span><span className="mt-1 flex items-center justify-between gap-2 text-sm font-semibold text-cream">Ver proyectos y noticias <Arrow /></span></Link>
+                  </div>
                 </div>
               </article>
             ))}

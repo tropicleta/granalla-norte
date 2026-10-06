@@ -21,10 +21,10 @@ export default async function Page() {
         const reference = machineryPhotoReferences[m.image];
         return <article key={m.id} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
         <div className={`relative h-72 ${reference ? "bg-white" : "bg-olive-950"}`}>{m.image ? <Image src={m.image} alt={m.name} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-contain" unoptimized={m.image.startsWith('/api/')} /> : <div className="h-full p-5"><MachineIllustration type={m.type} /><span className="absolute bottom-3 left-5 rounded-full bg-olive-950/85 px-3 py-1 text-xs text-khaki">Ilustración del tipo de equipo</span></div>}</div>
-        <div className="flex flex-1 flex-col p-7"><p className="text-xs font-semibold uppercase tracking-widest text-khaki">{m.type}{m.demo && " · Ejemplo"}</p><h2 className="mt-3 font-display text-2xl font-semibold md:min-h-[3.75rem]">{m.name}</h2>
-          <p className="mt-3 text-sm leading-relaxed text-cream/80 text-body md:min-h-20">{m.description}</p>
-          <dl className="mt-5 space-y-2 text-sm">{m.model ? <div><dt className="text-khaki">Marca y modelo</dt><dd>{m.model}</dd></div> : <div aria-hidden="true" className="hidden h-10 md:block" />}{m.capacity && <div><dt className="text-khaki">Capacidad / características</dt><dd>{m.capacity}</dd></div>}<div><dt className="sr-only">Disponibilidad</dt><dd className="text-khaki">{availabilityLabels[m.demo ? 'confirm' : m.availability]}</dd></div></dl>
-          <Link href="/contacto" className="mt-auto pt-6 text-sm font-semibold text-cream underline underline-offset-4">Consultar arriendo →</Link>
+        <div className="flex flex-1 flex-col p-5"><p className="text-xs font-semibold uppercase tracking-widest text-khaki">{m.type}{m.demo && " · Ejemplo"}</p><h2 className="mt-2 font-display text-xl leading-6 font-semibold md:min-h-12">{m.name}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-cream/80 text-body md:min-h-[4.125rem]">{m.description}</p>
+          <dl className="mt-3 space-y-2 text-sm">{m.model ? <div><dt className="text-khaki">Marca y modelo</dt><dd>{m.model}</dd></div> : <div aria-hidden="true" className="hidden h-10 md:block" />}{m.capacity && <div><dt className="text-khaki">Capacidad / características</dt><dd>{m.capacity}</dd></div>}<div><dt className="sr-only">Disponibilidad</dt><dd className="text-khaki">{availabilityLabels[m.demo ? 'confirm' : m.availability]}</dd></div></dl>
+          <Link href="/contacto" className="mt-auto pt-4 text-sm font-semibold text-cream underline underline-offset-4">Consultar arriendo →</Link>
         </div>
       </article>;
       })}</div>

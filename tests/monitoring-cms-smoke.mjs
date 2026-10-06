@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve, dirname, basename } from "node:path";
 import assert from "node:assert/strict";
@@ -29,6 +29,7 @@ function call(path, method = "GET", body, authenticated = true, extraHeaders = {
 async function json(response, status = 200) { assert.equal(response.status, status, await response.clone().text()); return response.json(); }
 const endpoint = "/api/admin/equipos-monitoreo";
 try {
+  await writeFile(join(directory, "monitoring-equipment.json"), JSON.stringify(["instantel-equipo-2", "instantel-equipo-5", "instantel-equipo-6", "minimate-pro4", "minimate-pro6", "geofono-triaxial"].map(id => ({ id, name: "Ficha anterior por unidad", status: "published", updatedAt: "", image: "" }))));
   await start();
   for (const method of ["GET", "POST", "PUT"]) assert.equal((await call(endpoint, method, undefined, false)).status, 401);
   const login = await call("/api/admin/login", "POST", { username: "admin", password }, false);
@@ -36,10 +37,10 @@ try {
   assert.equal((await call("/admin/equipos-monitoreo")).status, 200);
   assert.equal((await call("/admin/equipos-monitoreo", "GET", undefined, false)).status, 307);
   let catalog = await json(await call(endpoint));
-  assert.equal(catalog.machines.length, 6); assert.equal(catalog.machines.filter(m => m.status === "published").length, 4);
+  assert.equal(catalog.machines.length, 2); assert.equal(catalog.machines.filter(m => m.status === "published").length, 2);
   let publicHtml = await (await call("/equipos-monitoreo", "GET", undefined, false)).text();
   assert.ok(publicHtml.includes("Minimate Plus")); assert.ok(!publicHtml.includes("Minimate Pro4")); assert.ok(!publicHtml.includes("Minimate Pro6"));
-  assert.ok(publicHtml.includes("Vigencia y correspondencia documental por confirmar"));
+  assert.ok(!publicHtml.includes("Certificado aportado")); assert.ok(!publicHtml.includes("Equipo 2")); assert.ok(publicHtml.includes("Contamos con equipos")); assert.equal((publicHtml.split("</main>")[0].match(/Fotografía referencial/g) || []).length, 2);
   for (const path of ["/", "/servicios", "/servicios/monitoreo-de-tronaduras"]) assert.ok((await (await call(path, "GET", undefined, false)).text()).includes('href="/equipos-monitoreo"'), path);
   const unit = catalog.machines[0];
   assert.equal((await call(endpoint, "PUT", { machine: unit, version: catalog.version }, true, { Origin: "https://evil.example" })).status, 403);
@@ -57,7 +58,7 @@ try {
   assert.equal((await call(endpoint, "POST", { machine: draft, version: saved.version })).status, 409);
   saved = await json(await call(endpoint, "POST", { machine: { ...draft, id: "nuevo-geofono", type: "Geófono triaxial" }, version: saved.version }), 201);
   await stop(); await start();
-  catalog = await json(await call(endpoint)); assert.equal(catalog.machines.length, 7); assert.equal(catalog.machines.find(m => m.id === unit.id).serial, draft.serial);
+  catalog = await json(await call(endpoint)); assert.equal(catalog.machines.length, 3); assert.equal(catalog.machines.find(m => m.id === unit.id).serial, draft.serial);
   assert.equal(catalog.machines.find(m => m.id === unit.id).calibrationDate, draft.calibrationDate);
   saved = await json(await call(endpoint, "PUT", { machine: { ...draft, status: "draft" }, version: catalog.version }));
   assert.equal((await call(uploaded.url, "GET", undefined, false)).status, 404);

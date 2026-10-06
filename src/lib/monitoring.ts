@@ -6,7 +6,16 @@ import { initialMonitoringEquipment, type MonitoringEquipment } from "./monitori
 export async function monitoringCatalog() {
   if (!storageConfigured()) return { machines: initialMonitoringEquipment, version: "initial", configured: false };
   const stored = await readJson<MonitoringEquipment[]>("monitoring-equipment.json");
-  return { machines: stored?.value ?? initialMonitoringEquipment, version: stored?.etag ?? "initial", configured: true };
+  // Replace the former numbered unit list with model-level rental cards. Keep
+  // administrator edits to the new cards and independently added equipment.
+  const saved = (stored?.value ?? []).filter(m => !["instantel-equipo-2", "instantel-equipo-5", "instantel-equipo-6", "minimate-pro4", "minimate-pro6"].includes(m.id));
+  const machines = initialMonitoringEquipment.map(defaultEquipment => {
+    const edited = saved.find(m => m.id === defaultEquipment.id);
+    if (!edited?.updatedAt) return defaultEquipment;
+    return { ...edited, image: edited.image || defaultEquipment.image };
+  });
+  const defaultIds = new Set(initialMonitoringEquipment.map(m => m.id));
+  return { machines: [...machines, ...saved.filter(m => !defaultIds.has(m.id))], version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedMonitoringEquipment = cache(async () => (await monitoringCatalog()).machines.filter(m => m.status === "published"));
 export async function saveMonitoringEquipment(machine: MonitoringEquipment, version: string, create: boolean) {

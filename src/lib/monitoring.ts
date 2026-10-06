@@ -12,7 +12,7 @@ export async function monitoringCatalog() {
   const machines = initialMonitoringEquipment.map(defaultEquipment => {
     const edited = saved.find(m => m.id === defaultEquipment.id);
     if (!edited?.updatedAt) return defaultEquipment;
-    return { ...edited, image: edited.image || defaultEquipment.image };
+    return { ...edited, image: edited.image === "/img/monitoreo/minimate-plus-referencial.jpg" ? defaultEquipment.image : edited.image || defaultEquipment.image };
   });
   const defaultIds = new Set(initialMonitoringEquipment.map(m => m.id));
   return { machines: [...machines, ...saved.filter(m => !defaultIds.has(m.id))], version: stored?.etag ?? "initial", configured: true };

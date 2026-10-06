@@ -52,7 +52,7 @@ export function Footer() {
           <p className="mt-4 text-sm">{site.address}</p>
         </div>
       </div>
-      <div className="border-t border-white/10">
+      <div className="border-t border-khaki/25 bg-olive-950">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-cream/60 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>
           <p>Tierra Amarilla · Copiapó · Atacama</p>

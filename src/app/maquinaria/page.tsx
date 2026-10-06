@@ -19,13 +19,14 @@ export default async function Page() {
       <p className="text-body mt-6 max-w-3xl leading-relaxed text-ink/75">Combinamos equipos para perfilado, nivelación, conformación, compactación, excavación, carguío y traslado de maquinaria. Consulta la disponibilidad para las fechas de tu proyecto.</p>
       <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">{machines.map(m => {
         const reference = machineryPhotoReferences[m.image];
-        const contain = reference?.fit === "contain" || m.type === "Rodillo compactador";
+        const contain = reference?.fit === "contain";
+        const tallerPhoto = m.image === "/img/brochure/rodillo.jpg" || m.image === "/img/tolva-jac-3262-referencial.jpg";
         return <article key={m.id} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
-        <div className={`relative h-56 ${contain ? "bg-white" : "bg-olive-950"}`}>{m.image ? <Image src={m.image} alt={reference ? `${reference.label}: ${m.type}` : m.name} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className={contain ? "object-contain p-4 pb-9" : "object-cover"} unoptimized={m.image.startsWith('/api/')} /> : <div className="h-full p-5"><MachineIllustration type={m.type} /><span className="absolute bottom-3 left-5 rounded-full bg-olive-950/85 px-3 py-1 text-xs text-khaki">Ilustración del tipo de equipo</span></div>}{reference && <span className="absolute bottom-3 left-4 rounded-full bg-olive-950/90 px-3 py-1 text-xs text-cream">{reference.label}</span>}</div>
+        <div className={`relative ${tallerPhoto ? "h-80" : "h-56"} ${contain ? "bg-white" : "bg-olive-950"}`}>{m.image ? <Image src={m.image} alt={m.name} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className={contain ? "object-contain p-1" : "object-cover object-center"} unoptimized={m.image.startsWith('/api/')} /> : <div className="h-full p-5"><MachineIllustration type={m.type} /><span className="absolute bottom-3 left-5 rounded-full bg-olive-950/85 px-3 py-1 text-xs text-khaki">Ilustración del tipo de equipo</span></div>}</div>
         <div className="flex flex-1 flex-col p-7"><p className="text-xs font-semibold uppercase tracking-widest text-khaki">{m.type}{m.demo && " · Ejemplo"}</p><h2 className="mt-3 font-display text-2xl font-semibold">{m.name}</h2>
           <p className="mt-3 text-sm leading-relaxed text-cream/80 text-body">{m.description}</p>
           <dl className="mt-5 space-y-2 text-sm">{m.model && <div><dt className="text-khaki">Marca y modelo</dt><dd>{m.model}</dd></div>}{m.capacity && <div><dt className="text-khaki">Capacidad / características</dt><dd>{m.capacity}</dd></div>}<div><dt className="sr-only">Disponibilidad</dt><dd className="text-khaki">{availabilityLabels[m.demo ? 'confirm' : m.availability]}</dd></div></dl>
-          {reference && <a href={reference.source} target="_blank" rel="noreferrer" className="mt-4 text-xs text-cream/60 underline underline-offset-4">Foto referencial: {reference.credit}</a>}
+          {reference && <a href={reference.source} target="_blank" rel="noreferrer" className="mt-4 text-xs text-cream/60 underline underline-offset-4">Fotografía: {reference.credit}</a>}
           <Link href="/contacto" className="mt-auto pt-6 text-sm font-semibold text-cream underline underline-offset-4">Consultar arriendo →</Link>
         </div>
       </article>;

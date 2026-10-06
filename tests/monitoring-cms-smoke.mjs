@@ -40,7 +40,7 @@ try {
   assert.equal(catalog.machines.length, 2); assert.equal(catalog.machines.filter(m => m.status === "published").length, 2);
   let publicHtml = await (await call("/equipos-monitoreo", "GET", undefined, false)).text();
   assert.ok(publicHtml.includes("Minimate Plus")); assert.ok(!publicHtml.includes("Minimate Pro4")); assert.ok(!publicHtml.includes("Minimate Pro6"));
-  assert.ok(!publicHtml.includes("Certificado aportado")); assert.ok(!publicHtml.includes("Equipo 2")); assert.ok(publicHtml.includes("Contamos con equipos")); assert.equal((publicHtml.split("</main>")[0].match(/Fotografía referencial/g) || []).length, 2);
+  assert.ok(!publicHtml.includes("Certificado aportado")); assert.ok(!publicHtml.includes("Equipo 2")); assert.ok(publicHtml.includes("Contamos con equipos")); assert.ok(!publicHtml.split("</main>")[0].includes("Fotografía referencial"));
   for (const path of ["/", "/servicios", "/servicios/monitoreo-de-tronaduras"]) assert.ok((await (await call(path, "GET", undefined, false)).text()).includes('href="/equipos-monitoreo"'), path);
   const unit = catalog.machines[0];
   assert.equal((await call(endpoint, "PUT", { machine: unit, version: catalog.version }, true, { Origin: "https://evil.example" })).status, 403);

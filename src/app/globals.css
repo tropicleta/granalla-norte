@@ -60,15 +60,6 @@ body {
   background-position: center top;
 }
 
-/* Franja geométrica inspirada en el patrón andino del footer original */
-.chevron {
-  background-image: repeating-linear-gradient(
-    135deg,
-    var(--color-khaki) 0 10px,
-    transparent 10px 20px
-  );
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

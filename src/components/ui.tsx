@@ -91,7 +91,6 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
         </h1>
         <p className="text-body mt-6 max-w-2xl text-lg leading-relaxed text-cream/75">{intro}</p>
       </Container>
-      <div className="chevron absolute inset-x-0 bottom-0 h-1.5 opacity-50" aria-hidden />
     </section>
   );
 }

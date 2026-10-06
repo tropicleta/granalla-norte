@@ -42,7 +42,6 @@ export default async function Home() {
             </ButtonLink>
           </div>
         </Container>
-        <div className="chevron absolute inset-x-0 bottom-0 h-1.5 opacity-50" aria-hidden />
       </section>
 
       <ClientCarousel />

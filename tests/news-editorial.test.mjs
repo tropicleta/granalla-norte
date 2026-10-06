@@ -35,5 +35,14 @@ for(const article of projects){
  const publicText=JSON.stringify(article);
  assert.ok(!/\$|450026|77\.144|Nuxia|Carlos Tapia|Pablo Angulo|Brodifacoum|estado de pago|valor neto|\bIVA\b/i.test(publicText),'No internal or contractual details');
 }
-assert.match(projects.find(p=>p.slug.includes('sala-de-la-calma')).imageCaption,/archivo/);
+const calmRoom=projects.find(p=>p.slug.includes('sala-de-la-calma'));
+assert.equal(calmRoom.images.length,3);
+assert.ok(calmRoom.images.every(image=>image.includes('/sala-calma-')));
+const oldCalmRoom={...calmRoom,image:'/img/whatsapp-image-2024-03-19-at-15.57.24-AVLNqP2G0WU009OY.jpeg',images:['/img/whatsapp-image-2024-03-19-at-15.57.24-AVLNqP2G0WU009OY.jpeg'],status:'draft',body:['Texto editado en admin'],editorialRevision:exports.NEWS_EDITORIAL_REVISION};
+const updatedCalmRoom=exports.withEditorialNews([oldCalmRoom]).find(p=>p.slug===calmRoom.slug);
+assert.deepEqual([...updatedCalmRoom.images],calmRoom.images);
+assert.equal(updatedCalmRoom.status,'draft');
+assert.deepEqual(updatedCalmRoom.body,oldCalmRoom.body);
+const customCalmRoom={...oldCalmRoom,image:'/img/foto-elegida.jpg',images:['/img/foto-elegida.jpg']};
+assert.equal(exports.withEditorialNews([customCalmRoom]).find(p=>p.slug===calmRoom.slug).image,customCalmRoom.image);
 console.log('PASS: seven sourced projects, privacy, photo assets, one-time editorial edition, retained media/drafts/categories and future admin edits.');

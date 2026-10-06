@@ -17,10 +17,12 @@ Se excluyen montos, impuestos, órdenes de compra, estados de pago, datos de res
 | Relleno y nivelación — Bosque Mina Santos | 04/09/2026 | Terreno habilitado para futura plantación; no se afirma compactación mecánica ni plantación. |
 | Cierre perimetral — STI Caldera | 20/05/2026 | Fecha del informe de ejecución completa; no se afirma una recepción formal firmada. |
 | Poda y habilitación — El Escorial | 15/08/2026 | Fecha de término del apartado 10; poda sin tala, coordinación comunitaria sin identificar vecinos. |
-| Sala de la Calma N.º 2 — Escuela Marta Aguilar Zerón | 28/07/2026 | Fecha del informe; obra puesta a disposición para inspección, sin inventar inauguración o recepción formal. El PDF enumera fotografías pero no las contiene. Portada de archivo del establecimiento, identificada expresamente. |
+| Sala de la Calma N.º 2 — Escuela Marta Aguilar Zerón | 28/07/2026 | Fecha del informe; obra puesta a disposición para inspección, sin inventar inauguración o recepción formal. El PDF enumera fotografías pero no las contiene. La empresa aportó posteriormente fotografías de esta intervención; se seleccionaron tres vistas y se retiró la portada de archivo de la cancha. |
 | Oficina Comunitaria Candelaria | 21/08/2026 | Fecha de término reiterada en cuerpo y conclusiones; portada y firma del informe muestran 17 de agosto, por lo que se priorizó el término documentado del 21. |
 
-Fotografías: extracción de imágenes originales de los informes, selección visual y conversión a WebP sin metadatos. Se usan 18 fotos de obra y una portada de archivo ya publicada en el sitio. Las fotos verticales de la oficina tienen resolución limitada en el original; no se inventa detalle por ampliación.
+Fotografías: extracción de imágenes originales de los informes, selección visual y conversión a WebP sin metadatos. Se usan 18 fotos de los informes y tres fotografías de la Sala de la Calma aportadas por la empresa. Las fotos verticales de la oficina tienen resolución limitada en el original; se muestran completas y en tamaño contenido, sin ampliar artificialmente el detalle.
+
+Las noticias utilizan texto y galería en dos columnas en escritorio, con una portada de altura limitada y miniaturas. En móvil se apilan. Todas las imágenes conservan su proporción y pueden abrirse en un visor con navegación, cierre y soporte de teclado. Las tarjetas también muestran las imágenes completas.
 
 ## Noticias anteriores
 

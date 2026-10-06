@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, CtaBand, PostCard } from "@/components/ui";
@@ -9,6 +8,7 @@ import { serviceDetails } from "@/lib/service-details";
 import { publishedArticles } from "@/lib/content";
 import recoveredNews from "@/lib/recovered-news.json";
 import { YouTubeLite } from "@/components/YouTubeLite";
+import { NewsPhotos } from "@/components/NewsPhotos";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -42,16 +42,16 @@ export default async function PostPage({ params }: Props) {
     <>
       <article>
         <header className="brand-pattern bg-olive-900">
-          <Container className="py-12 sm:py-16">
+          <Container className="py-9 sm:py-12">
             <Link href="/noticias" className="text-sm font-medium text-khaki hover:underline">
               ← Proyectos y noticias
             </Link>
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{post.category}</p>
-            <h1 className="mt-3 max-w-4xl font-display text-3xl font-semibold leading-tight text-cream text-balance sm:text-5xl">
+            <h1 className="mt-3 max-w-4xl font-display text-3xl font-semibold leading-tight text-cream text-balance sm:text-4xl">
               {post.title}
             </h1>
             <p className="text-body mt-5 max-w-3xl text-base leading-relaxed text-cream/85 sm:text-lg">{post.excerpt}</p>
-            <dl className="mt-8 grid max-w-3xl gap-6 text-sm sm:grid-cols-3">
+            <dl className="mt-6 grid max-w-3xl grid-cols-2 gap-4 text-sm sm:grid-cols-3">
               <div>
                 <dt className="text-cream/55">Fecha</dt>
                 <dd className="mt-1 text-cream">
@@ -72,14 +72,9 @@ export default async function PostPage({ params }: Props) {
           </Container>
         </header>
 
-        <Container className="-mt-2 max-w-4xl py-14">
-          <figure>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] shadow-[var(--shadow-card)]">
-            <Image src={post.image} unoptimized={post.image.startsWith("/api/media/")} alt={post.title} fill priority sizes="(min-width: 1024px) 900px, 100vw" className="object-cover" />
-          </div>
-          {post.imageCaption && <figcaption className="mt-3 text-sm leading-relaxed text-ink/65">{post.imageCaption}</figcaption>}
-          </figure>
-          <div className="mx-auto mt-10 max-w-2xl space-y-6 text-base leading-relaxed text-ink/80 sm:text-lg">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-12">
+          <div className="order-2 min-w-0 space-y-6 text-base leading-7 text-ink/80 lg:order-1">
             {post.body.map((p, i) => (
               <section key={i}>
                 {(i === 0 || i === 1 || i === post.body.length - 1) && <h2 className="mb-3 font-display text-xl font-semibold text-olive-900">{i === 0 ? headings[0] : i === post.body.length - 1 && post.body.length > 2 ? headings[2] : headings[1]}</h2>}
@@ -87,7 +82,7 @@ export default async function PostPage({ params }: Props) {
               </section>
             ))}
             {!!post.highlights?.length && (
-              <div className="mt-10 rounded-[var(--radius-card)] bg-sand-300 p-7">
+              <div className="mt-8 rounded-2xl border border-olive-900/10 bg-sand-300 p-5 sm:p-6">
                 <h2 className="font-display text-xl font-semibold text-olive-900">{historical || activity ? "Puntos destacados" : "Alcance del trabajo"}</h2>
                 <ul className="mt-4 space-y-3 text-base">
                   {post.highlights?.map((h) => (
@@ -100,12 +95,13 @@ export default async function PostPage({ params }: Props) {
               </div>
             )}
           </div>
-          {post.images.length > 1 && <section className="mt-10" aria-label="Registro fotográfico"><h2 className="mb-5 font-display text-xl font-semibold text-olive-900">Registro fotográfico</h2><div className="grid gap-5 sm:grid-cols-2">{post.images.slice(1).map((url, index) => <div key={url} className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand"><Image src={url} unoptimized={url.startsWith("/api/media/")} alt={`${post.title} — imagen ${index + 2}`} fill sizes="(min-width: 640px) 450px, 100vw" className="object-contain" /></div>)}</div></section>}
-          {!!videos.length && <section className="mt-12 space-y-6" aria-label="Videos de la actividad">{videos.map((id, index) => <YouTubeLite key={id} id={id} title={`${post.title} — video ${index + 1}`} />)}</section>}
-        </Container>
+          <div className="order-1 mx-auto w-full max-w-xl lg:order-2"><NewsPhotos images={post.images.length ? post.images : [post.image]} title={post.title} caption={post.imageCaption} /></div>
+          </div>
+          {!!videos.length && <section className="mt-8 grid gap-6 sm:grid-cols-2" aria-label="Videos de la actividad">{videos.map((id, index) => <YouTubeLite key={id} id={id} title={`${post.title} — video ${index + 1}`} />)}</section>}
+        </div>
       </article>
 
-      <section className="border-t border-sand py-16">
+      <section className="border-t border-sand py-10 sm:py-12">
         <Container>
           <h2 className="font-display text-2xl font-semibold text-olive-900">Otros proyectos</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

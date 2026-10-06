@@ -98,14 +98,14 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
 export function PostCard({ post }: { post: Post }) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] transition hover:-translate-y-1">
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden bg-olive-900">
         <Image
           src={post.image}
           unoptimized={post.image.startsWith("/api/media/")}
           alt=""
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className="object-contain transition duration-500"
         />
         <span className="absolute left-4 top-4 rounded-full bg-olive-950/85 px-3 py-1 text-xs font-medium text-khaki backdrop-blur">
           {post.category}

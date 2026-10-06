@@ -27,15 +27,15 @@ export default async function Home() {
           className="-z-10 object-cover opacity-45"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-950 via-olive-950/85 to-olive-950/30" aria-hidden />
-        <Container className="py-16 sm:py-20 lg:py-24">
+        <Container className="py-10 sm:py-12 lg:py-14">
           <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
-          <h1 className="mt-6 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-tight text-cream text-balance sm:text-6xl lg:text-7xl">
+          <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-cream text-balance sm:text-5xl lg:text-[3.5rem]">
             Servicios mineros y mantención de caminos en <span className="text-khaki">Atacama</span>.
           </h1>
-          <p className="text-body mt-6 max-w-xl text-lg leading-relaxed text-cream/80">
+          <p className="text-body mt-4 max-w-2xl text-base leading-relaxed text-cream/80 sm:text-lg">
             Obras civiles, movimiento de tierra, caminos, maquinaria y abastecimiento, con coordinación local para responder a las necesidades de tu operación.
           </p>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/contacto">Cotizar proyecto</ButtonLink>
             <ButtonLink href="/servicios" variant="ghost">
               Nuestros servicios

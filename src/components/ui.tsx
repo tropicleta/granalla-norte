@@ -84,12 +84,12 @@ export function Arrow({ className = "size-4" }: { className?: string }) {
 export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
   return (
     <section className="brand-pattern relative overflow-hidden bg-olive-900">
-      <Container className="py-12 sm:py-16">
+      <Container className="py-10 sm:py-12">
         <Eyebrow dark>{eyebrow}</Eyebrow>
-        <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-cream text-balance sm:text-6xl">
+        <h1 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight text-cream text-balance sm:text-4xl lg:text-5xl">
           {title}
         </h1>
-        <p className="text-body mt-6 max-w-2xl text-lg leading-relaxed text-cream/75">{intro}</p>
+        <p className="text-body mt-4 max-w-2xl text-base leading-relaxed text-cream/75 sm:text-lg">{intro}</p>
       </Container>
     </section>
   );

@@ -107,6 +107,7 @@ export type Post = {
   client?: string;
   category: string;
   image: string;
+  imageCaption?: string;
   excerpt: string;
   body: string[];
   highlights?: string[];

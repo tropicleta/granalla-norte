@@ -1,7 +1,7 @@
 import type { Post } from "./site";
 import { normalizeCategory } from "./news-categories";
 
-export type Article = Post & { status: "draft" | "published"; images: string[]; updatedAt: string };
+export type Article = Post & { status: "draft" | "published"; images: string[]; updatedAt: string; editorialRevision?: string };
 export type InboxMessage = {
   id: string; nombre: string; empresa: string; email: string; telefono: string;
   servicio: string; mensaje: string; createdAt: string; status: "new" | "read" | "archived";
@@ -43,6 +43,7 @@ export function parseArticle(value: unknown): Article {
     location: text(input.location, "la ubicación", 200), client: text(input.client ?? "", "el mandante", 200),
     category, status: input.status,
     images: [...new Set(input.images)], image: input.images[0] || "", body,
+    imageCaption: text(input.imageCaption ?? "", "el pie de la portada", 500),
     highlights: highlights.map(p => text(p, "el punto destacado", 500)).filter(Boolean), updatedAt: new Date().toISOString(),
   };
 }

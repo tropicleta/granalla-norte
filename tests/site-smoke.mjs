@@ -24,7 +24,7 @@ try {
   const pages = new Map();
   const anchors = [];
   for (const path of paths) {
-    const response = await fetch(origin + path);
+    const response = await fetch(origin + path).catch(error => { throw new Error(`Failed to load ${path}`, { cause: error }); });
     assert.equal(response.status, 200, path);
     const html = await response.text(); pages.set(path, html);
     assert.ok(html.includes("Granalla Norte"), `Content renders: ${path}`);
@@ -51,13 +51,14 @@ try {
     assert.equal((await fetch(new URL(response.headers.get("location"),origin))).status,200);
   }
   const recovered = JSON.parse(await readFile(new URL("../src/lib/recovered-news.json", import.meta.url), "utf8"));
+  const editorial = JSON.parse(await readFile(new URL("../src/lib/news-editorial.json", import.meta.url), "utf8"));
   for (const post of recovered) {
     const response = await fetch(origin + "/" + (post.legacySlug || post.slug), { redirect: "manual" });
     assert.equal(response.status, 308);
     const page = await fetch(new URL(response.headers.get("location"), origin));
     assert.equal(page.status, 200);
     const html = await page.text();
-    assert.ok(html.includes(post.title));
+    assert.ok(html.includes(editorial[post.slug]?.title ?? post.title));
     for (const video of post.videos || []) assert.ok(html.includes(video), "Original videos remain available");
   }
   assert.equal((await fetch(origin + "/noticias/mejora-sede-social-hermanos-carrizos")).status, 404);

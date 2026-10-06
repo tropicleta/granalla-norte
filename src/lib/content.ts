@@ -5,6 +5,7 @@ import { readJson, writeJson, storageConfigured } from "./content-storage";
 import { createHash } from "node:crypto";
 import recoveredNews from "./recovered-news.json";
 import recoveredDraft from "./recovered-draft.json";
+import { NEWS_EDITORIAL_REVISION, withEditorialNews } from "./news-editorial";
 
 const original: Article[] = posts.map(p => ({ ...p, images: [p.image], status: "published", updatedAt: `${p.date}T12:00:00.000Z` }));
 const recoveredSlugs = new Set(recoveredNews.map(p => p.slug));
@@ -15,12 +16,13 @@ function withRecovered(articles: Article[]) {
   return [...articles, ...recovered.filter(p => !known.has(p.slug))];
 }
 export async function catalog() {
-  if (!storageConfigured()) return { articles: withRecovered(original), version: "initial", configured: false };
+  if (!storageConfigured()) return { articles: withEditorialNews(withRecovered(original)), version: "initial", configured: false };
   const stored = await readJson<Article[]>("articles.json");
-  return { articles: withRecovered(stored?.value ?? original), version: stored?.etag ?? "initial", configured: true };
+  return { articles: withEditorialNews(withRecovered(stored?.value ?? original)), version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedArticles = cache(async () => (await catalog()).articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date)));
 export async function saveArticle(article: Article, version: string, create: boolean) {
+  article = { ...article, editorialRevision: NEWS_EDITORIAL_REVISION };
   const current = await catalog();
   if (current.version !== version) throw new ContentError("Otra sesión guardó cambios. Actualiza la lista antes de guardar.", 409);
   const exists = current.articles.some(p => p.slug === article.slug);

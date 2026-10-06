@@ -108,7 +108,7 @@ export default async function Home() {
       </section>
 
       {/* NOSOTROS + VIDEO */}
-      <section className="topo bg-olive-900 py-12 sm:py-16">
+      <section className="brand-pattern bg-olive-900 py-12 sm:py-16">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionTitle

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="224" viewBox="0 0 360 224">
+  <!-- Geometría de soles y cerros inspirada en la papelería de Granalla Norte. -->
+  <g fill="#b6b66e" opacity=".075">
+    <g id="sol">
+      <circle cx="90" cy="38" r="13"/>
+      <path d="M85 15 81 0h18l-4 15zM68 24 41 5l13-10 24 21zM67 39 39 32v17l28-7zM112 24l27-19-13-10-24 21zM113 39l28-7v17l-28-7z"/>
+    </g>
+    <use href="#sol" x="180"/>
+    <path d="M0 151h360v12H0zM0 176h360v12H0zM0 201h360v12H0z"/>
+  </g>
+  <g fill="none" stroke="#b6b66e" stroke-width="13" stroke-linejoin="round" opacity=".075">
+    <path d="m-90 139 90-90 90 90 90-90 90 90 90-90 90 90"/>
+    <path d="m-60 139 60-60 60 60m60 0 60-60 60 60m60 0 60-60 60 60"/>
+    <path d="m-30 139 30-30 30 30m120 0 30-30 30 30m120 0 30-30 30 30"/>
+  </g>
+</svg>

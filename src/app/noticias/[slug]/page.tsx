@@ -37,7 +37,7 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       <article>
-        <header className="topo bg-olive-900">
+        <header className="brand-pattern bg-olive-900">
           <Container className="py-16 sm:py-20">
             <Link href="/noticias" className="text-sm font-medium text-khaki hover:underline">
               ← Proyectos y noticias

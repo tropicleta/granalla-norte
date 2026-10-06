@@ -52,9 +52,12 @@ body {
   color: var(--color-olive-950);
 }
 
-/* Textura topográfica sutil para secciones oscuras */
-.topo {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23b6b66e' stroke-opacity='.09' stroke-width='1'%3E%3Cpath d='M0 60c40-20 80 20 120 0s80-20 120 0'/%3E%3Cpath d='M0 100c40-20 80 20 120 0s80-20 120 0'/%3E%3Cpath d='M0 140c40-20 80 20 120 0s80-20 120 0'/%3E%3Cpath d='M0 180c40-20 80 20 120 0s80-20 120 0'/%3E%3Cpath d='M0 20c40-20 80 20 120 0s80-20 120 0'/%3E%3Cpath d='M0 220c40-20 80 20 120 0s80-20 120 0'/%3E%3C/g%3E%3C/svg%3E");
+/* Soles, cerros y franjas de la identidad gráfica de Granalla Norte. */
+.brand-pattern {
+  background-image: url("/img/patron-granalla.svg");
+  background-size: 360px 224px;
+  background-repeat: repeat;
+  background-position: center top;
 }
 
 /* Franja geométrica inspirada en el patrón andino del footer original */

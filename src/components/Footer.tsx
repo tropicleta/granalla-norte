@@ -5,7 +5,7 @@ import { servicePath } from "@/lib/service-details";
 
 export function Footer() {
   return (
-    <footer className="topo bg-olive-950 text-cream/80">
+    <footer className="brand-pattern bg-olive-950 text-cream/80">
       <div className="chevron h-2 opacity-60" aria-hidden />
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-10 sm:px-6 md:grid-cols-12 lg:px-8">
         <div className="md:col-span-5">

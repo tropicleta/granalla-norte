@@ -55,7 +55,7 @@ body {
 /* Soles, cerros y franjas de la identidad gráfica de Granalla Norte. */
 .brand-pattern {
   background-image: url("/img/patron-granalla.svg");
-  background-size: 360px 224px;
+  background-size: 360px 293px;
   background-repeat: repeat;
   background-position: center top;
 }

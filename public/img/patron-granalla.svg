@@ -1,16 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="224" viewBox="0 0 360 224">
-  <!-- Geometría de soles y cerros inspirada en la papelería de Granalla Norte. -->
-  <g fill="#b6b66e" opacity=".075">
-    <g id="sol">
-      <circle cx="90" cy="38" r="14"/>
-      <path d="M85 15 81 0h18l-4 15zM68 24 41 5l13-10 24 21zM67 39 39 32v17l28-7zM112 24l27-19-13-10-24 21zM113 39l28-7v17l-28-7z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="884" height="720" viewBox="0 0 884 720">
+  <!-- Proporciones y alternancia trazadas desde la referencia de papelería de Granalla Norte. -->
+  <defs>
+    <g id="cerro-bajo">
+      <path d="M-134 435 111 192Q134 170 157 192L402 435H302L155 294Q134 272 113 294L-34 435Z"/>
+      <path d="M8 435 111 335Q134 314 157 335L260 435H159Q134 416 109 435Z"/>
     </g>
-    <use href="#sol" x="180"/>
-    <path d="M0 153h360v10H0zM0 178h360v10H0zM0 203h360v10H0z"/>
-  </g>
-  <g fill="none" stroke="#b6b66e" stroke-width="18" stroke-linejoin="round" opacity=".075">
-    <path d="M-90 139-9 58Q0 49 9 58L81 130Q90 139 99 130L171 58Q180 49 189 58L261 130Q270 139 279 130L351 58Q360 49 369 58L450 139"/>
-    <path d="M-56 139-8 91Q0 83 8 91L56 139M124 139l48-48q8-8 16 0l48 48M304 139l48-48q8-8 16 0l48 48"/>
-    <path stroke-width="15" d="M-24 139-6 121Q0 115 6 121L24 139M156 139l18-18q6-6 12 0l18 18M336 139l18-18q6-6 12 0l18 18"/>
+    <g id="sol">
+      <circle cx="213" cy="145" r="44"/>
+      <path d="M32 17H106L170 92 155 107 32 30ZM198 17H288L249 85Q228 72 205 74ZM379 17H402L276 114 268 102ZM32 110 143 132Q140 142 143 153 110 149 82 180L32 194Z"/>
+    </g>
+  </defs>
+  <g fill="#b6b66e" opacity=".075">
+    <use href="#cerro-bajo"/>
+    <use href="#cerro-bajo" x="617"/>
+    <path d="M234 226 415 42Q442 19 469 42L652 226 602 276 466 141Q442 122 418 141L284 276Z"/>
+    <path d="M306 297 419 185Q442 163 465 185L581 297 532 346 465 284Q442 264 419 284L356 346Z"/>
+    <path d="M377 368 419 326Q442 305 465 326L510 368 466 412Q442 394 420 412Z"/>
+    <use href="#sol"/>
+    <g transform="translate(886 0) scale(-1 1)"><use href="#sol"/></g>
+    <path d="M0 462H884V534H0ZM0 564H884V636H0ZM0 665H884V720H0Z"/>
   </g>
 </svg>

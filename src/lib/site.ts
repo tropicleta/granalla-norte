@@ -11,7 +11,7 @@ export const site = {
   tagline: "Capacidad local para ejecutar, abastecer y responder en terreno",
   description:
     "Granalla Norte integra obras civiles, movimiento de tierra, mantención de caminos, arriendo de maquinaria, suministro y monitoreo de tronaduras en Tierra Amarilla y Atacama.",
-  email: "granalla.norte@gmail.com",
+  email: "contacto@granallanorte.cl",
   phone: "",
   phoneDisplay: "",
   whatsapp: "",

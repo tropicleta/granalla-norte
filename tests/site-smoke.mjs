@@ -28,6 +28,8 @@ try {
     assert.equal(response.status, 200, path);
     const html = await response.text(); pages.set(path, html);
     assert.ok(html.includes("Granalla Norte"), `Content renders: ${path}`);
+    assert.ok(html.includes('mailto:contacto@granallanorte.cl'), `Corporate contact email: ${path}`);
+    assert.ok(!/granalla\.?norte@gmail\.com/i.test(html), `No old Gmail contact: ${path}`);
     for (const match of html.matchAll(/href="([^"\s]+)"/g)) {
       const href = match[1].replaceAll("&amp;", "&");
       if (!href.startsWith("/") || href.startsWith("//") || href.startsWith("/_next") || href.startsWith("/admin")) continue;

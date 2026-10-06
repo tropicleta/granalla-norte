@@ -83,7 +83,7 @@ export default async function PostPage({ params }: Props) {
             ))}
             {!!post.highlights?.length && (
               <div className="mt-8 rounded-2xl border border-olive-900/10 bg-sand-300 p-5 sm:p-6">
-                <h2 className="font-display text-xl font-semibold text-olive-900">{historical || activity ? "Puntos destacados" : "Alcance del trabajo"}</h2>
+                <h2 className="font-display text-xl font-semibold text-olive-900">Trabajos realizados</h2>
                 <ul className="mt-4 space-y-3 text-base">
                   {post.highlights?.map((h) => (
                     <li key={h} className="text-body flex gap-3">

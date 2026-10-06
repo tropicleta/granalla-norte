@@ -4,7 +4,7 @@ Se revisaron los siete informes completos y las diez noticias públicas existent
 
 ## Formato común
 
-Título directo, resumen breve, fecha del registro, ubicación y mandante cuando consta; portada, contexto, desarrollo, resultado comprobado, alcance destacado y registro fotográfico cuando existe. Cuerpos justificados. Los eventos y suministros conservan el mismo orden con encabezados adecuados a su contenido. No se amplían noticias breves con hechos inventados.
+Título directo, resumen breve, fecha del registro, ubicación y mandante cuando consta; contexto, desarrollo, resultado comprobado, listado de trabajos realizados y galería fotográfica cuando existe. Cuerpos justificados. Los eventos y suministros conservan el mismo orden con encabezados adecuados a su contenido. El listado se conserva y su título se cambió a «Trabajos realizados» a petición de la empresa. No se amplían noticias breves con hechos inventados.
 
 Se excluyen montos, impuestos, órdenes de compra, estados de pago, datos de responsables, teléfonos particulares, firmas, autorizaciones de ingreso, detalles de proveedores y condiciones de garantía. No se publican los PDF originales ni fotografías de actas o anexos personales.
 

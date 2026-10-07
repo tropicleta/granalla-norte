@@ -89,11 +89,11 @@ export const services: ServiceLine[] = [
     kicker: "04 · Monitoreo",
     title: "Monitoreo de tronaduras",
     summary:
-      "Equipos, instalación, monitoreo, análisis e informes técnicos para acompañar las operaciones mineras.",
+      "Monitoreos de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos para operaciones mineras.",
     image: site.images.consulting,
     items: [
       { name: "Equipos e instalación", detail: "Coordinación de equipos y puntos de medición según el requerimiento." },
-      { name: "Monitoreo y análisis", detail: "Registro y análisis de vibraciones asociadas a las tronaduras." },
+      { name: "Monitoreo y análisis", detail: "Registro y análisis de vibraciones de tronaduras en campo cercano y campo lejano." },
       { name: "Informes técnicos", detail: "Seguimiento y entrega de antecedentes técnicos de las mediciones." },
     ],
   },

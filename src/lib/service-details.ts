@@ -98,10 +98,10 @@ export const serviceDetails: ServiceDetail[] = [
     "serviceSlug": "asesorias",
     "slug": "monitoreo-de-tronaduras",
     "title": "Monitoreo de tronaduras en Atacama",
-    "description": "Equipos, instalación, monitoreo, análisis e informes técnicos de tronaduras para operaciones y proyectos mineros en Atacama.",
-    "intro": "Equipos, instalación, monitoreo, análisis e informes técnicos para requerimientos de tronaduras en operaciones y proyectos mineros de Atacama.",
+    "description": "Monitoreos de tronaduras de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos para operaciones mineras en Atacama.",
+    "intro": "Realizamos monitoreos de tronaduras de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos para operaciones y proyectos mineros de Atacama.",
     "problem": "El seguimiento de las vibraciones de una tronadura requiere coordinar equipos, instalación y registros de medición según los objetivos y condiciones de la operación.",
-    "scope": "Coordinación de equipos e instalación, monitoreo en terreno, análisis de las mediciones y elaboración de informes técnicos. Definimos los puntos de medición, el alcance y la programación con el cliente antes de ejecutar el trabajo.",
+    "scope": "Coordinación de equipos e instalación, monitoreo en terreno de campo cercano y campo lejano, análisis de las mediciones y elaboración de informes técnicos. Definimos los puntos de medición, el alcance y la programación con el cliente antes de ejecutar el trabajo.",
     "quote": [
       "Ubicación y objetivo del monitoreo.",
       "Programación y cantidad estimada de eventos.",
@@ -111,7 +111,7 @@ export const serviceDetails: ServiceDetail[] = [
     "questions": [
       {
         "question": "¿Qué contempla el monitoreo?",
-        "answer": "Equipos, instalación, monitoreo, análisis e informes técnicos. El alcance se coordina según el requerimiento de la operación."
+        "answer": "Monitoreos de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos. El alcance se coordina según el requerimiento de la operación."
       },
       {
         "question": "¿Cómo se programa el trabajo?",

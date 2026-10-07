@@ -7,11 +7,20 @@ async function page(path) {
   return (await response.text()).split("<main")[1].split("</main>")[0];
 }
 const listing = await page("/servicios");
+assert.ok(listing.includes("Mantención integral de caminos"));
+assert.ok(!listing.includes('href="/servicios/mantencion-de-caminos"'));
+for (const [legacy, current] of [["/servicios/mantencion-de-caminos", "/servicios/mantencion-integral-de-caminos"], ["/noticias?rubro=mantencion-de-caminos", "/noticias?rubro=mantencion-integral-de-caminos"]]) {
+  const response = await fetch(origin + legacy, { redirect: "manual" });
+  assert.equal(response.status, 308, legacy);
+  const destination = new URL(response.headers.get("location"), origin);
+  assert.equal(destination.pathname + destination.search, current);
+  assert.equal((await fetch(destination)).status, 200);
+}
 assert.equal((listing.match(/También puedes arrendar equipos/g) || []).length, 3);
-for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales", "asesorias"]) {
+for (const slug of ["obras-civiles", "mantencion-integral-de-caminos", "minerales", "asesorias"]) {
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
 }
-for (const slug of ["obras-civiles", "mantencion-de-caminos", "minerales"]) {
+for (const slug of ["obras-civiles", "mantencion-integral-de-caminos", "minerales"]) {
   const html = await page(`/servicios/${slug === "minerales" ? "minerales-no-metalicos" : slug}`);
   assert.ok(html.includes("Arriendo de maquinaria"));
   assert.ok(html.includes('href="/maquinaria"'));
@@ -27,7 +36,7 @@ assert.ok(!supply.includes("mejora-escuela-paul-harris"));
 const civil = await page("/noticias?rubro=obras-civiles");
 assert.ok(civil.includes("mejora-escuela-paul-harris"));
 assert.ok(!civil.includes("monitoreo-vibraciones-primer-semestre-2024"));
-const roads = await page("/noticias?rubro=mantencion-de-caminos");
+const roads = await page("/noticias?rubro=mantencion-integral-de-caminos");
 assert.ok(roads.includes("Aún no hay publicaciones de este rubro"));
 assert.equal((roads.match(/<article /g) || []).length, 0);
 const unknown = await page("/noticias?rubro=inexistente");

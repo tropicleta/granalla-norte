@@ -6,10 +6,10 @@ import { services, site } from "@/lib/site";
 import { storageConfigured } from "@/lib/content-storage";
 
 export const dynamic = "force-dynamic";
-export const metadata = pageMetadata("/contacto", "Cotizar servicios mineros y obras en Atacama", "Cotiza mantención de caminos, arriendo de maquinaria, minerales, monitoreo de tronaduras y obras civiles en Atacama con Granalla Norte.");
+export const metadata = pageMetadata("/contacto", "Cotizar servicios mineros y obras en Atacama", "Cotiza mantención integral de caminos, arriendo de maquinaria, minerales, monitoreo de tronaduras y obras civiles en Atacama con Granalla Norte.");
 export default function ContactoPage() {
   return <>
-    <PageHero eyebrow="Contacto" title="Conversemos sobre tu proyecto" intro="Mantención de caminos, maquinaria, suministros, asesoría u obras: cuéntanos qué necesitas y coordinemos una solución para tu proyecto." />
+    <PageHero eyebrow="Contacto" title="Conversemos sobre tu proyecto" intro="Mantención integral de caminos, maquinaria, suministros, asesoría u obras: cuéntanos qué necesitas y coordinemos una solución para tu proyecto." />
     <section className="bg-sand-300 py-10 sm:py-12">
       <Container className="grid items-start gap-6 lg:grid-cols-[0.85fr_1.4fr]">
         <aside className="rounded-[var(--radius-card)] bg-olive-800 p-6 text-cream sm:p-8">

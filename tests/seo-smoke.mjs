@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 const origin = process.argv[2] || "http://localhost:3000";
 const domain = "https://www.granallanorte.cl";
-const services = ["mantencion-de-caminos", "minerales-no-metalicos", "monitoreo-de-tronaduras", "obras-civiles"];
+const services = ["mantencion-integral-de-caminos", "minerales-no-metalicos", "monitoreo-de-tronaduras", "obras-civiles"];
 const paths = ["/", "/servicios", "/maquinaria", "/equipos-monitoreo", "/nosotros", "/contacto", "/noticias", ...services.map(slug => `/servicios/${slug}`)];
 const sitemapResponse = await fetch(`${origin}/sitemap.xml`);
 assert.equal(sitemapResponse.status, 200);

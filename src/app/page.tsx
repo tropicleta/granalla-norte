@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
 import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
 
-export const metadata = pageMetadata("", "Servicios mineros y mantención de caminos en Atacama", site.description);
+export const metadata = pageMetadata("", "Servicios mineros y mantención integral de caminos en Atacama", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
@@ -30,7 +30,7 @@ export default async function Home() {
         <Container className="py-10 sm:py-12 lg:py-14">
           <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
           <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-cream text-balance sm:text-5xl lg:text-[3.5rem]">
-            Servicios mineros y mantención de caminos en <span className="text-khaki">Atacama</span>.
+            Servicios mineros y mantención integral de caminos en <span className="text-khaki">Atacama</span>.
           </h1>
           <p className="text-body mt-4 max-w-2xl text-base leading-relaxed text-cream/80 sm:text-lg">
             Obras civiles, movimiento de tierra, caminos, maquinaria y abastecimiento, con coordinación local para responder a las necesidades de tu operación.
@@ -95,7 +95,7 @@ export default async function Home() {
                   </ul>
                   <div className="mt-auto space-y-3 pt-6">
                     <Link href={servicePath(s.slug)} className="inline-flex items-center gap-1 text-sm font-semibold text-khaki hover:underline">Conocer más <Arrow /></Link>
-                    {["obras-civiles", "mantencion-de-caminos", "minerales"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
+                    {["obras-civiles", "mantencion-integral-de-caminos", "minerales"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
                     {s.slug === "asesorias" && <Link href="/equipos-monitoreo" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de equipos <Arrow /></Link>}
                     <Link href={sectorProjectsPath(s.slug)} className="block rounded-xl border border-white/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"><span className="block text-xs text-khaki">Experiencia en {projectSectors.find(item => item.slug === s.slug)?.label.toLowerCase()}</span><span className="mt-1 flex items-center justify-between gap-2 text-sm font-semibold text-cream">Ver proyectos y noticias <Arrow /></span></Link>
                   </div>

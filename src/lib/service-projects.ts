@@ -3,7 +3,7 @@ import { categoryKey } from "./news-categories";
 
 export const projectSectors = [
   { slug: "obras-civiles", label: "Obras civiles", categories: ["Obras civiles", "Movimiento de tierra"] },
-  { slug: "mantencion-de-caminos", label: "Caminos", categories: ["Caminos", "Mantención de caminos"] },
+  { slug: "mantencion-integral-de-caminos", label: "Mantención integral de caminos", categories: ["Caminos", "Mantención integral de caminos", "Mantención de caminos"] },
   { slug: "minerales", label: "Abastecimiento", categories: ["Minerales", "Abastecimiento", "Suministro y abastecimiento"] },
   { slug: "asesorias", label: "Monitoreo", categories: ["Monitoreo", "Monitoreo de tronaduras"] },
 ] as const;

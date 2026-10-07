@@ -10,7 +10,7 @@ export const site = {
   url: "https://www.granallanorte.cl",
   tagline: "Capacidad local para ejecutar, abastecer y responder en terreno",
   description:
-    "Granalla Norte integra obras civiles, movimiento de tierra, mantención de caminos, arriendo de maquinaria, suministro y monitoreo de tronaduras en Tierra Amarilla y Atacama.",
+    "Granalla Norte integra obras civiles, movimiento de tierra, mantención integral de caminos, arriendo de maquinaria, suministro y monitoreo de tronaduras en Tierra Amarilla y Atacama.",
   email: "contacto@granallanorte.cl",
   phone: "",
   phoneDisplay: "",
@@ -59,9 +59,9 @@ export const services: ServiceLine[] = [
     ],
   },
   {
-    slug: "mantencion-de-caminos",
+    slug: "mantencion-integral-de-caminos",
     kicker: "02 · Caminos",
-    title: "Mantención de caminos",
+    title: "Mantención integral de caminos",
     summary: "Habilitación y conservación de caminos: perfilado, nivelación, conformación, compactación y humectación según terreno y tránsito.",
     image: "/img/brochure/caminos.jpg",
     items: [

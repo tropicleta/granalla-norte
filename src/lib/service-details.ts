@@ -41,10 +41,10 @@ export const serviceDetails: ServiceDetail[] = [
     ]
   },
   {
-    "serviceSlug": "mantencion-de-caminos",
-    "slug": "mantencion-de-caminos",
-    "title": "Mantención de caminos mineros en Atacama",
-    "description": "Habilitación y mantención de caminos en Atacama: perfilado, nivelación, compactación, humectación y control de polvo con maquinaria coordinada.",
+    "serviceSlug": "mantencion-integral-de-caminos",
+    "slug": "mantencion-integral-de-caminos",
+    "title": "Mantención integral de caminos mineros en Atacama",
+    "description": "Habilitación y mantención integral de caminos en Atacama: perfilado, nivelación, compactación, humectación y control de polvo con maquinaria coordinada.",
     "intro": "Habilitación, mantención y conservación de caminos según terreno, tránsito y condiciones operacionales. Coordinamos maquinaria, suministros y ejecución en Tierra Amarilla y Atacama.",
     "problem": "Las irregularidades de superficie y el polvo afectan el tránsito de faena. Evaluamos las condiciones del terreno, los accesos y el frente de trabajo para coordinar los recursos de cada intervención.",
     "scope": "Perfilado, nivelación, conformación, compactación y humectación de caminos. El brochure contempla motoniveladora RG200B año 2021, rodillo New Holland V110 año 2024 y camiones aljibe de 15 y 30 m³. La combinación y asignación de equipos se define según alcance y programación.",

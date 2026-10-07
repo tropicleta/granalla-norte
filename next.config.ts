@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     // Mantiene el SEO de las URLs del sitio anterior.
     return [
+      { source: "/servicios/mantencion-de-caminos", destination: "/servicios/mantencion-integral-de-caminos", permanent: true },
+      { source: "/noticias", has: [{ type: "query", key: "rubro", value: "mantencion-de-caminos" }], destination: "/noticias?rubro=mantencion-integral-de-caminos", permanent: true },
       ...recoveredNews.map(post => ({ source: `/${"legacySlug" in post ? post.legacySlug : post.slug}`, destination: `/noticias/${post.slug}`, permanent: true })),
       { source: "/granalla-norte", destination: "/nosotros", permanent: true },
       { source: "/-granlla-norte-presente-en-la-expo-forede-2025-", destination: "/noticias/expo-forede-2025", permanent: true },

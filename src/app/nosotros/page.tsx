@@ -59,8 +59,8 @@ export default function NosotrosPage() {
           <SectionTitle eyebrow="Cómo resolvemos" title="Recursos coordinados para responder en terreno" />
           <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
-              ["Requerimiento", "Definimos la necesidad."],
-              ["Evaluación", "Revisamos condiciones y recursos."],
+              ["Requerimiento", "Definimos con el cliente la necesidad, el alcance, los plazos y los requisitos técnicos y de seguridad de su operación."],
+              ["Evaluación", "Revisamos el terreno, los accesos y las condiciones de trabajo para determinar los recursos, la maquinaria y los materiales necesarios."],
               ["Coordinación", "Organizamos maquinaria, suministro y logística con apoyo local según el proyecto."],
               ["Ejecución", "Ejecutamos con eficiencia, en los plazos definidos y con foco en la seguridad operacional, buscando cero accidentes."],
               ["Seguimiento", "Seguimos los trabajos y resultados, verificamos el cumplimiento y los estándares de calidad, y coordinamos ajustes ante cambios."],

@@ -70,8 +70,8 @@ export const serviceDetails: ServiceDetail[] = [
     "projectCategories": []
   },
   {
-    "serviceSlug": "minerales",
-    "slug": "minerales-no-metalicos",
+    "serviceSlug": "suministro-y-abastecimiento",
+    "slug": "suministro-y-abastecimiento",
     "title": "Suministro y abastecimiento en Atacama",
     "searchTitle": "Cloruro de sodio y áridos en Atacama",
     "description": "Suministro de sílice de cuarzo, arena, gravilla, estabilizado y cloruro de sodio en Atacama, con logística coordinada según cada proyecto.",
@@ -99,7 +99,7 @@ export const serviceDetails: ServiceDetail[] = [
     ]
   },
   {
-    "serviceSlug": "asesorias",
+    "serviceSlug": "monitoreo-de-tronaduras",
     "slug": "monitoreo-de-tronaduras",
     "title": "Monitoreo de tronaduras en Atacama",
     "searchTitle": "Monitoreo de tronaduras y vibraciones en Atacama",

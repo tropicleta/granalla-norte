@@ -22,6 +22,8 @@ export default async function ServiciosPage() {
     <Container className="space-y-6 py-10 sm:space-y-8 sm:py-12">
       {services.map((s, idx) => <section key={s.slug} id={s.slug} aria-labelledby={`titulo-${s.slug}`} className="scroll-mt-40 overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream shadow-[var(--shadow-card)]">
         {s.slug === "mantencion-integral-de-caminos" && <span id="mantencion-de-caminos" className="block scroll-mt-40" aria-hidden />}
+        {s.slug === "suministro-y-abastecimiento" && <span id="minerales" className="block scroll-mt-40" aria-hidden />}
+        {s.slug === "monitoreo-de-tronaduras" && <span id="asesorias" className="block scroll-mt-40" aria-hidden />}
         <div className="p-6 sm:p-8">
           <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
             <div className={idx % 2 ? "lg:order-2" : ""}>

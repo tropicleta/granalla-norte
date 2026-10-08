@@ -30,13 +30,15 @@ Son objetivos editoriales, no datos de volumen de búsqueda ni posiciones medida
 | Página | Necesidad del cliente |
 | --- | --- |
 | `/servicios/mantencion-integral-de-caminos` | Mantención de caminos mineros en Atacama, reparación de accesos, nivelación y control de polvo |
-| `/servicios/minerales-no-metalicos` | Compra de cloruro de sodio, arena, gravilla, sílice de cuarzo y estabilizado en Atacama |
+| `/servicios/suministro-y-abastecimiento` | Compra de cloruro de sodio, arena, gravilla, sílice de cuarzo y estabilizado en Atacama |
 | `/servicios/monitoreo-de-tronaduras` | Monitoreo de vibraciones por tronaduras y asesoría minera en Atacama |
 | `/servicios/obras-civiles` | Obras civiles y mejoras comunitarias en Tierra Amarilla y Copiapó |
 | `/maquinaria` | Consulta de arriendo de maquinaria para caminos en Atacama |
 | `/equipos-monitoreo` | Arriendo de geófonos y sismógrafos Instantel en Atacama |
 
 ## Activación pendiente: conectar Google
+
+Migración de URLs: abastecimiento usa `/servicios/suministro-y-abastecimiento`; los filtros de proyectos usan `suministro-y-abastecimiento` y `monitoreo-de-tronaduras`. Las rutas antiguas redirigen de forma permanente y las anclas antiguas siguen funcionando. El sitemap y las canónicas se generan con la URL vigente. En Search Console, inspeccionar la nueva URL de abastecimiento; no es necesario borrar las antiguas del índice manualmente.
 
 1. La base está publicada en `https://www.granallanorte.cl`; las páginas, `/robots.txt` y `/sitemap.xml` pasaron la comprobación pública. Mantener esta comprobación después de cambios de dominio o alojamiento.
 2. Entrar con una cuenta de Google propiedad de la empresa a [Search Console](https://search.google.com/search-console). Crear la propiedad de dominio `granallanorte.cl` y añadir el registro TXT que Google entregue en el administrador DNS. No hay que cambiar registros de correo ni sustituir registros existentes. Esta verificación requiere acceso al dominio.

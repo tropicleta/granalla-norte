@@ -72,7 +72,7 @@ export const services: ServiceLine[] = [
     ],
   },
   {
-    slug: "minerales",
+    slug: "suministro-y-abastecimiento",
     kicker: "03 · Abastecimiento",
     title: "Suministro y abastecimiento",
     summary:
@@ -86,7 +86,7 @@ export const services: ServiceLine[] = [
     ],
   },
   {
-    slug: "asesorias",
+    slug: "monitoreo-de-tronaduras",
     kicker: "04 · Monitoreo",
     title: "Monitoreo de tronaduras",
     summary:

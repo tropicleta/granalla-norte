@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     // Mantiene el SEO de las URLs del sitio anterior.
     return [
+      { source: "/servicios/minerales-no-metalicos", destination: "/servicios/suministro-y-abastecimiento", permanent: true },
+      { source: "/servicios/minerales", destination: "/servicios/suministro-y-abastecimiento", permanent: true },
+      { source: "/servicios/asesorias", destination: "/servicios/monitoreo-de-tronaduras", permanent: true },
+      { source: "/noticias", has: [{ type: "query", key: "rubro", value: "minerales" }], destination: "/noticias?rubro=suministro-y-abastecimiento", permanent: true },
+      { source: "/noticias", has: [{ type: "query", key: "rubro", value: "asesorias" }], destination: "/noticias?rubro=monitoreo-de-tronaduras", permanent: true },
       { source: "/servicios/mantencion-de-caminos", destination: "/servicios/mantencion-integral-de-caminos", permanent: true },
       { source: "/noticias", has: [{ type: "query", key: "rubro", value: "mantencion-de-caminos" }], destination: "/noticias?rubro=mantencion-integral-de-caminos", permanent: true },
       ...recoveredNews.map(post => ({ source: `/${"legacySlug" in post ? post.legacySlug : post.slug}`, destination: `/noticias/${post.slug}`, permanent: true })),

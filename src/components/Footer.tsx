@@ -20,6 +20,7 @@ export function Footer() {
           >
             {site.email}
           </a>
+          <a href={`tel:${site.phone}`} className="mt-3 block text-sm text-khaki underline-offset-4 hover:underline">{site.phoneDisplay}</a>
         </div>
 
         <div className="md:col-span-3">

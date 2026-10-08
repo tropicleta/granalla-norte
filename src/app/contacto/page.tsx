@@ -21,6 +21,8 @@ export default async function ContactoPage({ searchParams }: { searchParams: Pro
             <div><dt className="text-cream/65">Correo de contacto</dt><dd className="mt-2"><a href={`mailto:${site.email}`} className="break-all font-semibold text-khaki underline-offset-4 hover:underline">{site.email}</a></dd></div>
             <div><dt className="text-cream/65">Zona de operación</dt><dd className="mt-2 leading-relaxed">Tierra Amarilla, Copiapó y Región de Atacama</dd></div>
             {site.phone && <div><dt className="text-cream/65">Teléfono</dt><dd className="mt-2"><a href={`tel:${site.phone}`} className="text-khaki">{site.phoneDisplay}</a></dd></div>}
+            <div><dt className="text-cream/65">Horario de atención</dt><dd className="mt-2">{site.hoursDisplay}</dd></div>
+            <div><dt className="text-cream/65">Modalidad de atención</dt><dd className="mt-2 leading-relaxed">Atención por teléfono y correo; servicios en terreno. No recibimos clientes en oficina.</dd></div>
           </dl>
           <h3 className="mt-6 font-semibold">¿En qué podemos ayudarte?</h3>
           <ul className="mt-3 space-y-3 text-sm text-cream/85">{services.map(s => <li key={s.slug}><Link href={`/servicios#${s.slug}`} className="inline-flex gap-2 hover:text-khaki"><span aria-hidden className="text-khaki">↗</span>{s.title}</Link></li>)}</ul>

@@ -12,8 +12,9 @@ export const site = {
   description:
     "Mantención integral de caminos mineros y accesos en Atacama. Granalla Norte coordina maquinaria, materiales y ejecución para apoyar la continuidad operacional, con presencia en Tierra Amarilla.",
   email: "contacto@granallanorte.cl",
-  phone: "",
-  phoneDisplay: "",
+  phone: "+56983312335",
+  phoneDisplay: "+56 9 8331 2335",
+  hoursDisplay: "Lunes a viernes, de 08:00 a 17:00",
   whatsapp: "",
   address: "Tierra Amarilla, Región de Atacama, Chile",
   youtubeId: "h5RxcxaMmoc",

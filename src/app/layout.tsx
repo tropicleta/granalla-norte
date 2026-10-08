@@ -36,6 +36,12 @@ const jsonLd = {
   image: new URL(site.images.hero, site.url).href,
   description: site.description,
   areaServed: ["Tierra Amarilla", "Copiapó", "Región de Atacama"],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "17:00",
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Tierra Amarilla",

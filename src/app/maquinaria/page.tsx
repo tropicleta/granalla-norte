@@ -14,7 +14,7 @@ export default async function Page() {
   return <>
     <PageHero eyebrow="Capacidad operativa / Arriendo" title="Arriendo de maquinaria y equipos en Atacama" intro="Equipos para caminos, movimiento de tierra, transporte, humectación, izaje y apoyo operacional. La asignación se coordina según alcance, acceso, frente de trabajo y programación." />
     <Container className="py-10 sm:py-12">
-      <Link href="/servicios/mantencion-integral-de-caminos" className="text-sm font-semibold text-copper-600 underline underline-offset-4">← Mantención integral de caminos</Link>
+      <Link href="/servicios/mantencion-integral-de-caminos" className="text-sm font-semibold text-copper-600 underline underline-offset-4">← Mantención integral de caminos mineros</Link>
       {machines.some(m => m.demo) && <p className="text-body mt-6 rounded-xl border border-sand bg-sand-300 p-5 text-sm leading-relaxed text-olive-900">Estamos preparando nuestro catálogo. Los equipos marcados como «Ejemplo» son ilustrativos; sus fichas y disponibilidad se actualizarán con la información de la flota real.</p>}
       <p className="text-body mt-6 max-w-3xl leading-relaxed text-ink/75">Combinamos equipos para perfilado, nivelación, conformación, compactación, excavación, carguío y traslado de maquinaria. Consulta la disponibilidad para las fechas de tu proyecto.</p>
       <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">{machines.map(m => {

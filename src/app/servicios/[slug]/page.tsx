@@ -56,10 +56,22 @@ export default async function ServicePage({ params }: Props) {
           <aside className="mt-6 rounded-[var(--radius-card)] bg-sand-300 p-7">
             <h2 className="font-display text-2xl font-semibold text-olive-900">Datos para cotizar</h2>
             <ul className="my-5 list-disc space-y-3 pl-5 text-ink/80">{detail.quote.map(item => <li key={item}>{item}</li>)}</ul>
-            <ButtonLink href="/contacto">Consultar {service.title.toLowerCase()}</ButtonLink>
+            <ButtonLink href={service.slug === "mantencion-integral-de-caminos" ? "/contacto?servicio=caminos" : "/contacto"}>Cotizar {service.title.toLowerCase()}</ButtonLink>
           </aside>
         </div>
       </div>
+      {service.slug === "mantencion-integral-de-caminos" && <section className="mt-12 rounded-[var(--radius-card)] bg-olive-900 p-7 text-cream">
+        <h2 className="font-display text-3xl font-semibold">Una solución integrada para tu camino</h2>
+        <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["Evaluación", "Revisamos el estado del camino, el tránsito, los accesos y los requisitos del mandante."],
+            ["Coordinación", "Organizamos maquinaria, materiales y logística según alcance y disponibilidad."],
+            ["Ejecución", "Coordinamos perfilado, conformación, compactación y humectación con la programación de la faena."],
+            ["Seguimiento", "Revisamos el alcance ejecutado y coordinamos ajustes según las condiciones del terreno."],
+          ].map(([title, text], index) => <li key={title}><p className="text-sm text-khaki">0{index + 1}</p><h3 className="mt-2 font-semibold">{title}</h3><p className="mt-2 text-sm leading-relaxed text-cream/80">{text}</p></li>)}
+        </ol>
+        <p className="mt-6 border-t border-white/20 pt-5 text-sm leading-relaxed text-cream/80">La selección de materiales y cualquier aplicación de cloruro de sodio se evalúan según especificaciones técnicas, condiciones ambientales y requisitos del proyecto.</p>
+      </section>}
       <ServiceProjects serviceSlug={service.slug} articles={articles} />
       <section className="mt-14 max-w-3xl"><h2 className="font-display text-3xl font-semibold text-olive-900">Preguntas frecuentes</h2><div className="mt-6 divide-y divide-sand">{detail.questions.map(q => <div key={q.question} className="py-5"><h3 className="font-semibold text-olive-900">{q.question}</h3><p className="text-body mt-3 leading-relaxed text-ink/80">{q.answer}</p></div>)}</div></section>
       <nav aria-label="Otros servicios" className="mt-10 flex flex-wrap gap-4">{serviceDetails.filter(s => s.slug !== slug).map(s => <Link key={s.slug} href={`/servicios/${s.slug}`} className="text-sm font-semibold text-copper-600 underline underline-offset-4">{services.find(line => line.slug === s.serviceSlug)!.title}</Link>)}</nav>

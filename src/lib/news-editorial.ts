@@ -11,6 +11,10 @@ const monitoring = new Set(["monitores-comunitarios-segundo-semestre-2024", "mon
 export function withEditorialNews(articles: Article[]): Article[] {
   const known = new Set(articles.map(article => article.slug));
   const current = articles.map(article => {
+    // Correct the previous title in stored catalogs without replacing later edits.
+    if (article.slug === "poda-habilitacion-sector-el-escorial" && article.title === "Realizamos poda y mejoramiento de sectores perimetrales en El Escorial") {
+      return { ...article, title: "Realizamos poda y mejoramiento de sectores perimetrales" };
+    }
     const calmRoom = projects.find(project => project.slug === "sala-de-la-calma-escuela-marta-aguilar-zeron");
     // Replace only the known archive placeholder, including catalogs already
     // saved in storage. Preserve the status, body and any later custom photos.

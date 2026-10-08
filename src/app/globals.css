@@ -40,8 +40,15 @@ body {
 .text-body {
   text-align: justify;
   text-align-last: left;
-  hyphens: auto;
+  hyphens: none;
+  word-break: normal;
   overflow-wrap: break-word;
+}
+
+/* En pantallas estrechas, el texto alineado a la izquierda evita espacios
+   excesivos y permite distribuir las palabras completas entre líneas. */
+@media (max-width: 639px) {
+  .text-body { text-align: left; }
 }
 
 .contact-form label { color: var(--color-cream); }

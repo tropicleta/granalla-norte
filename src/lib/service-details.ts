@@ -45,14 +45,14 @@ export const serviceDetails: ServiceDetail[] = [
     "slug": "mantencion-integral-de-caminos",
     "title": "Mantención integral de caminos mineros en Atacama",
     "description": "Habilitación y mantención integral de caminos en Atacama: perfilado, nivelación, compactación, humectación y control de polvo con maquinaria coordinada.",
-    "intro": "Habilitación, mantención y conservación de caminos según terreno, tránsito y condiciones operacionales. Coordinamos maquinaria, suministros y ejecución en Tierra Amarilla y Atacama.",
-    "problem": "Las irregularidades de superficie y el polvo afectan el tránsito de faena. Evaluamos las condiciones del terreno, los accesos y el frente de trabajo para coordinar los recursos de cada intervención.",
+    "intro": "Conservamos la transitabilidad de caminos mineros y accesos para apoyar la continuidad operacional y logística. Integramos maquinaria, materiales y ejecución en Tierra Amarilla y Atacama según el alcance de cada intervención.",
+    "problem": "Un camino deteriorado puede restringir el acceso de personas, equipos y suministros a la faena. Evaluamos superficie, tránsito, polvo y condiciones de acceso para planificar la intervención y coordinarla con la operación del cliente.",
     "scope": "Perfilado, nivelación, conformación, compactación y humectación de caminos. El brochure contempla motoniveladora RG200B año 2021, rodillo New Holland V110 año 2024 y camiones aljibe de 15 y 30 m³. La combinación y asignación de equipos se define según alcance y programación.",
     "quote": [
       "Ubicación, longitud aproximada y estado del camino.",
-      "Tipo de tránsito y sectores que requieren intervención.",
+      "Tipo de tránsito, ancho aproximado y sectores que requieren intervención; fotografías o planos disponibles.",
       "Condiciones de acceso y fechas del trabajo.",
-      "Necesidades de suministro, humectación y equipos."
+      "Necesidades de suministro, humectación y equipos, además de requisitos técnicos y de seguridad del mandante."
     ],
     "questions": [
       {

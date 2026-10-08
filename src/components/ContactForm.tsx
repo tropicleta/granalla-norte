@@ -7,7 +7,7 @@ type Status = "idle" | "sending" | "ok" | "error";
 const field =
   "mt-2 block w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-cream placeholder:text-cream/50 focus:border-khaki focus:outline-none focus:ring-2 focus:ring-khaki/60";
 
-export function ContactForm({ services }: { services: string[] }) {
+export function ContactForm({ services, roadQuote = false }: { services: string[]; roadQuote?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -47,8 +47,8 @@ export function ContactForm({ services }: { services: string[] }) {
 
   return (
     <form onSubmit={onSubmit} className="contact-form rounded-[var(--radius-card)] border border-white/15 bg-olive-950 p-6 text-cream shadow-[var(--shadow-card)] sm:p-8" noValidate={false}>
-      <h2 className="font-display text-2xl font-semibold sm:text-3xl">Envíanos un mensaje</h2>
-      <p className="text-body mb-6 mt-2 text-sm leading-relaxed text-cream/80">Cuéntanos el servicio, la ubicación y los plazos de tu proyecto. Los campos con * son obligatorios.</p>
+      <h2 className="font-display text-2xl font-semibold sm:text-3xl">{roadQuote ? "Cotizar mantención de caminos mineros" : "Envíanos un mensaje"}</h2>
+      <p className="text-body mb-6 mt-2 text-sm leading-relaxed text-cream/80">{roadQuote ? "Cuéntanos la ubicación, longitud y ancho aproximados, estado del camino, tipo de tránsito y fecha requerida." : "Cuéntanos el servicio, la ubicación y los plazos de tu proyecto."} Los campos con * son obligatorios.</p>
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm font-medium text-olive-900">
           Nombre *
@@ -68,7 +68,7 @@ export function ContactForm({ services }: { services: string[] }) {
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Servicio de interés
-          <select name="servicio" className={field} defaultValue="">
+          <select name="servicio" className={field} defaultValue={roadQuote ? "Mantención integral de caminos mineros" : ""}>
             <option value="" disabled>
               Selecciona una opción
             </option>
@@ -80,7 +80,7 @@ export function ContactForm({ services }: { services: string[] }) {
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Mensaje *
-          <textarea name="mensaje" rows={5} required minLength={10} maxLength={10000} className={field} placeholder="Cantidades, ubicación de faena, plazos…" />
+          <textarea name="mensaje" rows={5} required minLength={10} maxLength={10000} className={field} placeholder={roadQuote ? "Ubicación de faena, longitud y ancho del camino, estado, tránsito, fecha requerida, materiales y requisitos de seguridad…" : "Cantidades, ubicación de faena, plazos…"} />
         </label>
         {/* honeypot anti-spam */}
         <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />

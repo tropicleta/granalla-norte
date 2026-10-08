@@ -7,9 +7,10 @@ import { storageConfigured } from "@/lib/content-storage";
 
 export const dynamic = "force-dynamic";
 export const metadata = pageMetadata("/contacto", "Cotizar servicios mineros y obras en Atacama", "Cotiza mantención integral de caminos, arriendo de maquinaria, minerales, monitoreo de tronaduras y obras civiles en Atacama con Granalla Norte.");
-export default function ContactoPage() {
+export default async function ContactoPage({ searchParams }: { searchParams: Promise<{ servicio?: string }> }) {
+  const isRoadQuote = (await searchParams).servicio === "caminos";
   return <>
-    <PageHero eyebrow="Contacto" title="Conversemos sobre tu proyecto" intro="Mantención integral de caminos, maquinaria, suministros, asesoría u obras: cuéntanos qué necesitas y coordinemos una solución para tu proyecto." />
+    <PageHero eyebrow="Contacto" title={isRoadQuote ? "Cotiza la mantención de tu camino" : "Conversemos sobre tu proyecto"} intro="Mantención integral de caminos mineros, maquinaria, suministros, asesoría u obras: cuéntanos qué necesitas y coordinemos una solución para tu proyecto." />
     <section className="bg-sand-300 py-10 sm:py-12">
       <Container className="grid items-start gap-6 lg:grid-cols-[0.85fr_1.4fr]">
         <aside className="rounded-[var(--radius-card)] bg-olive-800 p-6 text-cream sm:p-8">
@@ -25,7 +26,7 @@ export default function ContactoPage() {
           <ul className="mt-3 space-y-3 text-sm text-cream/85">{services.map(s => <li key={s.slug}><Link href={`/servicios#${s.slug}`} className="inline-flex gap-2 hover:text-khaki"><span aria-hidden className="text-khaki">↗</span>{s.title}</Link></li>)}</ul>
           {site.whatsapp && <a href={`https://wa.me/${site.whatsapp}`} className="mt-6 inline-flex rounded-full bg-copper px-5 py-3 text-sm font-semibold text-white">Escríbenos por WhatsApp</a>}
         </aside>
-        {storageConfigured() ? <ContactForm services={services.map(s => s.title)} /> : <div className="rounded-[var(--radius-card)] bg-olive-950 p-8 text-cream"><h2 className="font-display text-2xl font-semibold">Solicita tu cotización por correo</h2><p className="text-body mt-4 text-cream/85">Cuéntanos qué servicio necesitas, la ubicación de tu proyecto y los plazos estimados.</p><a href={`mailto:${site.email}?subject=Solicitud%20de%20cotizaci%C3%B3n`} className="mt-6 inline-flex rounded-full bg-copper px-6 py-3 font-semibold text-white">Escribir a Granalla Norte</a></div>}
+        {storageConfigured() ? <ContactForm services={services.map(s => s.title)} roadQuote={isRoadQuote} /> : <div className="rounded-[var(--radius-card)] bg-olive-950 p-8 text-cream"><h2 className="font-display text-2xl font-semibold">Solicita tu cotización por correo</h2><p className="text-body mt-4 text-cream/85">Para caminos, indica ubicación, longitud y ancho aproximados, estado, tipo de tránsito y fecha requerida. Para otros servicios, cuéntanos el alcance y los plazos de tu proyecto.</p><a href={`mailto:${site.email}?subject=${isRoadQuote ? "Cotizacion%20de%20caminos" : "Solicitud%20de%20cotizacion"}`} className="mt-6 inline-flex rounded-full bg-copper px-6 py-3 font-semibold text-white">Escribir a Granalla Norte</a></div>}
       </Container>
     </section>
   </>;

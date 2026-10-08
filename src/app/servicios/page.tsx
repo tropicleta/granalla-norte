@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 export default async function ServiciosPage() {
   const articles = await publishedArticles();
   return <>
-    <PageHero eyebrow="Servicios" title="Servicios mineros y obras civiles en Atacama" intro="Obras civiles y movimiento de tierra, caminos y control de polvo, suministro y abastecimiento, y monitoreo de tronaduras. Capacidades que se combinan según alcance, recursos, logística y plazo." />
+    <PageHero eyebrow="Servicios" title="Caminos mineros y capacidades complementarias en Atacama" intro="Nuestro foco es la mantención integral de caminos y accesos, con maquinaria, materiales y ejecución coordinados. Complementamos esta solución con obras civiles, abastecimiento y monitoreo de tronaduras según cada requerimiento." />
     <nav aria-label="Líneas de servicio" className="sticky top-18 z-40 border-b border-sand bg-cream/95 backdrop-blur">
       <Container><ul className="flex gap-2 overflow-x-auto py-3 text-sm">{services.map(s => <li key={s.slug} className="shrink-0"><a href={`#${s.slug}`} className="block rounded-full px-4 py-2 font-medium text-olive-800 hover:bg-sand-300">{s.title}</a></li>)}</ul></Container>
     </nav>

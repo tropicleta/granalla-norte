@@ -10,7 +10,7 @@ export const site = {
   url: "https://www.granallanorte.cl",
   tagline: "Capacidad local para ejecutar, abastecer y responder en terreno",
   description:
-    "Granalla Norte integra obras civiles, movimiento de tierra, mantención integral de caminos, arriendo de maquinaria, suministro y monitoreo de tronaduras en Tierra Amarilla y Atacama.",
+    "Mantención integral de caminos mineros y accesos en Atacama. Granalla Norte coordina maquinaria, materiales y ejecución para apoyar la continuidad operacional, con presencia en Tierra Amarilla.",
   email: "contacto@granallanorte.cl",
   phone: "",
   phoneDisplay: "",
@@ -47,7 +47,7 @@ export type ServiceLine = {
 export const services: ServiceLine[] = [
   {
     slug: "obras-civiles",
-    kicker: "01 · Obras",
+    kicker: "02 · Obras",
     title: "Obras civiles y movimiento de tierra",
     summary:
       "Ejecución y coordinación de trabajos de terreno para operaciones, proyectos y comunidades, con recursos y mano de obra local.",
@@ -60,13 +60,13 @@ export const services: ServiceLine[] = [
   },
   {
     slug: "mantencion-integral-de-caminos",
-    kicker: "02 · Caminos",
-    title: "Mantención integral de caminos",
-    summary: "Habilitación y conservación de caminos: perfilado, nivelación, conformación, compactación y humectación según terreno y tránsito.",
+    kicker: "01 · Caminos",
+    title: "Mantención integral de caminos mineros",
+    summary: "Mantención de caminos mineros y accesos para conservar la transitabilidad y apoyar la continuidad logística, integrando maquinaria, suministro y ejecución según terreno y tránsito.",
     image: "/img/brochure/caminos.jpg",
     items: [
       { name: "Arriendo de maquinaria", detail: "Motoniveladora RG200B, rodillo New Holland V110 y camiones aljibe, con asignación según acceso, frente de trabajo y programación." },
-      { name: "Venta de suministros", detail: "Estabilizado y cloruro de sodio para caminos; suministro y logística coordinados según el requerimiento." },
+      { name: "Suministro coordinado", detail: "Materiales y estabilizado según especificaciones, con logística integrada a la ejecución. El uso de cloruro de sodio se evalúa según condiciones técnicas y requisitos del proyecto." },
       { name: "Obras para caminos", detail: "Perfilado, nivelación, conformación, compactación, humectación y control de polvo según las condiciones operacionales." },
     ],
   },
@@ -78,7 +78,7 @@ export const services: ServiceLine[] = [
       "Materiales, insumos y logística coordinados según el alcance, el formato y las condiciones de cada proyecto.",
     image: site.images.minerals,
     items: [
-      { name: "Cloruro de sodio", detail: "Estabilización de caminos, control de polvo y procesos industriales." },
+      { name: "Cloruro de sodio", detail: "Suministro según especificaciones. Su aplicación en caminos requiere evaluar las condiciones técnicas, ambientales y los requisitos del proyecto." },
       { name: "Sílice de cuarzo", detail: "Suministro para requerimientos industriales y proyectos, con especificaciones a coordinar." },
       { name: "Arena y gravilla", detail: "Materiales para obras civiles y preparación de superficies, según las especificaciones del proyecto." },
       { name: "Estabilizado", detail: "Mejora caminos y zonas de tránsito con mayor durabilidad y eficiencia operativa." },
@@ -98,6 +98,9 @@ export const services: ServiceLine[] = [
     ],
   },
 ];
+
+// Keep the commercial priority consistent across home, services and contact.
+services.sort((a, b) => Number(b.slug === "mantencion-integral-de-caminos") - Number(a.slug === "mantencion-integral-de-caminos"));
 
 export type Post = {
   slug: string;
@@ -196,7 +199,7 @@ posts.push(...recoveredNews.map(({ slug, title, date, location, category, image,
 
 export const about = {
   intro:
-    "Somos una empresa local de Tierra Amarilla que apoya operaciones y proyectos mineros, integrando ejecución en terreno, abastecimiento, logística y coordinación de recursos. Articulamos nuestras capacidades según el alcance, los plazos y las condiciones reales de cada requerimiento.",
+    "Somos una empresa de Tierra Amarilla enfocada en la mantención integral de caminos mineros y accesos en Atacama. Integramos maquinaria, materiales, logística y ejecución según las condiciones de cada requerimiento, con capacidades complementarias de obras civiles, abastecimiento y monitoreo.",
   mission:
     "Coordinar los recursos necesarios para transformar una necesidad operativa en una solución ejecutable. Integramos suministro, logística, ejecución y seguimiento, adaptándonos a las condiciones del proyecto.",
   vision:
@@ -205,7 +208,7 @@ export const about = {
     { title: "Ejecución", text: "Recursos coordinados para llevar cada requerimiento a terreno." },
     { title: "Presencia local", text: "Cercanía territorial y conocimiento del entorno minero de Atacama." },
     { title: "Capacidad de respuesta", text: "Adaptación a condiciones, plazos e imprevistos operacionales." },
-    { title: "Empleo y comunidad", text: "Priorizamos oportunidades laborales locales y apoyamos iniciativas del territorio." },
+    { title: "Empleo y comunidad", text: "Priorizamos empleo, operadores y proveedores locales cuando el alcance y la disponibilidad lo permiten, y apoyamos iniciativas del territorio." },
   ],
 };
 

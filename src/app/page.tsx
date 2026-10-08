@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
 import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
 
-export const metadata = pageMetadata("", "Servicios mineros y mantención integral de caminos en Atacama", site.description);
+export const metadata = pageMetadata("", "Servicios mineros y mantención integral de caminos mineros", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
@@ -30,13 +30,13 @@ export default async function Home() {
         <Container className="py-10 sm:py-12 lg:py-14">
           <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
           <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-cream text-balance sm:text-5xl lg:text-[3.5rem]">
-            Servicios mineros y mantención integral de caminos en <span className="text-khaki">Atacama</span>.
+            Servicios mineros y mantención integral de <span className="text-khaki">caminos mineros</span>.
           </h1>
           <p className="text-body mt-4 max-w-2xl text-base leading-relaxed text-cream/80 sm:text-lg">
-            Obras civiles, movimiento de tierra, caminos, maquinaria y abastecimiento, con coordinación local para responder a las necesidades de tu operación.
+            Coordinamos maquinaria, materiales y ejecución en terreno para conservar la transitabilidad y apoyar la continuidad operacional de tu faena.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <ButtonLink href="/contacto">Cotizar proyecto</ButtonLink>
+            <ButtonLink href="/contacto?servicio=caminos">Cotizar mantención de caminos</ButtonLink>
             <ButtonLink href="/servicios" variant="ghost">
               Nuestros servicios
             </ButtonLink>
@@ -52,8 +52,8 @@ export default async function Home() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
               eyebrow="Qué hacemos"
-              title="Cuatro líneas de servicio, un solo proveedor en terreno"
-              intro="Ejecución, abastecimiento, logística y monitoreo coordinados según cada requerimiento."
+              title="Caminos como foco, capacidades que se complementan"
+              intro="Integramos maquinaria, materiales y ejecución para caminos y accesos. Obras civiles, abastecimiento y monitoreo complementan nuestra oferta para Atacama."
             />
             <ButtonLink href="/servicios" variant="outline">
               Ver todos los servicios

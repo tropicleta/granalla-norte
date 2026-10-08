@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <>
       {/* HERO — propuesta de valor clara + CTA, en vez del carrusel de noticias */}
-      <section className="relative isolate overflow-hidden bg-olive-950">
+      <section id="inicio" className="relative isolate overflow-hidden bg-olive-950">
         <Image
           src={site.images.hero}
           alt="Maquinaria en trabajos de movimiento de tierra en Atacama"

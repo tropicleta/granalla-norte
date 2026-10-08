@@ -18,6 +18,9 @@ for (const path of paths) {
   assert.ok(sitemap.includes(`<loc>${path === "/" ? domain : domain + path}</loc>`), `${path}: sitemap`);
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
   assert.ok(schemas.some(schema => schema["@id"] === `${domain}/#empresa`), `${path}: business`);
+  if (path === "/") {
+    assert.ok(schemas.some(schema => schema["@type"] === "WebSite" && schema.name === "Granalla Norte" && schema.url === `${domain}/`), "home: site identity");
+  }
   if (path.startsWith("/servicios/")) {
     const graph = schemas.find(schema => schema["@graph"])?.["@graph"];
     assert.ok(graph?.some(schema => schema["@type"] === "Service" && schema.provider["@id"] === `${domain}/#empresa`), `${path}: service`);

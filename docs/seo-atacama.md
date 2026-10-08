@@ -2,11 +2,13 @@
 
 Fecha: 30 de septiembre de 2026. Cobertura confirmada por el propietario: solo Región de Atacama.
 
-Actualización del 1 de octubre de 2026: se reforzaron los encabezados de Servicios y Maquinaria y los enlaces del pie de todas las páginas apuntan directamente a cada servicio. El propietario dejó para después la creación de la cuenta y configuración de Google. No se completaron la verificación de Search Console ni una ficha de Maps; la publicación del código sigue pendiente.
+Actualización del 8 de octubre de 2026: la base SEO ya está publicada. La prueba ejecutada contra el dominio público pasó para once páginas, un artículo, sitemap, datos estructurados, canónicas, una URL inexistente y exclusión del acceso administrativo. Se retomó la conexión con Google usando la cuenta de la empresa. Search Console y el Perfil de Empresa siguen pendientes de verificación; no hay mediciones de posición ni tráfico.
+
+Se prepararon títulos de búsqueda más específicos para caminos, obras, cloruro de sodio y áridos, y monitoreo de vibraciones. Las páginas de servicios explican la coordinación desde Tierra Amarilla para Atacama. La portada incluye la identidad WebSite de Granalla Norte. Estos cambios ayudan a describir la empresa y sus servicios; no garantizan posiciones ni indexación.
 
 ## Estado y cambios preparados
 
-La consulta pública mostró la versión anterior del sitio. No se dispone de Search Console ni de Perfil de Empresa, según el propietario; tampoco hay estadísticas para determinar posiciones o tráfico. Una búsqueda `site:` sin resultados no demuestra que el sitio esté desindexado.
+La versión pública responde correctamente a las comprobaciones SEO. Sin Search Console no se puede confirmar qué páginas ha indexado Google ni las consultas por las que aparece la empresa. Una búsqueda `site:` sin resultados no demuestra que el sitio esté desindexado.
 
 | Hallazgo | Impacto | Evidencia | Cambio |
 | --- | --- | --- | --- |
@@ -27,15 +29,16 @@ Son objetivos editoriales, no datos de volumen de búsqueda ni posiciones medida
 
 | Página | Necesidad del cliente |
 | --- | --- |
-| `/servicios/mantencion-de-caminos` | Mantención de caminos mineros en Atacama, reparación de accesos, nivelación y control de polvo |
-| `/servicios/minerales-no-metalicos` | Compra de cloruro de sodio, bischofita, sílice de cuarzo y estabilizado en Atacama |
+| `/servicios/mantencion-integral-de-caminos` | Mantención de caminos mineros en Atacama, reparación de accesos, nivelación y control de polvo |
+| `/servicios/minerales-no-metalicos` | Compra de cloruro de sodio, arena, gravilla, sílice de cuarzo y estabilizado en Atacama |
 | `/servicios/monitoreo-de-tronaduras` | Monitoreo de vibraciones por tronaduras y asesoría minera en Atacama |
 | `/servicios/obras-civiles` | Obras civiles y mejoras comunitarias en Tierra Amarilla y Copiapó |
 | `/maquinaria` | Consulta de arriendo de maquinaria para caminos en Atacama |
+| `/equipos-monitoreo` | Arriendo de geófonos y sismógrafos Instantel en Atacama |
 
-## Activación pendiente: publicar y conectar Google
+## Activación pendiente: conectar Google
 
-1. Publicar esta versión en el dominio `https://www.granallanorte.cl`. Verificar que las páginas nuevas, `/robots.txt` y `/sitemap.xml` respondan correctamente. Confirmar que HTTP y el dominio sin www redirijan al HTTPS con www en el proveedor de alojamiento; las canónicas por sí solas no realizan esa redirección.
+1. La base está publicada en `https://www.granallanorte.cl`; las páginas, `/robots.txt` y `/sitemap.xml` pasaron la comprobación pública. Mantener esta comprobación después de cambios de dominio o alojamiento.
 2. Entrar con una cuenta de Google propiedad de la empresa a [Search Console](https://search.google.com/search-console). Crear la propiedad de dominio `granallanorte.cl` y añadir el registro TXT que Google entregue en el administrador DNS. No hay que cambiar registros de correo ni sustituir registros existentes. Esta verificación requiere acceso al dominio.
 3. Alternativa si no hay acceso DNS: crear una propiedad de prefijo `https://www.granallanorte.cl/`, elegir etiqueta HTML y configurar `GOOGLE_SITE_VERIFICATION` en el alojamiento con **solo el valor de content** entregado por Google. Volver a compilar/publicar y verificar. La integración ya está preparada en el sitio; un valor ficticio no verifica nada.
 4. En Search Console, enviar `https://www.granallanorte.cl/sitemap.xml`. Inspeccionar inicio y las cuatro páginas de servicios, revisar la URL canónica elegida y solicitar indexación después de publicar. El envío no garantiza la indexación.

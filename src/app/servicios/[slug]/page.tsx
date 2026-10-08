@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   const detail = serviceDetails.find(s => s.slug === slug);
   if (!detail) return { robots: { index: false, follow: false } };
   const service = services.find(s => s.slug === detail.serviceSlug)!;
-  return pageMetadata(`/servicios/${slug}`, detail.title, detail.description, service.image);
+  return pageMetadata(`/servicios/${slug}`, detail.searchTitle, detail.description, service.image);
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -73,6 +73,11 @@ export default async function ServicePage({ params }: Props) {
         <p className="mt-6 border-t border-white/20 pt-5 text-sm leading-relaxed text-cream/80">La selección de materiales y cualquier aplicación de cloruro de sodio se evalúan según especificaciones técnicas, condiciones ambientales y requisitos del proyecto.</p>
       </section>}
       <ServiceProjects serviceSlug={service.slug} articles={articles} />
+      <section className="mt-12 max-w-3xl">
+        <h2 className="font-display text-2xl font-semibold text-olive-900">Atención en Tierra Amarilla, Copiapó y Atacama</h2>
+        <p className="text-body mt-4 leading-relaxed text-ink/80">Coordinamos este servicio desde Tierra Amarilla para proyectos de la Región de Atacama. Indícanos la ubicación de la faena o del trabajo para evaluar accesos, traslado de recursos y programación. El alcance y las condiciones se confirman para cada requerimiento.</p>
+        <Link href="/contacto" className="mt-4 inline-block font-semibold text-copper-600 underline underline-offset-4">Consultar el servicio para mi proyecto en Atacama →</Link>
+      </section>
       <section className="mt-14 max-w-3xl"><h2 className="font-display text-3xl font-semibold text-olive-900">Preguntas frecuentes</h2><div className="mt-6 divide-y divide-sand">{detail.questions.map(q => <div key={q.question} className="py-5"><h3 className="font-semibold text-olive-900">{q.question}</h3><p className="text-body mt-3 leading-relaxed text-ink/80">{q.answer}</p></div>)}</div></section>
       <nav aria-label="Otros servicios" className="mt-10 flex flex-wrap gap-4">{serviceDetails.filter(s => s.slug !== slug).map(s => <Link key={s.slug} href={`/servicios/${s.slug}`} className="text-sm font-semibold text-copper-600 underline underline-offset-4">{services.find(line => line.slug === s.serviceSlug)!.title}</Link>)}</nav>
     </Container>

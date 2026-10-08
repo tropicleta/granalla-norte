@@ -2,6 +2,7 @@ export type ServiceDetail = {
   serviceSlug: string;
   slug: string;
   title: string;
+  searchTitle: string;
   description: string;
   intro: string;
   problem: string;
@@ -16,6 +17,7 @@ export const serviceDetails: ServiceDetail[] = [
     "serviceSlug": "obras-civiles",
     "slug": "obras-civiles",
     "title": "Obras civiles y movimiento de tierra en Atacama",
+    "searchTitle": "Obras civiles y movimiento de tierra en Atacama",
     "description": "Ejecución y coordinación de obras civiles, excavación, carguío, limpieza y preparación de terreno en Tierra Amarilla y Atacama.",
     "intro": "Ejecución y coordinación de trabajos de terreno para operaciones, proyectos y comunidades. Combinamos recursos, maquinaria y mano de obra local según alcance y programación.",
     "problem": "Una intervención en terreno necesita organizar equipos, materiales y logística para responder a las condiciones reales de la obra y a los plazos del requerimiento.",
@@ -44,6 +46,7 @@ export const serviceDetails: ServiceDetail[] = [
     "serviceSlug": "mantencion-integral-de-caminos",
     "slug": "mantencion-integral-de-caminos",
     "title": "Mantención integral de caminos mineros en Atacama",
+    "searchTitle": "Mantención de caminos mineros en Atacama",
     "description": "Habilitación y mantención integral de caminos en Atacama: perfilado, nivelación, compactación, humectación y control de polvo con maquinaria coordinada.",
     "intro": "Conservamos la transitabilidad de caminos mineros y accesos para apoyar la continuidad operacional y logística. Integramos maquinaria, materiales y ejecución en Tierra Amarilla y Atacama según el alcance de cada intervención.",
     "problem": "Un camino deteriorado puede restringir el acceso de personas, equipos y suministros a la faena. Evaluamos superficie, tránsito, polvo y condiciones de acceso para planificar la intervención y coordinarla con la operación del cliente.",
@@ -70,6 +73,7 @@ export const serviceDetails: ServiceDetail[] = [
     "serviceSlug": "minerales",
     "slug": "minerales-no-metalicos",
     "title": "Suministro y abastecimiento en Atacama",
+    "searchTitle": "Cloruro de sodio y áridos en Atacama",
     "description": "Suministro de sílice de cuarzo, arena, gravilla, estabilizado y cloruro de sodio en Atacama, con logística coordinada según cada proyecto.",
     "intro": "Materiales e insumos para obras y operaciones: sílice de cuarzo, arena, gravilla, estabilizado y cloruro de sodio. Coordinamos disponibilidad, formato y logística según las condiciones del proyecto.",
     "problem": "Abastecer también implica coordinar correctamente. Las cantidades, los accesos, los plazos y la capacidad de almacenamiento del cliente deben incorporarse a la planificación de las entregas.",
@@ -98,6 +102,7 @@ export const serviceDetails: ServiceDetail[] = [
     "serviceSlug": "asesorias",
     "slug": "monitoreo-de-tronaduras",
     "title": "Monitoreo de tronaduras en Atacama",
+    "searchTitle": "Monitoreo de tronaduras y vibraciones en Atacama",
     "description": "Monitoreos de tronaduras de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos para operaciones mineras en Atacama.",
     "intro": "Realizamos monitoreos de tronaduras de campo cercano y campo lejano, con equipos, instalación, análisis e informes técnicos para operaciones y proyectos mineros de Atacama.",
     "problem": "El seguimiento de las vibraciones de una tronadura requiere coordinar equipos, instalación y registros de medición según los objetivos y condiciones de la operación.",

@@ -5,17 +5,26 @@ import { YouTubeLite } from "@/components/YouTubeLite";
 import { about, services, site } from "@/lib/site";
 import { ClientCarousel } from "@/components/ClientCarousel";
 import { publishedArticles } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo";
+import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
 import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
 
-export const metadata = pageMetadata("", "Servicios mineros y mantención integral de caminos mineros", site.description);
+export const metadata = pageMetadata("", "Servicios mineros y caminos en Atacama", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const posts = (await publishedArticles()).slice(0, 4);
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": `${site.url}/#sitio`,
+        name: site.name,
+        url: `${site.url}/`,
+        inLanguage: "es-CL",
+        publisher: { "@id": businessId },
+      }) }} />
       {/* HERO — propuesta de valor clara + CTA, en vez del carrusel de noticias */}
       <section id="inicio" className="relative isolate overflow-hidden bg-olive-950">
         <Image

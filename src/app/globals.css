@@ -15,7 +15,7 @@
   --color-cream: #f7f3ee;
   --color-sand: #e1d8c8;
   --color-sand-300: #ece5d9;
-  --color-copper: #c8672a;
+  --color-copper: #b85b23;
   --color-copper-600: #a9531f;
 
   --font-display: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
@@ -27,6 +27,15 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
 }
 
 body {

@@ -149,7 +149,7 @@ export default async function Home() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
               eyebrow="Proyectos y noticias"
-              title="Trabajo reciente en faena y comunidad"
+              title="Proyectos destacados en faena y comunidad"
             />
             <ButtonLink href="/noticias" variant="outline">
               Ver todos

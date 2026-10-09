@@ -53,5 +53,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track { animation: clients-scroll 32s linear infinite !important; }
+  .viewport { overflow: visible; mask-image: none; }
+  .track { animation: none; width: 100%; }
+  .group { flex-wrap: wrap; width: 100%; gap: 1rem; }
+  .group[aria-hidden="true"] { display: none; }
+  .item { width: min(100%, 260px); flex: 1 1 190px; padding-right: 0; }
+  .pause { display: none; }
 }

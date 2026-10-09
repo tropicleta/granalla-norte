@@ -3,13 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
 
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -61,6 +74,7 @@ export function Header() {
         </div>
 
         <button
+          ref={menuButton}
           type="button"
           className="inline-flex size-11 items-center justify-center rounded-full text-cream md:hidden"
           aria-expanded={open}

@@ -56,7 +56,7 @@ export default async function ServicePage({ params }: Props) {
           <aside className="mt-6 rounded-[var(--radius-card)] bg-sand-300 p-7">
             <h2 className="font-display text-2xl font-semibold text-olive-900">Datos para cotizar</h2>
             <ul className="my-5 list-disc space-y-3 pl-5 text-ink/80">{detail.quote.map(item => <li key={item}>{item}</li>)}</ul>
-            <ButtonLink href={service.slug === "mantencion-integral-de-caminos" ? "/contacto?servicio=caminos" : "/contacto"}>Cotizar {service.title.toLowerCase()}</ButtonLink>
+            <ButtonLink href={`/contacto?servicio=${service.slug}`}>Cotizar {service.title.toLowerCase()}</ButtonLink>
           </aside>
         </div>
       </div>

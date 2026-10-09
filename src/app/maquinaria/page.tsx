@@ -24,7 +24,7 @@ export default async function Page() {
         <div className="flex flex-1 flex-col p-5"><p className="text-xs font-semibold uppercase tracking-widest text-khaki">{m.type}{m.demo && " · Ejemplo"}</p><h2 className="mt-2 font-display text-xl leading-6 font-semibold md:min-h-12">{m.name}</h2>
           <p className="mt-2 text-sm leading-relaxed text-cream/80 text-body md:min-h-[4.125rem]">{m.description}</p>
           <dl className="mt-3 space-y-2 text-sm">{m.model ? <div><dt className="text-khaki">Marca y modelo</dt><dd>{m.model}</dd></div> : <div aria-hidden="true" className="hidden h-10 md:block" />}{m.capacity && <div><dt className="text-khaki">Capacidad / características</dt><dd>{m.capacity}</dd></div>}<div><dt className="sr-only">Disponibilidad</dt><dd className="text-khaki">{availabilityLabels[m.demo ? 'confirm' : m.availability]}</dd></div></dl>
-          <Link href="/contacto" className="mt-auto pt-4 text-sm font-semibold text-cream underline underline-offset-4">Consultar arriendo →</Link>
+          <Link href={`/contacto?equipo=${encodeURIComponent(m.name)}`} className="mt-auto pt-4 text-sm font-semibold text-cream underline underline-offset-4">Consultar arriendo →</Link>
         </div>
       </article>;
       })}</div>

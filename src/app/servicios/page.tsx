@@ -42,7 +42,7 @@ export default async function ServiciosPage() {
           <div className="grid items-center gap-x-8 lg:grid-cols-2">
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
-              <Link href="/contacto" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
+              <Link href={`/contacto?servicio=${s.slug}`} className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
             <div><MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} /></div>
           </div>

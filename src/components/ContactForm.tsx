@@ -7,7 +7,7 @@ type Status = "idle" | "sending" | "ok" | "error";
 const field =
   "mt-2 block w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-cream placeholder:text-cream/50 focus:border-khaki focus:outline-none focus:ring-2 focus:ring-khaki/60";
 
-export function ContactForm({ services, roadQuote = false }: { services: string[]; roadQuote?: boolean }) {
+export function ContactForm({ services, roadQuote = false, initialService = "", equipment = "" }: { services: string[]; roadQuote?: boolean; initialService?: string; equipment?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -68,19 +68,20 @@ export function ContactForm({ services, roadQuote = false }: { services: string[
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Servicio de interés
-          <select name="servicio" className={field} defaultValue={roadQuote ? "Mantención integral de caminos mineros" : ""}>
+          <select name="servicio" className={field} defaultValue={roadQuote ? "Mantención integral de caminos mineros" : equipment ? "Arriendo de maquinaria y equipos" : initialService}>
             <option value="" disabled>
               Selecciona una opción
             </option>
             {services.map((s) => (
               <option key={s}>{s}</option>
             ))}
+            <option>Arriendo de maquinaria y equipos</option>
             <option>Otro</option>
           </select>
         </label>
         <label className="block text-sm font-medium text-olive-900 sm:col-span-2">
           Mensaje *
-          <textarea name="mensaje" rows={5} required minLength={10} maxLength={10000} className={field} placeholder={roadQuote ? "Ubicación de faena, longitud y ancho del camino, estado, tránsito, fecha requerida, materiales y requisitos de seguridad…" : "Cantidades, ubicación de faena, plazos…"} />
+          <textarea name="mensaje" rows={5} required minLength={10} maxLength={10000} defaultValue={equipment ? `Solicito cotización de arriendo de ${equipment}.\nUbicación de faena: \nFechas requeridas: ` : ""} className={field} placeholder={roadQuote ? "Ubicación de faena, longitud y ancho del camino, estado, tránsito, fecha requerida, materiales y requisitos de seguridad…" : "Cantidades, ubicación de faena, plazos…"} />
         </label>
         {/* honeypot anti-spam */}
         <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />

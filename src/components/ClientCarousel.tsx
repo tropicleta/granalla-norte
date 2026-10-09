@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { Container } from "./ui";
 import styles from "./ClientCarousel.module.css";
 
@@ -11,6 +14,7 @@ const brands = [
 ];
 
 export function ClientCarousel() {
+  const [paused, setPaused] = useState(false);
   return (
     <section aria-labelledby="clientes" className="border-b border-sand bg-sand-300 py-10 sm:py-14">
       <Container>
@@ -21,7 +25,7 @@ export function ClientCarousel() {
           </div>
         </div>
         <div className={styles.viewport}>
-          <div className={styles.track}>
+          <div className={styles.track} style={{ animationPlayState: paused ? "paused" : "running" }}>
             {[0, 1].map(copy => (
               <ul key={copy} className={styles.group} aria-hidden={copy === 1 ? true : undefined}>
                 {brands.map(brand => (
@@ -35,6 +39,9 @@ export function ClientCarousel() {
             ))}
           </div>
         </div>
+        <button type="button" className={`${styles.pause} mt-4 rounded-full border border-olive-900/30 px-4 py-2 text-sm font-medium text-olive-900`} aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+          {paused ? "Reanudar logos" : "Pausar logos"}
+        </button>
       </Container>
     </section>
   );

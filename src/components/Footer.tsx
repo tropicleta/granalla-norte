@@ -56,9 +56,15 @@ export function Footer() {
         </div>
       </div>
       <div className="bg-olive-950">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-cream/60 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-cream/60 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>
           <p>Tierra Amarilla · Copiapó · Atacama</p>
+          <p>
+            Desarrollado por{" "}
+            <a href="https://el-arca-six.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#80ff55] underline-offset-4 hover:underline">El Arca</a>
+            {" y "}
+            <a href="https://naitre.cl/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#ff9f43] underline-offset-4 hover:underline">Naitre</a>
+          </p>
         </div>
       </div>
     </footer>

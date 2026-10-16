@@ -1,3 +1,4 @@
+import { localServices, serviceArea } from "@/lib/local-services";
 import type { Metadata } from "next";
 // Fuentes autoalojadas (sin dependencia de Google Fonts en build ni en runtime)
 import "@fontsource-variable/dm-sans";
@@ -35,7 +36,11 @@ const jsonLd = {
   logo: new URL(site.logo, site.url).href,
   image: new URL(site.images.hero, site.url).href,
   description: site.description,
-  areaServed: ["Tierra Amarilla", "Copiapó", "Región de Atacama"],
+  areaServed: serviceArea,
+  hasOfferCatalog: {
+    "@type": "OfferCatalog", name: "Servicios de Granalla Norte en Atacama",
+    itemListElement: localServices.map(service => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: service.name, url: `${site.url}${service.path}`, description: service.description, provider: { "@id": businessId }, areaServed: serviceArea } })),
+  },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

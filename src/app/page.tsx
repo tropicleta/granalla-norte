@@ -9,7 +9,7 @@ import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
 import { servicePath } from "@/lib/service-details";
 import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
 
-export const metadata = pageMetadata("", "Servicios mineros y caminos en Atacama", site.description);
+export const metadata = pageMetadata("", "Obras civiles y servicios mineros en Atacama", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {

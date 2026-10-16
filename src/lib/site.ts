@@ -10,7 +10,7 @@ export const site = {
   url: "https://www.granallanorte.cl",
   tagline: "Capacidad local para ejecutar, abastecer y responder en terreno",
   description:
-    "Mantención integral de caminos mineros y accesos en Atacama. Granalla Norte coordina maquinaria, materiales y ejecución para apoyar la continuidad operacional, con presencia en Tierra Amarilla.",
+    "Obras civiles, movimiento de tierra, caminos, suministro de materiales, arriendo de maquinaria y monitoreo de tronaduras en Atacama. Coordinación desde Tierra Amarilla para proyectos en Copiapó y la región.",
   email: "contacto@granallanorte.cl",
   phone: "+56983312335",
   phoneDisplay: "+56 9 8331 2335",

@@ -1,3 +1,4 @@
+import { LocalServiceCoverage } from "@/components/LocalServiceCoverage";
 import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +30,7 @@ export default async function Page() {
       </article>;
       })}</div>
       {!machines.length && <p className="text-body mt-8 rounded-xl bg-sand-300 p-8">Estamos actualizando el catálogo. Contáctanos para consultar maquinaria para tu proyecto.</p>}
+      <LocalServiceCoverage serviceKey="maquinaria" />
     </Container><CtaBand />
   </>;
 }

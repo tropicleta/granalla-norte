@@ -1,0 +1,15 @@
+// Real service coverage; these are not separate offices or guaranteed availability.
+export const localServices = [
+  { key: "obras-civiles", path: "/servicios/obras-civiles", name: "Obras civiles y movimiento de tierra", heading: "Obras civiles y movimiento de tierra en Tierra Amarilla y Copiapó", description: "Coordinamos excavación, carguío, retiro, limpieza y preparación de terreno para obras y faenas de Atacama. Para definir los recursos, necesitamos conocer el volumen de material, las medidas, los accesos y la fecha requerida." },
+  { key: "mantencion-integral-de-caminos", path: "/servicios/mantencion-integral-de-caminos", name: "Mantención de caminos mineros", heading: "Mantención de caminos y accesos en Tierra Amarilla y Copiapó", description: "Atendemos requerimientos de perfilado, nivelación, compactación y humectación de caminos en Atacama. Indica la longitud y el ancho, el estado de la superficie y el tránsito previsto para coordinar maquinaria, materiales y programación." },
+  { key: "suministro-y-abastecimiento", path: "/servicios/suministro-y-abastecimiento", name: "Suministro de cloruro de sodio, áridos y sílice de cuarzo", heading: "Suministro de materiales para obras y faenas de Atacama", description: "Coordinamos cloruro de sodio, arena, gravilla, estabilizado y sílice de cuarzo para proyectos de Tierra Amarilla, Copiapó y la región. Confirma material, especificaciones, cantidad y destino para evaluar el formato de entrega, los accesos y la capacidad de recepción." },
+  { key: "monitoreo-de-tronaduras", path: "/servicios/monitoreo-de-tronaduras", name: "Monitoreo de tronaduras y vibraciones", heading: "Monitoreo de tronaduras y vibraciones en Atacama", description: "Coordinamos mediciones de campo cercano y lejano para operaciones de Tierra Amarilla, Copiapó y la Región de Atacama. Para programar equipos, instalación, análisis e informes, indica los eventos, los puntos de medición y los requisitos técnicos del proyecto." },
+  { key: "maquinaria", path: "/maquinaria", name: "Arriendo de maquinaria", heading: "Arriendo de maquinaria en Tierra Amarilla y Copiapó", description: "Consulta motoniveladoras, rodillos, excavadoras, cargador y camiones para caminos, movimiento de tierra y apoyo operacional en Atacama. La cotización considera el equipo, las fechas, el lugar de trabajo y las condiciones de acceso y traslado. La disponibilidad se confirma para cada solicitud." },
+  { key: "equipos-monitoreo", path: "/equipos-monitoreo", name: "Arriendo de sismógrafos y geófonos", heading: "Arriendo de sismógrafos y geófonos en Atacama", description: "Coordinamos equipos Instantel Minimate Plus y geófonos triaxiales para proyectos de Tierra Amarilla, Copiapó y otras comunas de Atacama. Indica las fechas, los puntos de medición y la configuración requerida para confirmar disponibilidad, accesorios y condiciones de entrega." },
+] as const;
+
+export const serviceArea = [
+  { "@type": "City", name: "Tierra Amarilla" },
+  { "@type": "City", name: "Copiapó" },
+  { "@type": "AdministrativeArea", name: "Región de Atacama" },
+];

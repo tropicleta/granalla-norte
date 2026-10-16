@@ -1,3 +1,5 @@
+import { LocalServiceCoverage } from "@/components/LocalServiceCoverage";
+import { serviceArea } from "@/lib/local-services";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -30,7 +32,7 @@ export default async function ServicePage({ params }: Props) {
   const url = `${site.url}/servicios/${slug}`;
   const schema = {
     "@context": "https://schema.org", "@graph": [
-      { "@type": "Service", "@id": `${url}#servicio`, name: service.title, serviceType: service.title, url, description: detail.description, provider: { "@id": businessId }, areaServed: ["Tierra Amarilla", "Copiapó", "Región de Atacama"] },
+      { "@type": "Service", "@id": `${url}#servicio`, name: service.title, serviceType: service.title, url, description: detail.description, provider: { "@id": businessId }, areaServed: serviceArea },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
         { "@type": "ListItem", position: 2, name: "Servicios", item: `${site.url}/servicios` },
@@ -73,11 +75,7 @@ export default async function ServicePage({ params }: Props) {
         <p className="mt-6 border-t border-white/20 pt-5 text-sm leading-relaxed text-cream/80">La selección de materiales y cualquier aplicación de cloruro de sodio se evalúan según especificaciones técnicas, condiciones ambientales y requisitos del proyecto.</p>
       </section>}
       <ServiceProjects serviceSlug={service.slug} articles={articles} />
-      <section className="mt-12 max-w-3xl">
-        <h2 className="font-display text-2xl font-semibold text-olive-900">Atención en Tierra Amarilla, Copiapó y Atacama</h2>
-        <p className="text-body mt-4 leading-relaxed text-ink/80">Coordinamos este servicio desde Tierra Amarilla para proyectos de la Región de Atacama. Indícanos la ubicación de la faena o del trabajo para evaluar accesos, traslado de recursos y programación. El alcance y las condiciones se confirman para cada requerimiento.</p>
-        <Link href="/contacto" className="mt-4 inline-block font-semibold text-copper-600 underline underline-offset-4">Consultar el servicio para mi proyecto en Atacama →</Link>
-      </section>
+      <LocalServiceCoverage serviceKey={service.slug} />
       <section className="mt-14 max-w-3xl"><h2 className="font-display text-3xl font-semibold text-olive-900">Preguntas frecuentes</h2><div className="mt-6 divide-y divide-sand">{detail.questions.map(q => <div key={q.question} className="py-5"><h3 className="font-semibold text-olive-900">{q.question}</h3><p className="text-body mt-3 leading-relaxed text-ink/80">{q.answer}</p></div>)}</div></section>
       <nav aria-label="Otros servicios" className="mt-10 flex flex-wrap gap-4">{serviceDetails.filter(s => s.slug !== slug).map(s => <Link key={s.slug} href={`/servicios/${s.slug}`} className="text-sm font-semibold text-copper-600 underline underline-offset-4">{services.find(line => line.slug === s.serviceSlug)!.title}</Link>)}</nav>
     </Container>

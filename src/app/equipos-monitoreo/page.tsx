@@ -1,3 +1,4 @@
+import { LocalServiceCoverage } from "@/components/LocalServiceCoverage";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, PageHero, CtaBand } from "@/components/ui";
@@ -29,6 +30,7 @@ export default async function Page() {
       </article>)}</div>
       {!equipment.length && <p className="text-body mt-8 rounded-2xl bg-sand-300 p-8">Estamos actualizando el catálogo. Consulta equipos de monitoreo para tu proyecto.</p>}
       <section className="mt-12 rounded-[var(--radius-card)] bg-sand-300 p-7 sm:p-9"><h2 className="font-display text-2xl font-semibold text-olive-900">Prepara el arriendo para tu operación</h2><p className="text-body mt-3 max-w-3xl leading-relaxed text-ink/75">Indícanos la ubicación de la faena, las fechas, la cantidad de puntos de medición y los requisitos técnicos del mandante. Confirmaremos la configuración, los accesorios, las condiciones de entrega y la documentación del equipo asignado.</p><Link href="/contacto" className="mt-6 inline-flex rounded-full bg-copper px-6 py-3 font-semibold text-white">Cotizar equipos de monitoreo →</Link></section>
+      <LocalServiceCoverage serviceKey="equipos-monitoreo" />
     </Container><CtaBand />
   </>;
 }

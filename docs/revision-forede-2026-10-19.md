@@ -8,6 +8,12 @@ Tras la primera publicación, el propietario informó tirones en escritorio y au
 
 Se redujeron las tarjetas de 132 px de alto a 100 px en escritorio y 88 px en móvil, junto con su ancho, relleno y separación vertical. Tres grupos idénticos evitan espacios vacíos en pantallas anchas y permiten reiniciar el ciclo sobre la misma disposición de logos. No hay botones, pausa al pasar el puntero ni control de deslizamiento manual: se prioriza el movimiento automático fluido solicitado. Las notas de desplazamiento nativo y teclado más abajo corresponden a la primera implementación y quedan sustituidas por esta corrección.
 
+## Tarjetas de servicios resumidas
+
+Por solicitud del propietario, Inicio muestra tarjetas breves con fotos, resúmenes y etiquetas. Servicios utiliza una variante de dos columnas en escritorio, con una descripción más completa y tres puntos de alcance por línea: no repite literalmente la presentación del inicio ni se extiende hasta el detalle de las fichas individuales. Se utiliza una cuadrícula con filas compartidas para alinear títulos, descripciones y accesos entre las tarjetas de cada fila; se conserva un diseño alternativo para navegadores sin soporte de subgrid. Las fotos de maquinaria y equipos permanecen en los accesos de arriendo.
+
+La página Servicios funciona como índice breve. El alcance completo, las condiciones para cotizar y los proyectos asociados siguen disponibles en las páginas individuales y en sus enlaces de noticias; no se repiten todos esos bloques en el índice. Se mantienen las anclas actuales y antiguas para los enlaces existentes.
+
 ## Resultado de la revisión
 
 Se revisaron inicio, nosotros, empresas, las cuatro líneas de servicio, maquinaria, equipos de monitoreo, proyectos, filtros por rubro y contacto. El rastreo público inicial y la versión local final recorrieron 49 páginas y variantes, 57 recursos gráficos y 117 enlaces a secciones sin encontrar enlaces rotos, imágenes inexistentes ni anclas ausentes. Son comprobaciones funcionales; no acreditan posiciones en Google ni métricas de usuarios reales.

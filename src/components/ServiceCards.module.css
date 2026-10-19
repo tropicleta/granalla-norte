@@ -1,0 +1,47 @@
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.card {
+  display: grid;
+  grid-row: span 5;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  min-width: 0;
+  overflow: hidden;
+  scroll-margin-top: 10rem;
+  border-radius: var(--radius-card);
+  background: var(--color-olive-900);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-card);
+}
+.media { position: relative; height: 116px; overflow: hidden; background: var(--color-olive-950); }
+.kicker { position: absolute; inset: auto 0 0; padding: 1.5rem 1.25rem 0.625rem; background: linear-gradient(transparent, #22231aeb); color: var(--color-khaki); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.title { min-height: 4.0625rem; margin: 0; padding: 1rem 1.25rem 0; font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; line-height: 1.35; }
+.title a:hover { color: var(--color-khaki); }
+.summary { min-height: 4.75rem; margin: 0; padding: 0.5rem 1.25rem 0; font-size: 0.875rem; line-height: 1.6; color: rgb(247 243 238 / 0.82); }
+.items { display: flex; flex-wrap: wrap; align-content: start; align-items: start; gap: 0.375rem; margin: 0; padding: 0.75rem 1.25rem 0; list-style: none; }
+.itemName { display: block; border-radius: 999px; padding: 0.25rem 0.5rem; background: rgb(255 255 255 / 0.08); font-size: 0.6875rem; line-height: 1.4; }
+.actions { display: grid; align-content: end; gap: 0.5rem; padding: 1rem 1.25rem 1.25rem; }
+.primary, .equipment, .news { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 44px; border-radius: 0.625rem; padding: 0.625rem 0.75rem; font-size: 0.8125rem; font-weight: 600; line-height: 1.4; }
+.primary svg, .equipment svg, .news svg { flex-shrink: 0; }
+.primary { background: var(--color-khaki); color: var(--color-olive-950); }
+.primary:hover { background: var(--color-cream); }
+.equipment { background: var(--color-copper); color: white; padding: 0.5rem 0.625rem; }
+.equipment:hover { background: var(--color-copper-600); }
+.equipmentPhoto { position: relative; flex: 0 0 44px; height: 36px; overflow: hidden; border-radius: 0.375rem; background: var(--color-olive-950); }
+.equipmentLabel { flex: 1; min-width: 0; }
+.news { border: 1px solid rgb(255 255 255 / 0.2); background: rgb(255 255 255 / 0.04); color: var(--color-cream); }
+.news:hover { background: rgb(255 255 255 / 0.1); }
+.listing .media { height: 144px; }
+.listing .title { min-height: 0; font-size: 1.375rem; }
+.listing .items { display: grid; gap: 0.5rem; padding-left: 2.375rem; padding-right: 1.25rem; font-size: 0.875rem; line-height: 1.5; list-style: disc; color: rgb(247 243 238 / 0.85); }
+.listing .items li::marker { color: var(--color-khaki); }
+.listing .equipmentPhoto { flex-basis: 64px; height: 44px; }
+
+@media (min-width: 768px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .media { height: 132px; } }
+@media (min-width: 1024px) { .listing .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .listing .primary { grid-column: 1 / -1; } }
+@media (min-width: 1280px) { .grid:not(.listing) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+@supports not (grid-template-rows: subgrid) {
+  .card { display: flex; flex-direction: column; grid-row: auto; }
+  .media { flex-shrink: 0; }
+  .actions { margin-top: auto; }
+}

@@ -32,7 +32,8 @@ for (const [legacy, current] of [["/servicios/mantencion-de-caminos", "/servicio
   assert.equal(destination.pathname + destination.search, current);
   assert.equal((await fetch(destination)).status, 200);
 }
-assert.equal((listing.match(/También puedes arrendar equipos/g) || []).length, 3);
+assert.equal((listing.match(/href="\/maquinaria"/g) || []).length, 3, "Each applicable service retains machinery access");
+assert.ok(listing.includes('href="/equipos-monitoreo"'), "Monitoring equipment access is retained");
 for (const slug of ["obras-civiles", "mantencion-integral-de-caminos", "suministro-y-abastecimiento", "monitoreo-de-tronaduras"]) {
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
 }

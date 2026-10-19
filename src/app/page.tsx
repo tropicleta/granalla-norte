@@ -1,13 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ButtonLink, Container, CtaBand, Eyebrow, PostCard, SectionTitle, Arrow } from "@/components/ui";
+import { ButtonLink, Container, CtaBand, Eyebrow, PostCard, SectionTitle } from "@/components/ui";
 import { YouTubeLite } from "@/components/YouTubeLite";
-import { about, services, site } from "@/lib/site";
+import { about, site } from "@/lib/site";
 import { ClientCarousel } from "@/components/ClientCarousel";
 import { publishedArticles } from "@/lib/content";
 import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
-import { servicePath } from "@/lib/service-details";
-import { projectSectors, sectorProjectsPath } from "@/lib/service-projects";
+import { ServiceCards } from "@/components/ServiceCards";
 
 export const metadata = pageMetadata("", "Obras civiles y servicios mineros en Atacama", site.description);
 
@@ -69,49 +67,7 @@ export default async function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {services.map((s) => (
-              <article
-                key={s.slug}
-                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-olive-900 shadow-[var(--shadow-card)]"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden bg-olive-950">
-                  <Image
-                    src={s.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-contain"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-olive-950/70 to-transparent" aria-hidden />
-                  <span className="absolute bottom-4 left-5 text-xs font-semibold uppercase tracking-[0.18em] text-khaki">
-                    {s.kicker}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-display text-xl font-semibold text-cream">
-                    <Link href={servicePath(s.slug)} className="hover:text-khaki">
-                      {s.title}
-                    </Link>
-                  </h3>
-                  <p className="text-body mt-3 text-cream/80">{s.summary}</p>
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {s.items.map((i) => (
-                      <li key={i.name} className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-cream/90">
-                        {i.name}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto space-y-3 pt-6">
-                    <Link href={servicePath(s.slug)} className="inline-flex items-center gap-1 text-sm font-semibold text-khaki hover:underline">Conocer más <Arrow /></Link>
-                    {["obras-civiles", "mantencion-integral-de-caminos", "suministro-y-abastecimiento"].includes(s.slug) && <Link href="/maquinaria" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de maquinaria <Arrow /></Link>}
-                    {s.slug === "monitoreo-de-tronaduras" && <Link href="/equipos-monitoreo" className="flex items-center justify-between gap-2 rounded-xl bg-copper px-4 py-3 text-sm font-semibold text-white transition hover:bg-copper-600">Arriendo de equipos <Arrow /></Link>}
-                    <Link href={sectorProjectsPath(s.slug)} className="block rounded-xl border border-white/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"><span className="block text-xs text-khaki">Experiencia en {projectSectors.find(item => item.slug === s.slug)?.label.toLowerCase()}</span><span className="mt-1 flex items-center justify-between gap-2 text-sm font-semibold text-cream">Ver proyectos y noticias <Arrow /></span></Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <div className="mt-6"><ServiceCards /></div>
         </Container>
       </section>
 

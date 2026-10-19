@@ -19,7 +19,7 @@ export function ServiceCards() {
       const monitoring = service.slug === "monitoreo-de-tronaduras";
       return <article key={service.slug} aria-labelledby={`resumen-${service.slug}`} className={styles.card}>
         <div className={styles.media}>
-          <Image src={service.image} alt="" fill sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" className="object-contain" />
+          <Image src={service.image} alt="" fill sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" className={`${styles.photo} ${monitoring ? styles.monitoringPhoto : service.slug === "suministro-y-abastecimiento" ? styles.supplyPhoto : ""}`} />
           <span className={styles.kicker}>{service.kicker}</span>
         </div>
         <h3 id={`resumen-${service.slug}`} className={styles.title}><Link href={servicePath(service.slug)}>{service.title}</Link></h3>

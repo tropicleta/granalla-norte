@@ -7,7 +7,7 @@ type Status = "idle" | "sending" | "ok" | "error";
 const field =
   "mt-2 block w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-cream placeholder:text-cream/50 focus:border-khaki focus:outline-none focus:ring-2 focus:ring-khaki/60";
 
-export function ContactForm({ services, roadQuote = false, initialService = "", equipment = "" }: { services: string[]; roadQuote?: boolean; initialService?: string; equipment?: string }) {
+export function ContactForm({ services, roadQuote = false, initialService = "", equipment = "", contactEmail }: { services: string[]; roadQuote?: boolean; initialService?: string; equipment?: string; contactEmail: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -88,9 +88,10 @@ export function ContactForm({ services, roadQuote = false, initialService = "", 
       </div>
 
       {status === "error" && (
-        <p role="alert" className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">
-          {error}
-        </p>
+        <div role="alert" className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">
+          <p>{error}</p>
+          <p className="mt-2">Tu mensaje permanece en el formulario. Puedes reintentar o <a href={`mailto:${contactEmail}`} className="font-semibold underline underline-offset-4">escribirnos por correo</a>.</p>
+        </div>
       )}
       <p className="text-body mt-5 text-xs leading-relaxed text-cream/75">Usaremos tus datos de contacto para responder a esta solicitud. Solo el administrador puede consultar el mensaje.</p>
 

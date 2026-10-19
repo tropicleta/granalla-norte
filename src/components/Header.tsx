@@ -45,7 +45,7 @@ export function Header() {
           <Image src={site.logo} alt={site.name} width={150} height={48} priority className="h-10 w-auto" />
         </Link>
 
-        <nav aria-label="Principal" className="hidden md:block">
+        <nav aria-label="Principal" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {site.nav.map((item) => (
               <li key={item.href}>
@@ -64,7 +64,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 rounded-full bg-copper px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-copper-600"
@@ -76,7 +76,7 @@ export function Header() {
         <button
           ref={menuButton}
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-full text-cream md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-full text-cream lg:hidden"
           aria-expanded={open}
           aria-controls="menu-movil"
           onClick={() => setOpen((v) => !v)}
@@ -89,7 +89,7 @@ export function Header() {
       </div>
 
       {open && (
-        <nav id="menu-movil" aria-label="Principal móvil" className="border-t border-white/10 md:hidden">
+        <nav id="menu-movil" aria-label="Principal móvil" className="border-t border-white/10 lg:hidden">
           <ul className="flex flex-col px-4 py-3">
             {site.nav.map((item) => (
               <li key={item.href}>

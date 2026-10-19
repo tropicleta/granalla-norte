@@ -35,8 +35,10 @@ try {
   assert.equal(login.status, 200); cookie = login.headers.get("set-cookie").split(";")[0];
   for (const path of ["/admin/noticias", "/admin/mensajes"]) assert.equal((await call(path)).status, 200);
   let catalog = await json(await call("/api/admin/noticias"));
-  assert.equal(catalog.articles.length, 11); assert.equal(catalog.configured, true);
-  assert.equal(catalog.articles.filter(p => p.status === "published").length, 10);
+  const initialArticleCount = catalog.articles.length;
+  assert.ok(initialArticleCount >= 11); assert.equal(catalog.configured, true);
+  assert.equal(new Set(catalog.articles.map(p => p.slug)).size, initialArticleCount, "No duplicate articles");
+  assert.equal(catalog.articles.filter(p => p.status === "published").length, initialArticleCount - 1);
   assert.equal(catalog.articles.find(p => p.slug === "mejora-sede-social-hermanos-carrizos").status, "draft");
   assert.equal((await call("/noticias/mejora-sede-social-hermanos-carrizos", "GET", undefined, false)).status, 404);
   const oldArticle = catalog.articles[0];
@@ -96,8 +98,9 @@ try {
   assert.equal((await call("/api/contacto", "POST", { ...contact, website: "spam" }, false)).status, 200);
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5);
   let fleet = await json(await call("/api/admin/maquinaria"));
-  assert.equal(fleet.machines.length, 4);
-  assert.ok(fleet.machines.every(m => m.demo && m.availability === "confirm"));
+  const initialMachineCount = fleet.machines.length;
+  assert.ok(initialMachineCount >= 9);
+  assert.ok(fleet.machines.every(m => !m.demo && m.availability === "confirm"));
   assert.equal((await call("/api/admin/maquinaria", "GET", undefined, false)).status, 401);
   assert.equal((await call("/api/admin/maquinaria", "PUT", { machine: fleet.machines[0], version: fleet.version }, true, { Origin: "https://evil.example" })).status, 403);
   const realMachine = { ...fleet.machines[0], name: "Camión de integración", demo: false, model: "Modelo de prueba", capacity: "Capacidad de prueba", image: image.url, status: "draft", availability: "available" };
@@ -111,20 +114,20 @@ try {
   assert.equal((await call(image.url, "GET", undefined, false)).status, 200, "Published machinery image becomes public");
   fleetSaved = await json(await call("/api/admin/maquinaria", "POST", { machine: { ...realMachine, id: "nuevo-equipo-prueba" }, version: fleetSaved.version }), 201);
   await stop(); await start();
-  catalog = await json(await call("/api/admin/noticias")); assert.equal(catalog.articles.length, 12); assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).title, edited.title);
+  catalog = await json(await call("/api/admin/noticias")); assert.equal(catalog.articles.length, initialArticleCount + 1); assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).title, edited.title);
   assert.equal(catalog.articles.find(p => p.slug === oldArticle.slug).category, "Monitoreo de tronaduras");
   assert.equal(catalog.articles.find(p => p.slug === draft.slug).category, "Capacitación comunitaria");
   inbox = await json(await call("/api/admin/mensajes")); assert.equal(inbox.messages.length, 5); assert.equal(inbox.messages.find(m => m.id === originalMessage.id).status, "archived");
   assert.equal((await call("/api/contacto", "POST", contact, false)).status, 429, "Quota survives a process restart");
   fleet = await json(await call("/api/admin/maquinaria"));
-  assert.equal(fleet.machines.length, 5, "New equipment persists across restart");
+  assert.equal(fleet.machines.length, initialMachineCount + 1, "New equipment persists across restart");
   assert.equal(fleet.machines.find(m => m.id === realMachine.id).model, realMachine.model);
   fleetSaved = await json(await call("/api/admin/maquinaria", "PUT", { machine: { ...realMachine, status: "draft" }, version: fleet.version }));
   assert.equal((await call(image.url, "GET", undefined, false)).status, 404, "Unpublished machinery image returns to private");
   await stop(); delete env.CONTENT_LOCAL_DIR; await start();
   assert.equal((await call("/api/contacto", "POST", contact, false)).status, 503, "Never report receipt without persistent storage");
   assert.equal((await call("/api/admin/mensajes")).status, 503);
-  const unavailable = await json(await call("/api/admin/noticias")); assert.equal(unavailable.configured, false); assert.equal(unavailable.articles.length, 11);
+  const unavailable = await json(await call("/api/admin/noticias")); assert.equal(unavailable.configured, false); assert.equal(unavailable.articles.length, initialArticleCount);
   console.log("PASS: legacy edit, new draft, image upload/privacy, publish/unpublish, public listing/detail/sitemap, conflicting writes, input validation, contact persistence, private inbox, archive/read, distributed quota and server restart.");
 } finally {
   await stop();

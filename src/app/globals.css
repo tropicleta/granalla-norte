@@ -47,8 +47,7 @@ body {
 
 /* Párrafos de contenido: criterio común en escritorio y móvil. */
 .text-body {
-  text-align: justify;
-  text-align-last: left;
+  text-align: left;
   hyphens: none;
   word-break: normal;
   overflow-wrap: break-word;

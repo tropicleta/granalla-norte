@@ -65,7 +65,7 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${styles}`}
+      className={`inline-flex max-w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-center text-sm font-semibold transition [&_svg]:shrink-0 ${styles}`}
     >
       {children}
       <Arrow />

@@ -41,5 +41,6 @@ const malicious = await page("/contacto?equipo=" + encodeURIComponent('<script>a
 assert.ok(!malicious.includes('<script>alert("test")</script>'), "Query text cannot inject HTML");
 const home = await page("/");
 assert.ok(home.includes("Proyectos destacados en faena y comunidad"));
-assert.ok(home.includes("Pausar logos"));
+assert.ok(home.includes('aria-label="Carrusel de clientes"'));
+assert.ok(!home.includes("Pausar logos"));
 console.log("PASS: equipment quotes, four selected services, safe query text and updated homepage.");

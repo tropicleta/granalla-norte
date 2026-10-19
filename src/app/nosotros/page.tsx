@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
+import Link from "next/link";
 import { Container, CtaBand, PageHero, SectionTitle } from "@/components/ui";
 import { about, site } from "@/lib/site";
 
@@ -69,7 +70,7 @@ export default function NosotrosPage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             <article className="overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
               <div className="relative h-52 sm:h-60"><Image src={site.images.civil} alt="Trabajos en terreno de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" /></div>
-              <div className="p-7"><p className="font-display text-4xl font-semibold text-khaki">22 días</p><h3 className="mt-3 font-display text-2xl font-semibold">Experiencia de ejecución reportada</h3><p className="text-body mt-3 leading-relaxed text-cream/80">En la consultoría PTI Minero Atacama, la empresa reportó un trabajo previsto para dos meses y ejecutado en 22 días. Este antecedente de ejecución está pendiente de respaldo documental y de identificación del alcance antes de presentarse como caso comercial.</p></div>
+              <div className="p-7"><p className="text-sm font-semibold uppercase tracking-widest text-khaki">Trabajos publicados</p><h3 className="mt-3 font-display text-2xl font-semibold">Preparación y habilitación de terrenos</h3><p className="text-body mt-3 leading-relaxed text-cream/80">Conoce los trabajos de relleno y nivelación del Bosque Mina Santos, con fotografías y detalle de las tareas realizadas.</p><Link href="/noticias/relleno-nivelacion-bosque-mina-santos" className="mt-5 inline-block font-semibold text-khaki underline underline-offset-4">Ver el proyecto</Link></div>
             </article>
             <article className="overflow-hidden rounded-[var(--radius-card)] bg-olive-900 text-cream">
               <div className="relative h-52 sm:h-60"><Image src={site.images.minerals} alt="Maxisacos de cloruro de sodio de Granalla Norte" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" /></div>

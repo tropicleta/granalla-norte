@@ -15,7 +15,7 @@ export const site = {
   phone: "+56983312335",
   phoneDisplay: "+56 9 8331 2335",
   hoursDisplay: "Lunes a viernes, de 08:00 a 17:00",
-  whatsapp: "",
+  whatsapp: "56983312335",
   address: "Tierra Amarilla, Región de Atacama, Chile",
   youtubeId: "h5RxcxaMmoc",
   logo: `${CDN}/logo-granalla-norte-a-color---copia1-YD0D4vr2LwFKXxV3.png`,

@@ -46,8 +46,8 @@ export default async function Home() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/contacto?servicio=caminos">Cotizar mantención de caminos</ButtonLink>
-            <ButtonLink href="/servicios" variant="ghost">
-              Nuestros servicios
+            <ButtonLink href="/empresas" variant="ghost">
+              Soluciones para empresas
             </ButtonLink>
           </div>
         </Container>

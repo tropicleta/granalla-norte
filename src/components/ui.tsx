@@ -95,7 +95,7 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
   );
 }
 
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({ post, linkLabel = "Ver proyecto" }: { post: Post; linkLabel?: string }) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] transition hover:-translate-y-1">
       <div className="relative aspect-[16/10] overflow-hidden bg-olive-900">
@@ -123,7 +123,7 @@ export function PostCard({ post }: { post: Post }) {
         </h3>
         <p className="text-body mt-2 line-clamp-3 text-sm leading-relaxed text-ink/70">{post.excerpt}</p>
         <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-semibold text-copper-600">
-          Ver proyecto <Arrow />
+          {linkLabel} <Arrow />
         </span>
       </div>
     </article>

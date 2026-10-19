@@ -63,4 +63,13 @@ assert.ok(roads.includes("Aún no hay publicaciones de este rubro"));
 assert.equal((roads.match(/<article /g) || []).length, 0);
 const unknown = await page("/noticias?rubro=inexistente");
 assert.ok(unknown.includes("expo-forede-2025"), "Unknown filters show the full listing");
+const events = await page("/noticias?rubro=eventos");
+assert.ok(events.includes("Nuestra participación en eventos"));
+assert.match(events, /<a(?=[^>]*href="\/noticias\?rubro=eventos")(?=[^>]*aria-current="page")[^>]*>/);
+for (const slug of ["expo-forede-2025", "seminario-del-mes-de-la-mineria-2024"]) {
+  assert.ok(events.includes(`/noticias/${slug}`), `${slug}: event attendance is visible`);
+}
+for (const slug of ["evento-de-polvo-en-tierra-amarilla", "monitores-comunitarios-segundo-semestre-2024", "monitoreo-vibraciones-primer-semestre-2024", "mejora-escuela-paul-harris", "ventas-de-cloruro-de-sodio-para-minera-maricunga"]) {
+  assert.ok(!events.includes(`/noticias/${slug}`), `${slug}: unrelated news stays outside events`);
+}
 console.log("PASS: machinery access in both services, four sector links, archive monitoring articles, isolated sector results and empty/unknown filters.");

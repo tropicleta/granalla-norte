@@ -2,6 +2,12 @@
 
 Fecha: 19 de octubre de 2026. Sitio: https://www.granallanorte.cl.
 
+## Corrección posterior del carrusel
+
+Tras la primera publicación, el propietario informó tirones en escritorio y ausencia de movimiento automático en su móvil. Se retiró el bucle JavaScript de desplazamiento nativo y se volvió a una animación CSS de transformación continua, ejecutada por el compositor del navegador y disponible sin esperar a JavaScript. La animación queda activa también frente a la regla general del sitio que desactiva animaciones, de acuerdo con la solicitud expresa de movimiento continuo.
+
+Se redujeron las tarjetas de 132 px de alto a 100 px en escritorio y 88 px en móvil, junto con su ancho, relleno y separación vertical. Tres grupos idénticos evitan espacios vacíos en pantallas anchas y permiten reiniciar el ciclo sobre la misma disposición de logos. No hay botones, pausa al pasar el puntero ni control de deslizamiento manual: se prioriza el movimiento automático fluido solicitado. Las notas de desplazamiento nativo y teclado más abajo corresponden a la primera implementación y quedan sustituidas por esta corrección.
+
 ## Resultado de la revisión
 
 Se revisaron inicio, nosotros, empresas, las cuatro líneas de servicio, maquinaria, equipos de monitoreo, proyectos, filtros por rubro y contacto. El rastreo público inicial y la versión local final recorrieron 49 páginas y variantes, 57 recursos gráficos y 117 enlaces a secciones sin encontrar enlaces rotos, imágenes inexistentes ni anclas ausentes. Son comprobaciones funcionales; no acreditan posiciones en Google ni métricas de usuarios reales.

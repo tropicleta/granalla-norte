@@ -31,8 +31,7 @@ export const site = {
     { href: "/", label: "Inicio" },
     { href: "/nosotros", label: "Nosotros" },
     { href: "/servicios", label: "Servicios" },
-    { href: "/empresas", label: "Empresas" },
-    { href: "/noticias", label: "Proyectos" },
+    { href: "/noticias", label: "Noticias" },
     { href: "/contacto", label: "Contacto" },
   ],
 } as const;

@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     // Mantiene el SEO de las URLs del sitio anterior.
     return [
+      { source: "/empresas", destination: "/servicios", permanent: true },
       { source: "/servicios/minerales-no-metalicos", destination: "/servicios/suministro-y-abastecimiento", permanent: true },
       { source: "/servicios/minerales", destination: "/servicios/suministro-y-abastecimiento", permanent: true },
       { source: "/servicios/asesorias", destination: "/servicios/monitoreo-de-tronaduras", permanent: true },

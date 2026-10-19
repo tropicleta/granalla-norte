@@ -8,6 +8,7 @@ async function page(path) {
 }
 const listing = await page("/servicios");
 for (const [legacy, current] of [
+  ["/empresas", "/servicios"],
   ["/servicios/minerales-no-metalicos", "/servicios/suministro-y-abastecimiento"],
   ["/servicios/minerales", "/servicios/suministro-y-abastecimiento"],
   ["/servicios/asesorias", "/servicios/monitoreo-de-tronaduras"],
@@ -34,6 +35,10 @@ for (const [legacy, current] of [["/servicios/mantencion-de-caminos", "/servicio
 }
 assert.equal((listing.match(/href="\/maquinaria"/g) || []).length, 3, "Each applicable service retains machinery access");
 assert.ok(listing.includes('href="/equipos-monitoreo"'), "Monitoring equipment access is retained");
+assert.ok(listing.includes("Motoniveladora RG200B, rodillo New Holland V110 y camiones aljibe"), "Full machinery scope is retained");
+assert.ok(listing.includes("El uso de cloruro de sodio se evalúa según condiciones técnicas"), "Full supply conditions are retained");
+assert.ok(listing.includes("También puedes arrendar equipos"), "Original rental blocks remain visible");
+assert.ok(listing.includes("Proyectos y noticias del rubro"), "Original project blocks remain visible");
 for (const slug of ["obras-civiles", "mantencion-integral-de-caminos", "suministro-y-abastecimiento", "monitoreo-de-tronaduras"]) {
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
 }

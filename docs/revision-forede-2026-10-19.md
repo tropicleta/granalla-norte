@@ -10,9 +10,15 @@ Se redujeron las tarjetas de 132 px de alto a 100 px en escritorio y 88 px en m�
 
 ## Tarjetas de servicios resumidas
 
-Por solicitud del propietario, Inicio muestra tarjetas breves con fotos, resúmenes y etiquetas. Servicios utiliza una variante de dos columnas en escritorio, con una descripción más completa y tres puntos de alcance por línea: no repite literalmente la presentación del inicio ni se extiende hasta el detalle de las fichas individuales. Se utiliza una cuadrícula con filas compartidas para alinear títulos, descripciones y accesos entre las tarjetas de cada fila; se conserva un diseño alternativo para navegadores sin soporte de subgrid. Las fotos de maquinaria y equipos permanecen en los accesos de arriendo.
+Inicio conserva las tarjetas breves alineadas, con sus fotografías y accesos de arriendo. Tras revisar las alternativas, el propietario pidió restaurar en Servicios el contenido completo y los tamaños originales: se recuperaron las descripciones de cada prestación, los bloques con fotografías de arriendo, los botones de consulta y las noticias asociadas. Solo cambia la distribución: fotografía, acceso de arriendo y consultas en la columna izquierda, con presentación y alcance en la derecha en escritorio; en móvil vuelve a una sola columna.
 
-La página Servicios funciona como índice breve. El alcance completo, las condiciones para cotizar y los proyectos asociados siguen disponibles en las páginas individuales y en sus enlaces de noticias; no se repiten todos esos bloques en el índice. Se mantienen las anclas actuales y antiguas para los enlaces existentes.
+Se mantienen también las anclas actuales y antiguas y todas las fichas individuales. No se conserva el índice resumido de Servicios que se había propuesto durante la revisión.
+
+## Presentación y navegación finales
+
+- «Quiénes somos» distribuye presentación y video en una fila y los cuatro valores en otra fila que aprovecha el ancho completo. Se conservan todos los textos y el acceso a Nuestra historia.
+- Se retira la sección Empresas, sus enlaces y su entrada en el sitemap. La dirección antigua redirige permanentemente a Servicios.
+- La cabecera cambia el nombre de Proyectos a Noticias; el contenido de la página sigue reuniendo proyectos y noticias.
 
 ## Resultado de la revisión
 
@@ -52,7 +58,7 @@ Los envíos válidos y cambios de administración se prueban exclusivamente con 
 
 ## Propuestas para conversar antes o durante la feria
 
-1. **Un QR dirigido a Empresas.** La página reúne capacidades, proyectos y contacto comercial. Es más útil para un comprador que un código sin una acción clara. Un enlace con referencia de campaña permitiría distinguir después las consultas de la feria si se incorpora esa medición.
+1. **Un QR dirigido a Servicios.** La página reúne capacidades, proyectos y contacto comercial. Es más útil para un comprador que un código sin una acción clara. Un enlace con referencia de campaña permitiría distinguir después las consultas de la feria si se incorpora esa medición.
 2. **Una ficha comercial de una página.** Servicios, zona de operación, tres proyectos reales con fotografías, contacto, QR y datos de la empresa confirmados. Priorizar evidencia de ejecución sobre promesas generales.
 3. **Un aviso de participación y ubicación del stand.** Encabezado breve, número de stand y persona de contacto, cuando la empresa confirme estos datos. Debe retirarse o actualizarse al terminar la feria.
 4. **Solicitud de reunión breve.** Botón para proponer una conversación de 15 minutos, con disponibilidad real y responsable definido; no publicar horarios inexistentes.

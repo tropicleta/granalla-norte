@@ -30,15 +30,9 @@
 .equipmentLabel { flex: 1; min-width: 0; }
 .news { border: 1px solid rgb(255 255 255 / 0.2); background: rgb(255 255 255 / 0.04); color: var(--color-cream); }
 .news:hover { background: rgb(255 255 255 / 0.1); }
-.listing .media { height: 144px; }
-.listing .title { min-height: 0; font-size: 1.375rem; }
-.listing .items { display: grid; gap: 0.5rem; padding-left: 2.375rem; padding-right: 1.25rem; font-size: 0.875rem; line-height: 1.5; list-style: disc; color: rgb(247 243 238 / 0.85); }
-.listing .items li::marker { color: var(--color-khaki); }
-.listing .equipmentPhoto { flex-basis: 64px; height: 44px; }
 
 @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .media { height: 132px; } }
-@media (min-width: 1024px) { .listing .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .listing .primary { grid-column: 1 / -1; } }
-@media (min-width: 1280px) { .grid:not(.listing) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 @supports not (grid-template-rows: subgrid) {
   .card { display: flex; flex-direction: column; grid-row: auto; }

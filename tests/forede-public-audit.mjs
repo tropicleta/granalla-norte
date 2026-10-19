@@ -10,7 +10,7 @@ const pages = new Map();
 const assets = new Set();
 const anchors = [];
 const titles = new Map();
-const queue = new Set(["/", "/empresas", "/servicios", "/contacto", "/nosotros", "/noticias", "/maquinaria", "/equipos-monitoreo"]);
+const queue = new Set(["/", "/servicios", "/contacto", "/nosotros", "/noticias", "/maquinaria", "/equipos-monitoreo"]);
 const get = (path, options = {}) => fetch(new URL(path, origin), { signal: AbortSignal.timeout(30000), ...options });
 const sitemapResponse = await get("/sitemap.xml");
 assert.equal(sitemapResponse.status, 200);

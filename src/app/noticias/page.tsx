@@ -15,7 +15,7 @@ export default async function NoticiasPage({ searchParams }: { searchParams: Pro
   return (
     <>
       <PageHero
-        eyebrow="Proyectos"
+        eyebrow="Proyectos y noticias"
         title={sector ? `Proyectos y noticias de ${sector.label.toLowerCase()}` : "Trabajo que se ve en terreno"}
         intro={sector ? `Trabajos y actividades de Granalla Norte relacionados con ${sector.label.toLowerCase()} en Atacama.` : "Obras comunitarias, suministro a faenas y presencia en la industria. Lo último de Granalla Norte."}
       />

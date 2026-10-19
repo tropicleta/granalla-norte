@@ -44,8 +44,8 @@ export default async function Home() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/contacto?servicio=caminos">Cotizar mantención de caminos</ButtonLink>
-            <ButtonLink href="/empresas" variant="ghost">
-              Soluciones para empresas
+            <ButtonLink href="/servicios" variant="ghost">
+              Nuestros servicios
             </ButtonLink>
           </div>
         </Container>
@@ -72,8 +72,9 @@ export default async function Home() {
       </section>
 
       {/* NOSOTROS + VIDEO */}
-      <section className="brand-pattern bg-olive-900 py-12 sm:py-16">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
+      <section className="brand-pattern bg-olive-900 py-10 sm:py-12">
+        <Container>
+          <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
             <SectionTitle
               dark
@@ -81,21 +82,22 @@ export default async function Home() {
               title="Capacidad local para ejecutar, abastecer y responder"
               intro={about.intro}
             />
-            <ul className="mt-10 grid gap-5 sm:grid-cols-2">
-              {about.values.map((v) => (
-                <li key={v.title} className="border-l-2 border-khaki pl-4">
-                  <p className="font-semibold text-cream">{v.title}</p>
-                  <p className="text-body mt-1 text-sm text-cream/70">{v.text}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10">
+            <div className="mt-6">
               <ButtonLink href="/nosotros" variant="ghost">
                 Nuestra historia
               </ButtonLink>
             </div>
           </div>
           <YouTubeLite id={site.youtubeId} title="Video promocional de Granalla Norte" />
+          </div>
+          <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {about.values.map((v) => (
+              <li key={v.title} className="border-l-2 border-khaki pl-4">
+                <p className="font-semibold text-cream">{v.title}</p>
+                <p className="text-body mt-1 text-sm text-cream/70">{v.text}</p>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

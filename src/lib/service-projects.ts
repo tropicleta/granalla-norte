@@ -19,6 +19,7 @@ export function sectorProjects<T extends Post>(articles: T[], slug: string): T[]
   const sector = projectSectors.find(item => item.slug === slug);
   if (!sector) return [];
   return articles.filter(article => sector.categories.some(category => categoryKey(category) === categoryKey(article.category))
+    || (slug === "mantencion-integral-de-caminos" && article.slug === "limpieza-habilitacion-plantacion-mina-santos")
     || (slug === "monitoreo-de-tronaduras" && categoryKey(article.category) === "eventos" && monitoringArchive.has(article.slug)));
 }
 

@@ -16,6 +16,9 @@
 .photo { object-fit: contain; }
 @media (max-width: 767px) {
   .media { height: auto; aspect-ratio: 16 / 11; }
+  .photo, .listingPhoto { object-fit: cover; }
+  .listingPhoto { width: 100%; height: auto; max-height: none; aspect-ratio: 16 / 11; }
+  .civilPhoto { object-position: 20% 50%; }
   .supplyPhoto { object-fit: cover; object-position: 50% 20%; }
   .monitoringPhoto { object-fit: cover; object-position: 50% 65%; }
 }

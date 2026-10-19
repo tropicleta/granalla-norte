@@ -8,6 +8,7 @@ import { publishedArticles } from "@/lib/content";
 import { MonitoringAccess } from "@/components/MonitoringAccess";
 import { MachineryAccess } from "@/components/MachineryAccess";
 import { ServiceProjects } from "@/components/ServiceProjects";
+import photoStyles from "@/components/ServiceCards.module.css";
 
 export const metadata = pageMetadata("/servicios", "Servicios para minería y obras civiles en Atacama", "Obras civiles, movimiento de tierra, caminos, suministro y abastecimiento, maquinaria y monitoreo de tronaduras en Tierra Amarilla y Atacama.");
 export const dynamic = "force-dynamic";
@@ -26,7 +27,7 @@ export default async function ServiciosPage() {
         {s.slug === "monitoreo-de-tronaduras" && <span id="asesorias" className="block scroll-mt-40" aria-hidden />}
         <div className="grid items-start gap-6 p-6 sm:p-8 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-8">
           <div className="lg:col-start-1 lg:row-start-1">
-            <Image src={s.image} alt={s.title} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="mx-auto h-auto max-h-72 w-full rounded-2xl object-contain" />
+            <Image src={s.image} alt={s.title} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className={`mx-auto h-auto max-h-72 w-full rounded-2xl object-contain ${photoStyles.listingPhoto} ${s.slug === "suministro-y-abastecimiento" ? photoStyles.supplyPhoto : s.slug === "monitoreo-de-tronaduras" ? photoStyles.monitoringPhoto : s.slug === "obras-civiles" ? photoStyles.civilPhoto : ""}`} />
           </div>
           <div className="min-w-0 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-khaki">{s.kicker}</p>

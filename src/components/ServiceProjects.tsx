@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Post } from "@/lib/site";
 import { projectSectors, sectorProjects, sectorProjectsPath } from "@/lib/service-projects";
 import { Arrow } from "./ui";
+import { projectEvidence } from "@/lib/project-evidence";
 
 export function ServiceProjects({ serviceSlug, articles, dark = false }: { serviceSlug: string; articles: Post[]; dark?: boolean }) {
   const sector = projectSectors.find(item => item.slug === serviceSlug);
@@ -15,7 +16,7 @@ export function ServiceProjects({ serviceSlug, articles, dark = false }: { servi
     </div>
     {projects.length ? <div className="mt-5 grid gap-4 md:grid-cols-2">{projects.slice(0, 2).map(project => <Link key={project.slug} href={`/noticias/${project.slug}`} className={`group flex gap-4 rounded-2xl p-4 transition ${dark ? "bg-white/5 hover:bg-white/10" : "bg-white hover:bg-cream"}`}>
       <div className="relative size-20 shrink-0 overflow-hidden rounded-xl"><Image src={project.image} alt="" fill sizes="80px" className="object-cover" unoptimized={project.image.startsWith("/api/")} /></div>
-      <div className="min-w-0"><p className={`text-xs ${dark ? "text-khaki" : "text-copper-600"}`}>{project.location}</p><h4 className={`mt-1 font-semibold leading-snug ${dark ? "text-cream" : "text-olive-900"}`}>{project.title}</h4><span className={`mt-2 inline-flex items-center gap-1 text-xs font-semibold ${dark ? "text-khaki" : "text-copper-600"}`}>Conocer el trabajo <Arrow /></span></div>
+      <div className="min-w-0"><p className={`text-xs ${dark ? "text-khaki" : "text-copper-600"}`}>{project.location}</p><h4 className={`mt-1 font-semibold leading-snug ${dark ? "text-cream" : "text-olive-900"}`}>{project.title}</h4><p className={`mt-2 text-sm leading-relaxed ${dark ? "text-cream/75" : "text-ink/75"}`}>{serviceSlug === "mantencion-integral-de-caminos" && project.slug === "limpieza-habilitacion-plantacion-mina-santos" ? "Capacidad relacionada: humectación con camión aljibe para controlar el polvo durante la habilitación de terreno." : projectEvidence[project.slug]?.summary ?? project.excerpt}</p><span className={`mt-2 inline-flex items-center gap-1 text-xs font-semibold ${dark ? "text-khaki" : "text-copper-600"}`}>Conocer el trabajo <Arrow /></span></div>
     </Link>)}</div> : <p className={`text-body mt-5 text-sm ${dark ? "text-cream/75" : "text-ink/75"}`}>Aún no hay noticias publicadas de este rubro. Puedes consultar a nuestro equipo por la experiencia y el alcance de tu proyecto.</p>}
   </section>;
 }

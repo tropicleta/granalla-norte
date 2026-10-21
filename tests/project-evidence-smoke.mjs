@@ -1,0 +1,38 @@
+import assert from "node:assert/strict";
+const origin = process.argv[2] || "http://127.0.0.1:3119";
+const domain = "https://www.granallanorte.cl";
+async function article(slug) {
+  const response = await fetch(`${origin}/noticias/${slug}`);
+  assert.equal(response.status, 200, slug);
+  const html = await response.text();
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  const record = schemas.find(schema => schema["@type"] === "Article");
+  assert.ok(schemas.some(schema => schema["@type"] === "BreadcrumbList" && schema.itemListElement.at(-1).item === `${domain}/noticias/${slug}`), "Article breadcrumb points to its canonical page");
+  return { html, record, context: html.match(/<section[^>]*aria-label="Servicios relacionados con este registro"[\s\S]*?<\/section>/)?.[0] ?? "" };
+}
+const terrain = await article("relleno-nivelacion-bosque-mina-santos");
+assert.ok(terrain.context.includes('href="/servicios/obras-civiles"'));
+assert.ok(terrain.context.includes('href="/servicios/suministro-y-abastecimiento"'));
+assert.ok(terrain.context.includes("sin compactación mecánica"));
+assert.ok(terrain.context.includes("material estabilizado utilizado en esta obra fue dispuesto por el mandante"));
+assert.ok(!terrain.context.includes('href="/maquinaria"'), "Equipment used is not presented as evidence of a rental contract");
+assert.equal(terrain.record.datePublished, "2026-09-04", "Original publication date retained");
+assert.ok(terrain.record.about.some(service => service["@id"] === `${domain}/servicios/obras-civiles#servicio`));
+const supply = await article("ventas-de-cloruro-de-sodio-para-minera-maricunga");
+assert.ok(supply.context.includes('href="/servicios/suministro-y-abastecimiento"'));
+assert.ok(!supply.context.includes('href="/servicios/mantencion-integral-de-caminos"'), "Supply for roads does not assert execution of roads");
+assert.ok(!supply.context.includes("200 toneladas"), "No quantity from another source is attributed to Maricunga");
+const related = supply.html.split("Otros proyectos")[1];
+assert.ok(related.indexOf("ventas-significativas-de-cloruro-de-sodio-para-kinross-en-la-coipa") < related.indexOf("relleno-nivelacion-bosque-mina-santos"), "Related supply case takes precedence over newer civil cases");
+const clearing = await article("limpieza-habilitacion-plantacion-mina-santos");
+assert.ok(clearing.context.includes("este caso no documenta la construcción ni la mantención de un camino"));
+const training = await article("monitoreo-vibraciones-primer-semestre-2024");
+assert.ok(training.context.includes("formación y participación comunitaria"));
+const historical = await article("evento-de-polvo-en-tierra-amarilla");
+assert.equal(historical.context, "", "Historical weather statement is not presented as a commercial service case");
+assert.equal(historical.record.about, undefined);
+const civil = await (await fetch(`${origin}/servicios/obras-civiles`)).text();
+assert.ok(civil.includes("Relleno, distribución y nivelación de terreno"), "Service page links back with evidence of project scope");
+const sitemap = await (await fetch(`${origin}/sitemap.xml`)).text();
+assert.match(sitemap, /relleno-nivelacion-bosque-mina-santos<\/loc>\s*<lastmod>2026-10-21/);
+console.log("PASS: bidirectional case links, relevant related articles, preserved dates, article relationships and no unsupported service claims.");

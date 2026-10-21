@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { publishedArticles } from "@/lib/content";
 import { serviceDetails } from "@/lib/service-details";
+import { projectContextModified, PROJECT_CONTEXT_UPDATED } from "@/lib/project-evidence";
 
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -11,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.8,
   }));
-  const news = posts.map((p) => ({ url: `${site.url}/noticias/${p.slug}`, lastModified: p.updatedAt, priority: 0.6 }));
-  const services = serviceDetails.map(s => ({ url: `${site.url}/servicios/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.9 }));
+  const news = posts.map((p) => ({ url: `${site.url}/noticias/${p.slug}`, lastModified: projectContextModified(p), priority: 0.6 }));
+  const services = serviceDetails.map(s => ({ url: `${site.url}/servicios/${s.slug}`, lastModified: PROJECT_CONTEXT_UPDATED, changeFrequency: "monthly" as const, priority: 0.9 }));
   return [...pages, ...services, ...news];
 }

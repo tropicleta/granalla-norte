@@ -5,7 +5,7 @@ import Link from "next/link";
 import { projectSectors, sectorProjects } from "@/lib/service-projects";
 import { categoryKey } from "@/lib/news-categories";
 
-export const metadata = pageMetadata("/noticias", "Proyectos mineros y obras comunitarias en Atacama", "Revisa proyectos de Granalla Norte: obras comunitarias, suministro de minerales y servicios para faenas en Tierra Amarilla y la Región de Atacama.");
+export const metadata = pageMetadata("/noticias", "Proyectos de obras civiles y servicios mineros en Atacama", "Trabajos de Granalla Norte en obras civiles, movimiento de tierra y suministro para faenas de Atacama. Revisa alcances, fotografías y antecedentes publicados.");
 
 export const dynamic = "force-dynamic";
 export default async function NoticiasPage({ searchParams }: { searchParams: Promise<{ rubro?: string | string[] }> }) {

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container, CtaBand, PostCard } from "@/components/ui";
 import { formatDate, site } from "@/lib/site";
 import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
-import { serviceDetails } from "@/lib/service-details";
+import { projectEvidence, projectServices, relatedProjectArticles, projectContextModified } from "@/lib/project-evidence";
 import { publishedArticles } from "@/lib/content";
 import recoveredNews from "@/lib/recovered-news.json";
 import { YouTubeLite } from "@/components/YouTubeLite";
@@ -18,9 +18,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = (await publishedArticles()).find((p) => p.slug === slug);
   if (!post) return {};
+  const modified = projectContextModified(post);
   return {
     ...pageMetadata(`/noticias/${slug}`, post.title, post.excerpt, post.image),
-    openGraph: { ...pageMetadata(`/noticias/${slug}`, post.title, post.excerpt, post.image).openGraph, type: "article", publishedTime: post.date, ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}) },
+    openGraph: { ...pageMetadata(`/noticias/${slug}`, post.title, post.excerpt, post.image).openGraph, type: "article", publishedTime: post.date, ...(modified ? { modifiedTime: modified } : {}) },
   };
 }
 
@@ -29,14 +30,21 @@ export default async function PostPage({ params }: Props) {
   const posts = await publishedArticles();
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
-  const related = posts.filter((p) => p.slug !== slug).slice(0, 3);
+  const related = relatedProjectArticles(posts, post);
   const videos = recoveredNews.find(p => p.slug === slug)?.videos ?? [];
-  const service = serviceDetails.find(s => s.projectCategories.includes(post.category));
+  const relatedServices = projectServices(post);
+  const evidence = projectEvidence[post.slug];
+  const modified = projectContextModified(post);
   const historical = post.slug === "evento-de-polvo-en-tierra-amarilla";
   const activity = post.category === "Eventos" || post.category === "Monitoreo de tronaduras";
   const supply = post.category === "Minerales" || post.category === "Suministro y abastecimiento";
   const headings = historical ? ["Contexto del comunicado", "Medidas informadas", "Sobre este registro"] : activity ? ["La actividad", "Participación y contenidos", "Balance de la jornada"] : supply ? ["El suministro", "Desarrollo del servicio", "Resultado"] : ["El proyecto", "Trabajos realizados", "Resultado"];
-  const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description: post.excerpt, image: new URL(post.image, site.url).href, datePublished: post.date, ...(post.updatedAt ? { dateModified: post.updatedAt } : {}), author: { "@id": businessId }, publisher: { "@id": businessId }, mainEntityOfPage: `${site.url}/noticias/${post.slug}` };
+  const schema = { "@context": "https://schema.org", "@type": "Article", headline: post.title, description: post.excerpt, image: new URL(post.image, site.url).href, datePublished: post.date, ...(modified ? { dateModified: modified } : {}), author: { "@id": businessId }, publisher: { "@id": businessId }, mainEntityOfPage: `${site.url}/noticias/${post.slug}`, ...(relatedServices.length ? { about: relatedServices.map(service => ({ "@type": "Service", "@id": `${site.url}/servicios/${service.slug}#servicio`, url: `${site.url}/servicios/${service.slug}`, name: service.label, provider: { "@id": businessId } })) } : {}) };
+  const breadcrumbs = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
+    { "@type": "ListItem", position: 2, name: "Proyectos y noticias", item: `${site.url}/noticias` },
+    { "@type": "ListItem", position: 3, name: post.title, item: `${site.url}/noticias/${post.slug}` },
+  ] };
 
   return (
     <>
@@ -98,6 +106,14 @@ export default async function PostPage({ params }: Props) {
           <div className="order-1 mx-auto w-full max-w-xl lg:order-2"><NewsPhotos images={post.images.length ? post.images : [post.image]} title={post.title} caption={post.imageCaption} /></div>
           </div>
           {!!videos.length && <section className="mt-8 grid gap-6 sm:grid-cols-2" aria-label="Videos de la actividad">{videos.map((id, index) => <YouTubeLite key={id} id={id} title={`${post.title} — video ${index + 1}`} />)}</section>}
+          {!!relatedServices.length && <section className="mt-10 rounded-2xl bg-sand-300 p-6 sm:p-8" aria-label="Servicios relacionados con este registro">
+            <h2 className="font-display text-2xl font-semibold text-olive-900">Del trabajo en terreno a nuestros servicios</h2>
+            {evidence && <p className="text-body mt-4 max-w-3xl leading-relaxed text-ink/80">{evidence.summary}</p>}
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">{relatedServices.map(service => <div key={service.slug}>
+              <h3 className="font-display text-lg font-semibold text-olive-900"><Link href={`/servicios/${service.slug}`} className="underline underline-offset-4">{service.label}</Link></h3>
+              <p className="text-body mt-3 text-sm leading-relaxed text-ink/75">{service.context}</p>
+            </div>)}</div>
+          </section>}
         </div>
       </article>
 
@@ -111,9 +127,9 @@ export default async function PostPage({ params }: Props) {
           </div>
         </Container>
       </section>
-      {service && <Container className="pb-10"><Link href={`/servicios/${service.slug}`} className="font-semibold text-copper-600 underline underline-offset-4">Conocer el servicio: {service.title}</Link></Container>}
       <CtaBand />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }} />
     </>
   );
 }

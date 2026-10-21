@@ -24,6 +24,7 @@ export function Footer() {
           <div className="mt-3 text-sm">
             <h2 className="sr-only">Ubicación</h2>
             <p>{site.address}</p>
+            <a href={site.googleMaps} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-khaki underline underline-offset-4">Ver Granalla Norte en Google Maps</a>
           </div>
         </div>
 

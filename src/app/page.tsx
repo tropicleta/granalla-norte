@@ -7,7 +7,7 @@ import { publishedArticles } from "@/lib/content";
 import { businessId, pageMetadata, serializeJsonLd } from "@/lib/seo";
 import { ServiceCards } from "@/components/ServiceCards";
 
-export const metadata = pageMetadata("", "Obras civiles y servicios mineros en Atacama", site.description);
+export const metadata = pageMetadata("", "Obras civiles y servicios mineros en Copiapó y Atacama", site.description);
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
@@ -35,15 +35,15 @@ export default async function Home() {
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-950 via-olive-950/85 to-olive-950/30" aria-hidden />
         <Container className="py-10 sm:py-12 lg:py-14">
-          <Eyebrow dark>Tierra Amarilla · Región de Atacama</Eyebrow>
+          <Eyebrow dark>Copiapó · Tierra Amarilla · Atacama</Eyebrow>
           <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-cream text-balance sm:text-5xl lg:text-[3.5rem]">
-            Servicios mineros y mantención integral de <span className="text-khaki">caminos mineros</span>.
+            Obras civiles, movimiento de tierra y <span className="text-khaki">servicios mineros</span>.
           </h1>
           <p className="text-body mt-4 max-w-2xl text-base leading-relaxed text-cream/80 sm:text-lg">
-            Coordinamos maquinaria, materiales y ejecución en terreno para conservar la transitabilidad y apoyar la continuidad operacional de tu faena.
+            Atendemos empresas y faenas en Copiapó, Tierra Amarilla y Atacama: obras civiles, movimiento de tierra, mantención de caminos, suministro de materiales, arriendo de maquinaria y monitoreo de tronaduras.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <ButtonLink href="/contacto?servicio=caminos">Cotizar mantención de caminos</ButtonLink>
+            <ButtonLink href="/contacto">Cotizar un servicio</ButtonLink>
             <ButtonLink href="/servicios" variant="ghost">
               Nuestros servicios
             </ButtonLink>
@@ -59,8 +59,8 @@ export default async function Home() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionTitle
               eyebrow="Qué hacemos"
-              title="Caminos como foco, capacidades que se complementan"
-              intro="Integramos maquinaria, materiales y ejecución para caminos y accesos. Obras civiles, abastecimiento y monitoreo complementan nuestra oferta para Atacama."
+              title="Servicios para obras, caminos y faenas en Atacama"
+              intro="Coordinamos ejecución en terreno, maquinaria, materiales y mediciones según el alcance de cada proyecto en Copiapó, Tierra Amarilla y la región."
             />
             <ButtonLink href="/servicios" variant="outline">
               Ver todos los servicios

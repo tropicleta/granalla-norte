@@ -9,11 +9,11 @@ import { availabilityLabels } from "@/lib/machinery-model";
 import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
-export const metadata = pageMetadata("/equipos-monitoreo", "Arriendo de geófonos y sismógrafos en Atacama", "Sistemas Instantel Minimate Plus y geófonos triaxiales para monitoreo de vibraciones de tronaduras. Consulta configuración, antecedentes técnicos y disponibilidad.");
+export const metadata = pageMetadata("/equipos-monitoreo", "Arriendo de geófonos y sismógrafos en Copiapó", "Sistemas Instantel Minimate Plus y geófonos triaxiales para monitoreo de vibraciones de tronaduras en Copiapó, Tierra Amarilla y Atacama. Consulta configuración, antecedentes técnicos y disponibilidad.");
 export default async function Page() {
   const equipment = await publishedMonitoringEquipment();
   return <>
-    <PageHero eyebrow="Monitoreo de tronaduras / Arriendo" title="Arriendo de geófonos y sismógrafos" intro="Contamos con equipos Instantel Minimate Plus y geófonos triaxiales para registrar vibraciones de tronaduras. Coordina las unidades, los puntos de medición y el período de arriendo según las necesidades de tu operación." />
+    <PageHero eyebrow="Monitoreo de tronaduras / Arriendo" title="Arriendo de geófonos y sismógrafos en Copiapó y Atacama" intro="Contamos con equipos Instantel Minimate Plus y geófonos triaxiales para registrar vibraciones de tronaduras. Coordina las unidades, los puntos de medición y el período de arriendo según las necesidades de tu operación." />
     <Container className="py-10 sm:py-12">
       <Link href="/servicios/monitoreo-de-tronaduras" className="text-sm font-semibold text-copper-600 underline underline-offset-4">← Monitoreo de tronaduras</Link>
       <div className="mt-8 grid gap-4 md:grid-cols-3">{[

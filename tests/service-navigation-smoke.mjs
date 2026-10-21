@@ -37,7 +37,7 @@ assert.equal((listing.match(/href="\/maquinaria"/g) || []).length, 3, "Each appl
 assert.ok(listing.includes('href="/equipos-monitoreo"'), "Monitoring equipment access is retained");
 assert.ok(listing.includes("Motoniveladora RG200B, rodillo New Holland V110 y camiones aljibe"), "Full machinery scope is retained");
 assert.ok(listing.includes("El uso de cloruro de sodio se evalúa según condiciones técnicas"), "Full supply conditions are retained");
-assert.ok(listing.includes("También puedes arrendar equipos"), "Original rental blocks remain visible");
+assert.ok(listing.includes("Arriendo de geófonos y sismógrafos"), "Monitoring rental access remains visible");
 assert.ok(listing.includes("Proyectos y noticias del rubro"), "Original project blocks remain visible");
 for (const slug of ["obras-civiles", "mantencion-integral-de-caminos", "suministro-y-abastecimiento", "monitoreo-de-tronaduras"]) {
   assert.ok(listing.includes(`/noticias?rubro=${slug}`), `${slug}: sector news link`);
@@ -59,8 +59,8 @@ const civil = await page("/noticias?rubro=obras-civiles");
 assert.ok(civil.includes("mejora-escuela-paul-harris"));
 assert.ok(!civil.includes("monitoreo-vibraciones-primer-semestre-2024"));
 const roads = await page("/noticias?rubro=mantencion-integral-de-caminos");
-assert.ok(roads.includes("Aún no hay publicaciones de este rubro"));
-assert.equal((roads.match(/<article /g) || []).length, 0);
+assert.ok(roads.includes("limpieza-habilitacion-plantacion-mina-santos"), "Published road-related project remains accessible");
+assert.ok(!roads.includes("ventas-de-cloruro-de-sodio-para-minera-maricunga"), "Road filter excludes unrelated supply projects");
 const unknown = await page("/noticias?rubro=inexistente");
 assert.ok(unknown.includes("expo-forede-2025"), "Unknown filters show the full listing");
 const events = await page("/noticias?rubro=eventos");

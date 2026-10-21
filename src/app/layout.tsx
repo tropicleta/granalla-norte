@@ -36,6 +36,8 @@ const jsonLd = {
   logo: new URL(site.logo, site.url).href,
   image: new URL(site.images.hero, site.url).href,
   description: site.description,
+  sameAs: [site.googleMaps, "https://www.youtube.com/@granallanorte"],
+  hasMap: site.googleMaps,
   areaServed: serviceArea,
   hasOfferCatalog: {
     "@type": "OfferCatalog", name: "Servicios de Granalla Norte en Atacama",

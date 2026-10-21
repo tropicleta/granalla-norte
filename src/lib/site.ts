@@ -17,6 +17,7 @@ export const site = {
   hoursDisplay: "Lunes a viernes, de 08:00 a 17:00",
   whatsapp: "56983312335",
   address: "Tierra Amarilla, Región de Atacama, Chile",
+  googleMaps: "https://www.google.com/maps/place/Granalla+Norte/data=!4m2!3m1!1s0x0:0x7fa5da5fda12113d",
   youtubeId: "h5RxcxaMmoc",
   logo: `${CDN}/logo-granalla-norte-a-color---copia1-YD0D4vr2LwFKXxV3.png`,
   images: {

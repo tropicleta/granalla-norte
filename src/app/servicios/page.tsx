@@ -41,7 +41,7 @@ export default async function ServiciosPage() {
           <div className="lg:col-start-1 lg:row-start-2 [&>a]:mt-0">
             <MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} />
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Conocer alcance y cómo cotizar <Arrow /></Link>
+              <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver {s.title.toLowerCase()} <Arrow /></Link>
               <Link href={`/contacto?servicio=${s.slug}`} className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
           </div>

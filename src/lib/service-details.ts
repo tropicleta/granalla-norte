@@ -7,6 +7,8 @@ export type ServiceDetail = {
   intro: string;
   problem: string;
   scope: string;
+  applications?: { title: string; description: string }[];
+  applicationsTitle?: string;
   quote: string[];
   questions: { question: string; answer: string }[];
   projectCategories: string[];
@@ -19,9 +21,15 @@ export const serviceDetails: ServiceDetail[] = [
     "title": "Obras civiles y movimiento de tierra en Copiapó y Atacama",
     "searchTitle": "Obras civiles y movimiento de tierra en Copiapó",
     "description": "Obras civiles, excavación, carguío y preparación de terreno en Copiapó, Tierra Amarilla y Atacama. Consulta alcance, maquinaria y programación.",
-    "intro": "Ejecución y coordinación de trabajos de terreno para operaciones, proyectos y comunidades. Combinamos recursos, maquinaria y mano de obra local según alcance y programación.",
+    "intro": "Obras civiles, excavaciones, rellenos, nivelación y preparación de terrenos para empresas, faenas y proyectos comunitarios en Copiapó y Atacama. Coordinamos maquinaria, materiales y mano de obra según el trabajo requerido.",
     "problem": "Una intervención en terreno necesita organizar equipos, materiales y logística para responder a las condiciones reales de la obra y a los plazos del requerimiento.",
-    "scope": "Excavación, carguío, retiro, limpieza y preparación de terreno, junto con trabajos asociados a obras civiles según alcance. El brochure incluye excavadoras Doosan DX225 y DX210, cargador Doosan SD310 de 3 m³, además de transporte, izaje y traslado de maquinaria como apoyo operacional.",
+    "scope": "Excavación, carguío, retiro, limpieza y preparación de terreno, junto con trabajos de obras civiles según alcance. Coordinamos excavadoras, cargador y transporte como apoyo a la ejecución. La selección de equipos, los materiales y la programación se definen con los antecedentes de cada proyecto.",
+    "applicationsTitle": "Trabajos de obras civiles y movimiento de tierra",
+    "applications": [
+      { "title": "Excavación y preparación de terrenos", "description": "Limpieza, excavación, carguío y retiro de material para habilitar áreas de trabajo. Evaluamos el volumen, los accesos y las condiciones del terreno antes de asignar maquinaria." },
+      { "title": "Relleno y nivelación", "description": "Distribución y nivelación de materiales según el uso previsto del sector. El proyecto de Bosque Mina Santos documenta estos trabajos para una futura plantación, sin compactación mecánica." },
+      { "title": "Mejoras de infraestructura y cierres", "description": "Nuestra experiencia publicada incluye pasarelas, tarimas, espacios comunitarios y cierres perimetrales. Revisamos planos, medidas, materiales y funcionamiento del lugar para definir la intervención." }
+    ],
     "quote": [
       "Ubicación y descripción de los trabajos.",
       "Fotografías, medidas, planos y especificaciones disponibles.",
@@ -36,6 +44,14 @@ export const serviceDetails: ServiceDetail[] = [
       {
         "question": "¿Trabajan también en infraestructura comunitaria?",
         "answer": "Sí. La experiencia publicada incluye mejoras en sedes sociales y establecimientos educacionales, con participación local y coordinación según las necesidades de cada obra."
+      },
+      {
+        "question": "¿Cómo se cotiza una excavación o un movimiento de tierra?",
+        "answer": "Envíanos la ubicación, fotografías, medidas o volumen aproximado, tipo de material y fechas. Con esos antecedentes evaluamos maquinaria, carguío, retiro y accesos; si falta información, coordinamos cómo completar la evaluación antes de confirmar el alcance."
+      },
+      {
+        "question": "¿Puedo contratar la obra o consultar solo por maquinaria?",
+        "answer": "Puedes consultar la ejecución de los trabajos o un arriendo de maquinaria. Son requerimientos distintos: para la obra definimos tareas y recursos; para el arriendo confirmamos equipo, fechas, traslado y condiciones de uso."
       }
     ],
     "projectCategories": [
@@ -72,10 +88,16 @@ export const serviceDetails: ServiceDetail[] = [
   {
     "serviceSlug": "suministro-y-abastecimiento",
     "slug": "suministro-y-abastecimiento",
-    "title": "Suministro de materiales en Copiapó y Atacama",
+    "title": "Cloruro de sodio, áridos y materiales para obras en Copiapó y Atacama",
     "searchTitle": "Cloruro de sodio y áridos en Copiapó y Atacama",
     "description": "Suministro de cloruro de sodio, áridos, estabilizado y sílice de cuarzo para Copiapó, Tierra Amarilla y Atacama. Consulta cantidades y entregas.",
-    "intro": "Materiales e insumos para obras y operaciones: sílice de cuarzo, arena, gravilla, estabilizado y cloruro de sodio. Coordinamos disponibilidad, formato y logística según las condiciones del proyecto.",
+    "intro": "Suministro de cloruro de sodio para requerimientos industriales, áridos y sílice de cuarzo para empresas y faenas. Coordinamos cantidades, especificaciones y entregas en Copiapó y Atacama según disponibilidad y condiciones de recepción.",
+    "applicationsTitle": "Materiales que puedes solicitar",
+    "applications": [
+      { "title": "Cloruro de sodio para uso industrial", "description": "Suministro y coordinación de entregas para obras y faenas. Los casos publicados de Maricunga y La Coipa documentan abastecimiento de cloruro de sodio; indica el uso previsto, las especificaciones, el volumen y el formato requerido." },
+      { "title": "Áridos: arena, gravilla y estabilizado", "description": "Consulta suministro para tu obra con el tipo de material, la granulometría o especificación disponible, la cantidad y el punto de entrega. Evaluamos accesos y capacidad de descarga antes de confirmar la logística." },
+      { "title": "Sílice de cuarzo", "description": "Para evaluar el requerimiento, envía la especificación técnica, cantidad, presentación y destino. La disponibilidad y las condiciones de entrega se confirman para cada solicitud." }
+    ],
     "problem": "Abastecer también implica coordinar correctamente. Las cantidades, los accesos, los plazos y la capacidad de almacenamiento del cliente deben incorporarse a la planificación de las entregas.",
     "scope": "Integramos suministro, recursos, coordinación y ejecución. Definimos la necesidad, evaluamos condiciones, organizamos la logística y realizamos seguimiento. Nuestra experiencia incluye 200 toneladas de cloruro de sodio en maxisacos de 1.000 kg, mediante entregas parciales ajustadas a la capacidad de almacenamiento, sin agregar costos de bodegaje al cliente.",
     "quote": [
@@ -92,6 +114,14 @@ export const serviceDetails: ServiceDetail[] = [
       {
         "question": "¿Pueden coordinar entregas parciales?",
         "answer": "Sí. Evaluamos la programación y la capacidad de recepción del proyecto para coordinar entregas. El dossier documenta un suministro de 200 toneladas de cloruro de sodio gestionado de esta forma."
+      },
+      {
+        "question": "¿Qué información necesitan para cotizar áridos?",
+        "answer": "Indica si necesitas arena, gravilla o estabilizado, las especificaciones del proyecto y la cantidad con su unidad de medida. Agrega ubicación, fechas, accesos y condiciones de descarga para evaluar suministro y transporte."
+      },
+      {
+        "question": "¿El suministro de cloruro incluye su aplicación en caminos?",
+        "answer": "La cotización de suministro define material, formato y entregas. Si también necesitas trabajos en caminos, indícalo para evaluar ese alcance por separado según las condiciones y requisitos técnicos del proyecto."
       }
     ],
     "projectCategories": [

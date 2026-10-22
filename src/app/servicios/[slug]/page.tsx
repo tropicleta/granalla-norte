@@ -74,6 +74,13 @@ export default async function ServicePage({ params }: Props) {
         </ol>
         <p className="mt-6 border-t border-white/20 pt-5 text-sm leading-relaxed text-cream/80">La selección de materiales y cualquier aplicación de cloruro de sodio se evalúan según especificaciones técnicas, condiciones ambientales y requisitos del proyecto.</p>
       </section>}
+      {detail.applications && <section className="mt-12" aria-label="Alcances que puedes consultar">
+        <h2 className="font-display text-3xl font-semibold text-olive-900">{detail.applicationsTitle}</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-3">{detail.applications.map(item => <article key={item.title} className="rounded-[var(--radius-card)] bg-sand-300 p-6">
+          <h3 className="font-display text-xl font-semibold text-olive-900">{item.title}</h3>
+          <p className="text-body mt-3 text-sm leading-relaxed text-ink/80">{item.description}</p>
+        </article>)}</div>
+      </section>}
       <ServiceProjects serviceSlug={service.slug} articles={articles} />
       <LocalServiceCoverage serviceKey={service.slug} />
       <section className="mt-14 max-w-3xl"><h2 className="font-display text-3xl font-semibold text-olive-900">Preguntas frecuentes</h2><div className="mt-6 divide-y divide-sand">{detail.questions.map(q => <div key={q.question} className="py-5"><h3 className="font-semibold text-olive-900">{q.question}</h3><p className="text-body mt-3 leading-relaxed text-ink/80">{q.answer}</p></div>)}</div></section>

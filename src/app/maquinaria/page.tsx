@@ -31,6 +31,14 @@ export default async function Page() {
       })}</div>
       {!machines.length && <p className="text-body mt-8 rounded-xl bg-sand-300 p-8">Estamos actualizando el catálogo. Contáctanos para consultar maquinaria para tu proyecto.</p>}
       <LocalServiceCoverage serviceKey="maquinaria" />
+      <section className="mt-12 max-w-3xl" aria-label="Elegir maquinaria para tu proyecto">
+        <h2 className="font-display text-2xl font-semibold text-olive-900">Arriendo para excavación, nivelación y apoyo en terreno</h2>
+        <p className="text-body mt-4 leading-relaxed text-ink/80">Para excavación y carguío, consulta las excavadoras y el cargador del catálogo. Para perfilado y compactación de caminos, consulta motoniveladora y rodillo; los camiones aljibe permiten coordinar humectación. La combinación de equipos se evalúa según el terreno y el alcance solicitado.</p>
+        <div className="mt-6 space-y-6">
+          <div><h3 className="font-semibold text-olive-900">¿Qué datos necesitan para cotizar un arriendo?</h3><p className="text-body mt-2 leading-relaxed text-ink/80">Indica el equipo o trabajo previsto, fechas, duración estimada y ubicación. Agrega condiciones de acceso y traslado, y consulta las condiciones de operación incluidas antes de confirmar la contratación.</p></div>
+          <div><h3 className="font-semibold text-olive-900">¿Necesitas que ejecutemos el trabajo?</h3><p className="text-body mt-2 leading-relaxed text-ink/80">Si buscas un resultado de obra, podemos evaluar <Link href="/servicios/obras-civiles" className="font-semibold text-copper-600 underline underline-offset-4">obras civiles y movimiento de tierra</Link> o <Link href="/servicios/mantencion-integral-de-caminos" className="font-semibold text-copper-600 underline underline-offset-4">mantención de caminos mineros</Link>. Indica las tareas para definir recursos y alcance, además de la maquinaria.</p></div>
+        </div>
+      </section>
     </Container><CtaBand />
   </>;
 }

@@ -151,3 +151,39 @@ temporal y una contraseña aleatoria y comprueba edición de originales, borrado
 publicación, imágenes privadas, conflictos, validación, recepción, bandeja privada,
 estados, cuota y persistencia tras reiniciar el servidor. También verifica el
 rechazo de guardados sin almacenamiento. No escribe en el almacén de producción.
+
+## Portal de mandantes
+
+`/acceso` permite iniciar sesión con correo y contraseña, consultar únicamente
+los proyectos de la cuenta, descargar sus documentos y cambiar la contraseña.
+El enlace «Acceso mandantes» está en la cabecera y el pie del sitio.
+
+`/admin/mandantes` incluye listado con búsqueda, creación y edición de cuentas,
+activación/desactivación y restablecimiento de contraseña. El administrador crea
+los proyectos, define su estado y descripción, indica de 1 a 100 partes y puede
+dar nombre a cada parte. Dentro de ellas carga, renombra y retira documentos.
+No se pueden quitar partes con documentos. Los documentos son visibles de inmediato
+para el mandante: revisar el proyecto y la parte antes de subirlos.
+
+Archivos: hasta 3 MB por documento, PDF, Word, Excel, CSV, TXT, JPG, PNG o ZIP.
+Las descargas siempre se entregan como adjuntos privados y comprueban la cuenta
+en el servidor; conocer el identificador de un documento no da acceso a él.
+Los archivos retirados dejan de poder descargarse por el portal; no se eliminan
+físicamente de Blob. Una subida cuyo guardado final falle puede dejar un archivo
+sin referencia, inaccesible por el portal. El catálogo usa ETag para evitar que
+una edición sobrescriba cambios simultáneos; ante conflicto, actualizar el listado.
+
+Reutiliza el almacén privado de Vercel descrito arriba (`cms/portal/`) y
+`ADMIN_PASSWORD` de al menos 12 caracteres. No requiere otra clave ni usa
+almacenamiento del navegador. En desarrollo admite `CONTENT_LOCAL_DIR`.
+Las contraseñas usan scrypt con sal individual. Las sesiones duran ocho horas;
+desactivar una cuenta, cambiar su correo o restablecer/cambiar la contraseña
+invalida sus sesiones. Cada petición vuelve a comprobar el estado de la cuenta.
+Los intentos de acceso tienen cuotas persistentes por cuenta y origen durante
+15 minutos. La contraseña inicial se entrega manualmente por un canal privado;
+no hay envío de correos automático ni autorregistro.
+
+Verificación aislada: compilar con `NEXT_BUILD_DIR=.next-portal-check` y ejecutar
+`node tests/portal-smoke.mjs`. Usa cuentas aleatorias y una carpeta temporal,
+comprueba aislamiento, permisos, documentos privados, concurrencia, contraseñas,
+desactivación, persistencia tras reinicio y límites de acceso. No toca producción.

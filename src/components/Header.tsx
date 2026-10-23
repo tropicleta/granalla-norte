@@ -64,7 +64,8 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex lg:items-center lg:gap-4">
+          <Link href="/acceso" className="text-sm font-medium text-cream hover:text-khaki">Acceso mandantes</Link>
           <Link
             href="/contacto"
             className="inline-flex items-center gap-2 rounded-full bg-copper px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-copper-600"
@@ -105,6 +106,7 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li><Link href="/acceso" onClick={() => setOpen(false)} className="block px-3 py-3 text-cream">Acceso mandantes</Link></li>
             <li className="pt-2">
               <Link href="/contacto" onClick={() => setOpen(false)} className="block rounded-full bg-copper px-5 py-3 text-center font-semibold text-white">
                 Cotizar proyecto

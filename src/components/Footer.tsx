@@ -46,6 +46,7 @@ export function Footer() {
         <div className="md:col-span-3">
           <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-khaki">Empresa</h2>
           <ul className="mt-3 space-y-2 text-sm">
+            <li><Link href="/acceso" className="hover:text-cream">Acceso mandantes</Link></li>
             {site.nav.slice(1).map((n) => (
               <li key={n.href}>
                 <Link href={n.href} className="hover:text-cream">

@@ -2,6 +2,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { configuredPassword, createSession, SESSION_COOKIE, SESSION_SECONDS } from "@/lib/admin-session";
 import { isSameOrigin } from "@/lib/request-origin";
+import { apiError, limitedJson } from "@/lib/admin-api";
 
 // Best-effort per-instance throttling; platform rate limiting should supplement it.
 const attempts = new Map<string, { count: number; expires: number }>();
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
   entry.count += 1;
   attempts.set(ip, entry);
   let body: unknown;
-  try { body = await request.json(); } catch { return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 }); }
+  try { body = await limitedJson(request, 4096); } catch (error) { return apiError(error); }
   const input = body as { username?: unknown; password?: unknown } | null;
   if (!input || typeof input.username !== "string" || typeof input.password !== "string" || input.password.length > 1024) return NextResponse.json({ error: "Usuario o contraseña incorrectos." }, { status: 401 });
   const matches = timingSafeEqual(createHash("sha256").update(input.password).digest(), createHash("sha256").update(password).digest());

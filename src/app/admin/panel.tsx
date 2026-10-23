@@ -44,29 +44,34 @@ export default function AdminPanel() {
   const [data, setData] = useState<Data>(initial);
   const [section, setSection] = useState<Module | "Resumen">("Resumen");
   const [ready, setReady] = useState(false);
+  const [recoveryBlocked, setRecoveryBlocked] = useState(false);
+  const [recoveryCopy, setRecoveryCopy] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<Row | null>(null);
   const [showForm, setShowForm] = useState(false);
   useEffect(() => {
+    let saved: string | null = null;
     try {
-      const saved = localStorage.getItem(storageKey);
+      saved = localStorage.getItem(storageKey);
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (!validData(parsed)) throw new Error("Invalid data");
         setData(parsed);
       }
-    } catch { setNotice("No se pudieron recuperar los registros guardados. Se muestran los ejemplos; la copia anterior no se ha modificado."); }
+    } catch { setRecoveryBlocked(true); setRecoveryCopy(saved); setNotice("No se pudieron recuperar los registros guardados. Se muestran ejemplos y se bloquearon las escrituras para conservar la copia anterior. Descarga el archivo original para solicitar su recuperación."); }
     setReady(true);
   }, []);
 
   function update(next: Data) {
+    if (recoveryBlocked) { setNotice("No se guardó el cambio: la copia anterior necesita recuperación y se conserva intacta."); return; }
     setData(next);
     try { localStorage.setItem(storageKey, JSON.stringify(next)); setNotice("Cambios guardados en este navegador."); }
     catch { setNotice("No se pudo guardar en este navegador. Exporta una copia antes de cerrar."); }
   }
   function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (recoveryBlocked) return;
     if (section === "Resumen") return;
     const form = new FormData(event.currentTarget);
     const row: Row = {id: editing?.id ?? crypto.randomUUID()};
@@ -80,8 +85,9 @@ export default function AdminPanel() {
     setShowForm(false); setEditing(null);
   }
   function exportData() {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
-    const link = document.createElement("a"); link.href = url; link.download = "granalla-norte-modelo.json"; link.click();
+    if (recoveryBlocked && recoveryCopy === null) return;
+    const url = URL.createObjectURL(new Blob([recoveryBlocked ? recoveryCopy! : JSON.stringify(data,null,2)],{type:"application/json"}));
+    const link = document.createElement("a"); link.href = url; link.download = recoveryBlocked ? "granalla-norte-recuperacion-original.json" : "granalla-norte-modelo.json"; link.click();
     setTimeout(() => URL.revokeObjectURL(url),1000);
   }
   const sum = (type: string, status: string) => data.Finanzas.filter(row => row.type === type && row.status === status).reduce((total,row) => total + Number(row.amount),0);
@@ -96,17 +102,18 @@ export default function AdminPanel() {
       <p className={styles.sidebarNote}>Obras civiles<br/>Minerales no metálicos<br/>Movimiento de tierra</p>
     </aside>
     <div className={styles.content}>
-      <div className={styles.banner}><div><strong>Modelo de demostración</strong><p>Datos de ejemplo · Guardado solo en este navegador · Acceso de administrador.</p></div><button disabled={!ready} onClick={exportData}>Exportar copia ↓</button></div>
-      <div className={styles.heading}><div><p className={styles.eyebrow}>ESPACIO DE TRABAJO</p><h2>{section === "Resumen" ? "Una mirada a tu empresa" : section}</h2><p>Organiza tus recursos y sigue los movimientos de tu operación.</p></div>{section !== "Resumen" && <button className={styles.primary} disabled={!ready} onClick={() => {setEditing(null);setShowForm(true);}}>＋ Nuevo registro</button>}</div>
+      <div className={styles.banner}><div><strong>Operación de demostración</strong><p>Estas cifras no representan la operación real. Se guardan solo en este navegador.</p></div><button disabled={!ready || recoveryBlocked && recoveryCopy === null} onClick={exportData}>{recoveryBlocked ? "Descargar copia para recuperación" : "Exportar demostración ↓"}</button></div>
+      <section className={styles.card} aria-label="Control del sitio" style={{ marginTop: 20 }}><h2 className="mb-3 text-lg font-semibold">Control del sitio y documentación</h2><p className={styles.muted}>Estos módulos usan almacenamiento compartido cuando está conectado.</p><nav aria-label="Accesos de control" className="mt-4 flex flex-wrap gap-4 text-sm underline underline-offset-4"><Link href="/admin/mandantes">Mandantes y proyectos</Link><Link href="/admin/noticias">Noticias</Link><Link href="/admin/mensajes">Mensajes</Link><Link href="/admin/maquinaria">Maquinaria</Link><Link href="/admin/equipos-monitoreo">Equipos de monitoreo</Link></nav></section>
+      <div className={styles.heading}><div><p className={styles.eyebrow}>Demostración de operación</p><h2>{section === "Resumen" ? "Resumen de ejemplo" : section}</h2><p>Prueba el registro de recursos y movimientos con datos de demostración.</p></div>{section !== "Resumen" && <button className={styles.primary} disabled={!ready || recoveryBlocked} onClick={() => {setEditing(null);setShowForm(true);}}>＋ Nuevo registro</button>}</div>
       {notice && <p className={styles.notice} role="status">{notice}</p>}
       {!ready ? <p role="status">Cargando registros…</p> : <>
       {(section === "Resumen" || section === "Finanzas") && <div className={styles.stats}>{[["Ingresos cobrados",income],["Egresos pagados",expense],["Flujo neto",income-expense],["Por pagar",sum("Egreso","Pendiente")],["Por cobrar",sum("Ingreso","Pendiente")]].map(([label,value]) => <article key={label}><p>{label}</p><strong>{money(Number(value))}</strong><small>{label === "Flujo neto" ? "Ingresos menos egresos; no es utilidad" : "Total de registros"}</small></article>)}</div>}
       {section === "Resumen" ? <div className={styles.overview}>
         <section className={styles.card}><h3>Distribución de gastos</h3><p className={styles.muted}>Solo egresos pagados</p>{Array.from(new Set(data.Finanzas.filter(row=>row.type === "Egreso" && row.status === "Pagado").map(row=>row.category))).map(category => {const amount = data.Finanzas.filter(row=>row.type === "Egreso" && row.status === "Pagado" && row.category === category).reduce((total,row)=>total+Number(row.amount),0); return <div className={styles.bar} key={category}><div><span>{category}</span><strong>{money(amount)}</strong></div><progress aria-label={category} value={amount} max={expense || 1}/></div>;})}{!expense && <p>Aún no hay egresos pagados.</p>}</section>
-        <section className={styles.card}><h3>Alertas de inventario</h3>{low.length ? low.map(row=><p className={styles.alert} key={row.id}><strong>{row.name}</strong><br/>{row.quantity} {row.unit} disponibles · mínimo {row.minimum}</p>) : <p>Sin artículos bajo el stock mínimo.</p>}<p className={styles.muted}>{data.Obras.length} obras · {data.Maquinaria.length} equipos registrados</p></section>
+        <section className={styles.card}><h3>Alertas de inventario de ejemplo</h3>{low.length ? low.map(row=><p className={styles.alert} key={row.id}><strong>{row.name}</strong><br/>{row.quantity} {row.unit} disponibles · mínimo {row.minimum}</p>) : <p>Sin artículos bajo el stock mínimo.</p>}<p className={styles.muted}>{data.Obras.length} obras · {data.Maquinaria.length} equipos en esta demostración</p></section>
       </div> : <>
         {showForm && <section className={styles.card}><h3>{editing ? "Editar registro" : "Nuevo registro"}</h3><form key={`${section}-${editing?.id ?? "new"}`} onSubmit={save} className={styles.form}>{fields[section].map(field => <label key={field.key}>{field.label}{field.options ? <select name={field.key} defaultValue={editing?.[field.key] ?? field.options[0]}>{field.options.map(option=><option key={option}>{option}</option>)}</select> : <input autoFocus={field.key === "name"} name={field.key} type={field.type ?? "text"} required min={field.type === "number" ? 0 : undefined} step={field.type === "number" ? "any" : undefined} defaultValue={editing?.[field.key] ?? ""} list={field.key === "project" ? "admin-projects" : undefined}/>}</label>)}<datalist id="admin-projects"><option value="General"/>{data.Obras.map(row=><option key={row.id} value={row.name}/>)}</datalist><div className={styles.actions}><button type="submit" className={styles.primary}>Guardar registro</button><button type="button" onClick={()=>{setShowForm(false);setEditing(null);}}>Cancelar</button></div></form></section>}
-        <section className={styles.card}><div className={styles.toolbar}><h3>{rows.length} registros</h3><input aria-label="Buscar registros" placeholder="Buscar en este módulo…" value={query} onChange={event=>setQuery(event.target.value)}/></div><div className={styles.tableWrap}><table><thead><tr>{fields[section].map(field=><th key={field.key} scope="col">{field.label}</th>)}<th scope="col">Acciones</th></tr></thead><tbody>{rows.map(row=><tr key={row.id}>{fields[section].map(field=><td key={field.key}>{field.key === "amount" ? money(Number(row[field.key])) : row[field.key]}{field.key === "quantity" && Number(row.quantity) < Number(row.minimum) && <small className={styles.low}>Stock bajo</small>}</td>)}<td><button onClick={()=>{setEditing(row);setShowForm(true);}}>Editar</button>{section === "Finanzas" && row.status === "Pendiente" && <button onClick={()=>update({...data,Finanzas:data.Finanzas.map(item=>item.id === row.id ? {...item,status:"Pagado"} : item)})}>Marcar pagado</button>}</td></tr>)}</tbody></table>{!rows.length && <p className={styles.empty}>No hay registros para mostrar.</p>}</div></section>
+        <section className={styles.card}><div className={styles.toolbar}><h3>{rows.length} registros</h3><input aria-label="Buscar registros" placeholder="Buscar en este módulo…" value={query} onChange={event=>setQuery(event.target.value)}/></div><div className={styles.tableWrap}><table><thead><tr>{fields[section].map(field=><th key={field.key} scope="col">{field.label}</th>)}<th scope="col">Acciones</th></tr></thead><tbody>{rows.map(row=><tr key={row.id}>{fields[section].map(field=><td key={field.key}>{field.key === "amount" ? money(Number(row[field.key])) : row[field.key]}{field.key === "quantity" && Number(row.quantity) < Number(row.minimum) && <small className={styles.low}>Stock bajo</small>}</td>)}<td><button disabled={recoveryBlocked} onClick={()=>{setEditing(row);setShowForm(true);}}>Editar</button>{section === "Finanzas" && row.status === "Pendiente" && <button disabled={recoveryBlocked} onClick={()=>update({...data,Finanzas:data.Finanzas.map(item=>item.id === row.id ? {...item,status:"Pagado"} : item)})}>Marcar pagado</button>}</td></tr>)}</tbody></table>{!rows.length && <p className={styles.empty}>No hay registros para mostrar.</p>}</div></section>
       </>}
       </>}
       <p className={styles.footnote}>Modelo inicial. Los registros se guardan en este navegador y no se comparten entre dispositivos. La base de datos compartida queda pendiente.</p>

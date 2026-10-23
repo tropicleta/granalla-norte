@@ -6,7 +6,7 @@ import { ContentError } from "./content-model";
 const local = () => !process.env.VERCEL ? process.env.CONTENT_LOCAL_DIR : undefined;
 // On Vercel the SDK obtains OIDC from the request context, not necessarily process.env.
 export const storageConfigured = () => Boolean(local() || process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
-function ready() { if (!storageConfigured()) throw new ContentError("Falta conectar el almacenamiento de noticias y mensajes en Vercel.", 503); }
+function ready() { if (!storageConfigured()) throw new ContentError("Falta conectar el almacenamiento privado en Vercel.", 503); }
 function safePath(path: string) { if (!/^[a-zA-Z0-9/_.-]+$/.test(path) || path.includes("..")) throw new Error("Invalid storage path"); }
 export async function readBytes(path: string): Promise<{ bytes: Uint8Array; etag: string } | null> {
   ready(); safePath(path);

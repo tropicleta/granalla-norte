@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ButtonLink, Container, CtaBand, Eyebrow, PostCard, SectionTitle } from "@/components/ui";
 import { YouTubeLite } from "@/components/YouTubeLite";
 import { about, site } from "@/lib/site";
@@ -68,6 +69,7 @@ export default async function Home() {
           </div>
 
           <div className="mt-6"><ServiceCards /></div>
+          <p className="text-body mt-6 max-w-3xl leading-relaxed text-ink/80">Para excavación, relleno o habilitación de terrenos, consulta el <Link href="/servicios/movimiento-de-tierra" className="font-semibold text-copper-600 underline underline-offset-4">servicio de movimiento de tierra</Link>. Si necesitas un equipo para tu propia ejecución, revisa el <Link href="/maquinaria/excavadoras" className="font-semibold text-copper-600 underline underline-offset-4">arriendo de excavadoras</Link>.</p>
         </Container>
       </section>
 

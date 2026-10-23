@@ -42,6 +42,7 @@ export default async function ServiciosPage() {
             <MachineryAccess serviceSlug={s.slug} /><MonitoringAccess serviceSlug={s.slug} />
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href={servicePath(s.slug)} className="inline-flex items-center gap-2 rounded-full bg-khaki px-5 py-3 text-sm font-semibold text-olive-950 hover:bg-cream">Ver {s.title.toLowerCase()} <Arrow /></Link>
+              {s.slug === "obras-civiles" && <Link href="/servicios/movimiento-de-tierra" className="inline-flex items-center gap-2 rounded-full border border-khaki px-5 py-3 text-sm font-semibold text-khaki hover:bg-white/10">Ver movimiento de tierra <Arrow /></Link>}
               <Link href={`/contacto?servicio=${s.slug}`} className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-cream hover:bg-white/10">Consultar este servicio <Arrow /></Link>
             </div>
           </div>

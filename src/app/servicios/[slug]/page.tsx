@@ -82,6 +82,7 @@ export default async function ServicePage({ params }: Props) {
         </article>)}</div>
       </section>}
       <ServiceProjects serviceSlug={service.slug} articles={articles} />
+      {service.slug === "obras-civiles" && <section className="mt-10 max-w-3xl"><h2 className="font-display text-2xl font-semibold text-olive-900">Excavación, relleno y habilitación de terrenos</h2><p className="text-body mt-4 leading-relaxed text-ink/80">Si tu requerimiento se concentra en preparar el terreno, conoce el <Link href="/servicios/movimiento-de-tierra" className="font-semibold text-copper-600 underline underline-offset-4">servicio de movimiento de tierra</Link>: tareas que evaluamos, antecedentes para cotizar y trabajos realizados en Mina Santos.</p></section>}
       <LocalServiceCoverage serviceKey={service.slug} />
       <section className="mt-14 max-w-3xl"><h2 className="font-display text-3xl font-semibold text-olive-900">Preguntas frecuentes</h2><div className="mt-6 divide-y divide-sand">{detail.questions.map(q => <div key={q.question} className="py-5"><h3 className="font-semibold text-olive-900">{q.question}</h3><p className="text-body mt-3 leading-relaxed text-ink/80">{q.answer}</p></div>)}</div></section>
       <nav aria-label="Otros servicios" className="mt-10 flex flex-wrap gap-4">{serviceDetails.filter(s => s.slug !== slug).map(s => <Link key={s.slug} href={`/servicios/${s.slug}`} className="text-sm font-semibold text-copper-600 underline underline-offset-4">{services.find(line => line.slug === s.serviceSlug)!.title}</Link>)}</nav>

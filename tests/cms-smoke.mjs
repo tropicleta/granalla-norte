@@ -9,7 +9,7 @@ import sharp from "sharp";
 const origin = "http://127.0.0.1:3102";
 const password = randomBytes(24).toString("hex");
 const directory = await mkdtemp(join(tmpdir(), "granalla-cms-test-"));
-const env = { ...process.env, NEXT_BUILD_DIR: ".next-verification", ADMIN_PASSWORD: password, CONTENT_LOCAL_DIR: directory };
+const env = { ...process.env, NEXT_BUILD_DIR: process.env.NEXT_BUILD_DIR || ".next-verification", ADMIN_PASSWORD: password, CONTENT_LOCAL_DIR: directory };
 delete env.VERCEL; delete env.BLOB_READ_WRITE_TOKEN; delete env.BLOB_STORE_ID; delete env.VERCEL_OIDC_TOKEN;
 let server;
 async function start() {

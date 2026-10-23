@@ -58,3 +58,4 @@
 .documents li a:not(.download) { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .upload { background: #f4f6ef; margin-top: 22px; padding: 20px; border-radius: 8px; }
 @media(max-width: 700px) { .workspace { padding: 28px 16px 50px; } .columns, .projectList { grid-template-columns: 1fr; } .form { padding: 20px; } .heading { align-items: flex-start; } .part summary { padding: 16px 12px; gap: 10px; } .partBody { padding: 0 14px 16px; } .part summary > span:last-of-type { white-space: normal; } .search { width: 100%; } }
+.documentCategory { width: 100%; max-width: 280px; margin: 4px 0 0 !important; font-size: 12px !important; }

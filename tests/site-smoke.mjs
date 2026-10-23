@@ -5,7 +5,7 @@ import { readFile } from "node:fs/promises";
 
 const origin = "http://127.0.0.1:3100";
 const password = randomBytes(24).toString("hex");
-const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", "3100"], { env: { ...process.env, NEXT_BUILD_DIR: ".next-verification", ADMIN_PASSWORD: password }, stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
+const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", "3100"], { env: { ...process.env, NEXT_BUILD_DIR: process.env.NEXT_BUILD_DIR || ".next-verification", ADMIN_PASSWORD: password }, stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
 let output = "";
 server.stdout.on("data", data => { output += data; process.stdout.write(data); });
 server.stderr.on("data", data => { output += data; process.stderr.write(data); });

@@ -5,17 +5,30 @@ import { readJson, writeJson } from "./content-storage";
 import { configuredPassword } from "./admin-session";
 import { ContentError } from "./content-model";
 
-export type PortalDocument = { id: string; name: string; filename: string; size: number; uploadedAt: string; path: string };
+export const documentCategories = ["Informes", "Contratos", "Certificados", "Planos", "Fotografías", "Otros"] as const;
+export type PortalDocument = { id: string; name: string; filename: string; size: number; uploadedAt: string; path: string; category?: string };
 export type PortalPart = { id: string; name: string; documents: PortalDocument[] };
 export type PortalProject = { id: string; name: string; description: string; status: "En ejecución" | "Finalizado" | "En preparación"; parts: PortalPart[] };
 export type Mandante = { id: string; name: string; email: string; active: boolean; passwordHash: string; sessionVersion: string; projects: PortalProject[] };
-export type PortalStore = { clients: Mandante[] };
+export type RetiredDocument = { id: string; clientId: string; projectId: string; projectName?: string; projectDescription?: string; projectStatus?: PortalProject["status"]; partId: string; partName: string; document: PortalDocument; removedAt: string };
+export type PortalHistory = { id: string; label: string; at: string; path: string; restorable: boolean };
+export type PortalSnapshot = { clients: { id: string; projects: PortalProject[] }[]; trash: RetiredDocument[] };
+export type PortalStore = { clients: Mandante[]; trash?: RetiredDocument[]; history?: PortalHistory[] };
 export const PORTAL_COOKIE = "gn_mandante_session";
 export const PORTAL_SECONDS = 8 * 60 * 60;
 const scrypt = promisify(derive);
 const path = "portal/clients.json";
 export async function loadPortal(): Promise<{ value: PortalStore; etag: string | undefined }> { return await readJson<PortalStore>(path) ?? { value: { clients: [] }, etag: undefined }; }
-export async function savePortal(value: PortalStore, etag?: string) { return writeJson(path, value, etag); }
+export async function savePortal(value: PortalStore, etag?: string, label = "Datos de mandantes actualizados") {
+  const previous = await loadPortal();
+  if (previous.etag !== etag) throw new ContentError("Hay cambios más recientes. Actualiza antes de guardar.", 409);
+  const id = randomUUID(); const at = new Date().toISOString(); const snapshotPath = `portal/history/${id}.json`;
+  const snapshot: PortalSnapshot = { clients: previous.value.clients.map(c => ({ id: c.id, projects: c.projects })), trash: previous.value.trash ?? [] };
+  await writeJson(snapshotPath, snapshot);
+  const restorable = value.clients.some(c => JSON.stringify(c.projects) !== JSON.stringify(previous.value.clients.find(old => old.id === c.id)?.projects ?? [])) || JSON.stringify(value.trash ?? []) !== JSON.stringify(previous.value.trash ?? []);
+  value.history = [{ id, at, label, path: snapshotPath, restorable }, ...(previous.value.history ?? [])].slice(0, 30);
+  return writeJson(path, value, etag);
+}
 export function text(value: unknown, label: string, max = 160) {
   if (typeof value !== "string" || !value.trim() || value.trim().length > max) throw new ContentError(`${label}: ingresa entre 1 y ${max} caracteres.`);
   return value.trim();
@@ -44,7 +57,11 @@ export async function requireMandante() {
   if (!client) throw new ContentError("Inicia sesión para continuar.", 401);
   return { ...store, client };
 }
-export function publicClient(client: Mandante) { return { id: client.id, name: client.name, email: client.email, active: client.active, projects: client.projects.map(p => ({ ...p, parts: p.parts.map(part => ({ ...part, documents: part.documents.map(doc => ({ id: doc.id, name: doc.name, filename: doc.filename, size: doc.size, uploadedAt: doc.uploadedAt })) })) })) }; }
+export function publicDocument(doc: PortalDocument) { return { id: doc.id, name: doc.name, filename: doc.filename, size: doc.size, uploadedAt: doc.uploadedAt, category: doc.category ?? "Otros" }; }
+export function publicClient(client: Mandante) { return { id: client.id, name: client.name, email: client.email, active: client.active, projects: client.projects.map(p => ({ ...p, parts: p.parts.map(part => ({ ...part, documents: part.documents.map(publicDocument) })) })) }; }
+export function adminPortalView(store: PortalStore, version?: string) {
+  return { clients: store.clients.map(publicClient), version: version ?? "", history: (store.history ?? []).map(({ id, at, label, restorable }) => ({ id, at, label, restorable })), trash: (store.trash ?? []).map(item => ({ ...item, document: publicDocument(item.document) })) };
+}
 export function findClient(store: PortalStore, id: unknown) { const client = store.clients.find(c => c.id === id); if (!client) throw new ContentError("Mandante no encontrado.", 404); return client; }
 export function projectInput(body: Record<string, unknown>, previous?: PortalProject): PortalProject {
   const count = Number(body.partCount);
@@ -57,10 +74,11 @@ export function projectInput(body: Record<string, unknown>, previous?: PortalPro
   return { id: previous?.id ?? randomUUID(), name: text(body.name, "Nombre del proyecto"), description: typeof body.description === "string" ? body.description.trim() : "", status: body.status as PortalProject["status"], parts: Array.from({ length: count }, (_, i) => ({ id: previous?.parts[i]?.id ?? randomUUID(), name: text(names[i] ?? previous?.parts[i]?.name ?? `Parte ${i + 1}`, "Nombre de parte"), documents: previous?.parts[i]?.documents ?? [] })) };
 }
 // Shared limits survive restarts and apply independently to the account and source.
-export async function loginQuota(request: Request, account: string) {
+export async function loginQuota(request: Request, account: string, sourceOnly = false) {
   const secret = configuredPassword(); if (!secret) throw new ContentError("El acceso todavía no está configurado.", 503);
   const ip = request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  for (const [key, limit] of [[`ip:${ip}`, 20], [`account:${account}`, 8]] as const) {
+  const limits: ReadonlyArray<readonly [string, number]> = sourceOnly ? [[`ip:${ip}`, 20]] : [[`ip:${ip}`, 20], [`account:${account}`, 8]];
+  for (const [key, limit] of limits) {
     const keyHash = createHash("sha256").update(`${secret}:portal:${key}`).digest("hex");
     const location = `portal/limits/${keyHash}.json`;
     for (let attempt = 0; attempt < 3; attempt++) {

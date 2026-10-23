@@ -1,8 +1,8 @@
-import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { configuredPassword, createSession, SESSION_COOKIE, SESSION_SECONDS } from "@/lib/admin-session";
 import { isSameOrigin } from "@/lib/request-origin";
 import { apiError, limitedJson } from "@/lib/admin-api";
+import { adminAccount, matchesAdminPassword } from "@/lib/admin-account";
 
 // Best-effort per-instance throttling; platform rate limiting should supplement it.
 const attempts = new Map<string, { count: number; expires: number }>();
@@ -23,10 +23,12 @@ export async function POST(request: NextRequest) {
   try { body = await limitedJson(request, 4096); } catch (error) { return apiError(error); }
   const input = body as { username?: unknown; password?: unknown } | null;
   if (!input || typeof input.username !== "string" || typeof input.password !== "string" || input.password.length > 1024) return NextResponse.json({ error: "Usuario o contraseña incorrectos." }, { status: 401 });
-  const matches = timingSafeEqual(createHash("sha256").update(input.password).digest(), createHash("sha256").update(password).digest());
+  let account;
+  let matches;
+  try { account = await adminAccount(); matches = await matchesAdminPassword(input.password, account.value); } catch (error) { return apiError(error); }
   if (input.username !== "admin" || !matches) return NextResponse.json({ error: "Usuario o contraseña incorrectos." }, { status: 401 });
   attempts.delete(ip);
   const response = NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
-  response.cookies.set(SESSION_COOKIE, await createSession(password), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", path: "/", maxAge: SESSION_SECONDS });
+  response.cookies.set(SESSION_COOKIE, await createSession(password, Date.now(), account.value?.revision ?? "bootstrap"), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", path: "/", maxAge: SESSION_SECONDS });
   return response;
 }

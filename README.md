@@ -110,29 +110,59 @@ DNS web en Hostinger: A `@` a `216.198.79.1` y CNAME `www` a
 `eea39c8d0e8f71c8.vercel-dns-017.com` (valores indicados por Vercel al migrar).
 Los registros MX, SPF, DKIM, DMARC y autoconfiguración de correo se conservan.
 
-## Modelo de administración
+## Administración para una sola persona
 
-Disponible en `/admin`, con acceso desde el pie del sitio. Incluye resumen,
-inventario, finanzas, obras y maquinaria; permite crear y editar registros,
-buscar, marcar pagos y exportar una copia JSON.
+El inicio en `/admin` muestra pendientes reales de mandantes, proyectos y
+consultas. La navegación se concentra en Inicio, Mandantes, Mensajes, Página web,
+Respaldos y Mi cuenta. La guía de uso está en `docs/guia-administradora.md`.
 
-Acceso con usuario `admin` y contraseña privada `ADMIN_PASSWORD` (variable
-de entorno de servidor en Vercel, mínimo 12 caracteres). No guardar la
-contraseña en Git ni en una variable `NEXT_PUBLIC_*`. Sin configuración,
-el acceso permanece cerrado. `/admin/login` permite iniciar sesión y
-`/api/admin/logout` la cierra mediante POST. La sesión firmada caduca a las
-8 horas y usa una cookie HttpOnly, Secure en producción y SameSite=Strict.
-Cambiar la contraseña y volver a desplegar invalida las sesiones anteriores.
-Los intentos de acceso tienen un límite por IP y por instancia del servidor;
-para una protección distribuida se debe complementar con Vercel Firewall.
+El usuario sigue siendo `admin`. La clave inicial y de firma procede de
+`ADMIN_PASSWORD` (mínimo 12 caracteres, solo en servidor). Después de cambiar
+la contraseña en `/admin/cuenta` se usa el hash privado guardado en
+`settings/admin-account.json`. Las sesiones firmadas incorporan una revisión
+que se comprueba en cada API, página privada y descarga administrativa. Cambiar
+o recuperar la contraseña invalida las sesiones anteriores y conserva la actual.
+La cookie es HttpOnly, Secure en producción y SameSite=Strict; dura ocho horas.
+No quitar ADMIN_PASSWORD: sigue siendo la clave del servidor para las firmas.
 
-Los módulos Operación (inventario, finanzas, obras y maquinaria) usan datos ficticios y guardan
-los cambios únicamente en el navegador, con la clave
-`granalla-norte-admin-demo-v1`. No ingresar datos confidenciales de operación.
-La base de datos compartida y los permisos de varias cuentas quedan pendientes.
-Los datos locales siguen presentes en el navegador al cerrar sesión: usar
-un equipo de confianza. El flujo neto representa cobros menos pagos,
-no utilidad contable. La exportación es un respaldo; no incluye importación.
+Al cambiar o recuperar la contraseña se muestran seis códigos privados nuevos.
+Solo se conservan sus hashes. La administradora debe descargarlos y guardarlos
+fuera del sitio; permiten recuperar el acceso en `/admin/recuperar`. Al usar
+uno se reemplazan todos. No hay envío de recuperación por correo ni registro de
+nuevos administradores. Sin códigos, el responsable del alojamiento puede cambiar
+ADMIN_PASSWORD y desplegar: esto invalida las sesiones y restablece el acceso
+inicial con la nueva clave del servidor, sin borrar documentos ni proyectos.
+La recuperación y los cambios de clave tienen cuotas compartidas y comprueban
+origen. La protección adicional de la plataforma puede complementar el ingreso.
+
+Los documentos admiten categorías y búsqueda por nombre o archivo dentro del
+proyecto. Retirar un documento lo mueve a papelera, accesible solo a la cuenta
+administrativa. Recuperarlo lo devuelve a su parte original; si el proyecto o la
+parte se retiraron al restaurar una versión anterior, se reconstruyen al recuperar
+el documento. No hay eliminación física automática.
+
+Antes de guardar cambios del portal se crea una copia privada de proyectos y
+papelera. Se muestran los últimos 30 cambios en Respaldos. Restaurar un estado no
+restablece cuentas, correos, contraseñas ni accesos antiguos. Los archivos que
+salgan de los proyectos se conservan en papelera. Los cambios exclusivos de cuenta
+figuran en el historial sin opción de restaurar credenciales. Las copias antiguas
+sin referencia y las subidas cuyo guardado final falle se conservan privadas;
+no se realiza una limpieza irreversible automática.
+
+`/api/admin/respaldo` descarga un ZIP privado con datos de mandantes y todos sus
+archivos activos y retirados. Admite filtro por clientId. Incluye proyectos.json y
+los archivos originales, sin contraseñas ni códigos. Límite por descarga: 50 MB o
+1000 documentos; la interfaz permite elegir un mandante. No incluye los catálogos
+de noticias, maquinaria ni mensajes. La restauración en el panel usa las copias
+automáticas; el ZIP sirve como copia externa y permite volver a cargar archivos.
+Conservar las copias descargadas en un lugar privado. Las copias automáticas
+comparten el almacén privado; el ZIP descargado permite conservar otra copia fuera.
+
+Inventario, finanzas y obras siguen siendo demostraciones locales, separadas en
+`/admin/operacion`. Conservan la clave `granalla-norte-admin-demo-v1` y no
+comparten registros entre dispositivos. No ingresar datos confidenciales de la
+operación. Si una copia local está dañada, las escrituras quedan bloqueadas y se
+puede descargar el contenido original para recuperación.
 
 ## Verificación
 
@@ -187,3 +217,19 @@ Verificación aislada: compilar con `NEXT_BUILD_DIR=.next-portal-check` y ejecut
 `node tests/portal-smoke.mjs`. Usa cuentas aleatorias y una carpeta temporal,
 comprueba aislamiento, permisos, documentos privados, concurrencia, contraseñas,
 desactivación, persistencia tras reinicio y límites de acceso. No toca producción.
+
+### Comprobaciones de administración simple
+
+Con `NEXT_BUILD_DIR=.next-portal-verify` compilado, `node tests/small-admin-smoke.mjs`
+verifica el tablero real, categorías, papelera, restauración de proyectos,
+respaldo ZIP con sus archivos, ausencia de credenciales en las copias, cambio y
+recuperación de contraseña administrativa, invalidación de sesiones y persistencia.
+El modo visual usa `PORTAL_PLAYWRIGHT` y `PORTAL_BROWSER_CHANNEL` opcionales;
+crea mandantes y proyectos desde la interfaz y comprueba escritorio y celular.
+Todos los datos son ficticios y se guardan en una carpeta temporal aislada.
+
+La actualización correctiva mantiene Next.js en la rama 15.5 (15.5.28). El override
+de PostCSS dentro de Next fija la rama compatible 8.5.31 o posterior, en lugar de
+la 8.4.31 que ese paquete fija por defecto. `npm audit` no reporta vulnerabilidades
+al finalizar esta implementación. El ZIP usa fflate en el servidor; no agrega la
+biblioteca al código que descargan los mandantes.

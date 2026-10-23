@@ -10,8 +10,8 @@ async function signingKey(password: string) {
   return crypto.subtle.importKey("raw", new TextEncoder().encode(`granalla-norte:admin:v1:${password}`), { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
 }
 
-export async function createSession(password: string, now = Date.now()) {
-  const payload = `v1.${Math.floor(now / 1000) + SESSION_SECONDS}.${crypto.randomUUID()}`;
+export async function createSession(password: string, now = Date.now(), revision?: string) {
+  const payload = revision ? `v2.${Math.floor(now / 1000) + SESSION_SECONDS}.${crypto.randomUUID()}.${revision}` : `v1.${Math.floor(now / 1000) + SESSION_SECONDS}.${crypto.randomUUID()}`;
   const signature = await crypto.subtle.sign("HMAC", await signingKey(password), new TextEncoder().encode(payload));
   return `${payload}.${Array.from(new Uint8Array(signature), byte => byte.toString(16).padStart(2, "0")).join("")}`;
 }
@@ -19,10 +19,12 @@ export async function createSession(password: string, now = Date.now()) {
 export async function verifySession(token: string | undefined, password: string | null, now = Date.now()) {
   if (!token || !password || token.length > 200) return false;
   const parts = token.split(".");
-  if (parts.length !== 4 || parts[0] !== "v1" || !/^\d+$/.test(parts[1]) || !/^[\da-f-]{36}$/.test(parts[2]) || !/^[\da-f]{64}$/.test(parts[3])) return false;
+  if (!((parts.length === 4 && parts[0] === "v1") || (parts.length === 5 && parts[0] === "v2" && /^(bootstrap|[a-f0-9-]{36})$/.test(parts[3]))) || !/^\d+$/.test(parts[1]) || !/^[\da-f-]{36}$/.test(parts[2]) || !/^[\da-f]{64}$/.test(parts.at(-1)!)) return false;
   const expiry = Number(parts[1]);
   const seconds = Math.floor(now / 1000);
   if (expiry <= seconds || expiry > seconds + SESSION_SECONDS) return false;
-  const signature = Uint8Array.from(parts[3].match(/../g)!, pair => parseInt(pair, 16));
-  return crypto.subtle.verify("HMAC", await signingKey(password), signature, new TextEncoder().encode(parts.slice(0, 3).join(".")));
+  const signature = Uint8Array.from(parts.at(-1)!.match(/../g)!, pair => parseInt(pair, 16));
+  return crypto.subtle.verify("HMAC", await signingKey(password), signature, new TextEncoder().encode(parts.slice(0, -1).join(".")));
 }
+
+export function sessionRevision(token: string) { return token.startsWith("v2.") ? token.split(".")[3] : "bootstrap"; }

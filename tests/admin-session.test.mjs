@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createSession, verifySession, SESSION_SECONDS } from "../src/lib/admin-session.ts";
+import { createSession, verifySession, sessionRevision, SESSION_SECONDS } from "../src/lib/admin-session.ts";
 import { isSameOrigin } from "../src/lib/request-origin.ts";
 
 const password = "test-only-password-not-a-real-credential";
@@ -19,6 +19,14 @@ test("signed sessions work and expire after eight hours", async () => {
 });
 test("changed password revokes old sessions", async () => {
   assert.equal(await verifySession(await createSession(password, now), "different-test-password", now), false);
+});
+test("account revision is bound to the signed session", async () => {
+  const revision = crypto.randomUUID();
+  const token = await createSession(password, now, revision);
+  assert.equal(await verifySession(token, password, now), true);
+  assert.equal(sessionRevision(token), revision);
+  assert.equal(await verifySession(token.replace(revision, crypto.randomUUID()), password, now), false);
+  assert.equal(await verifySession(`${token}.`, password, now), false);
 });
 test("tampering, malformed tokens and missing configuration deny access", async () => {
   const token = await createSession(password, now);

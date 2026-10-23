@@ -3,7 +3,7 @@ import { configuredPassword, SESSION_COOKIE, verifySession } from "./lib/admin-s
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  if (path === "/admin/login" || path === "/api/admin/login" || path === "/api/admin/logout") {
+  if (["/admin/login", "/admin/recuperar", "/api/admin/login", "/api/admin/recuperar", "/api/admin/logout"].includes(path)) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "private, no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow");

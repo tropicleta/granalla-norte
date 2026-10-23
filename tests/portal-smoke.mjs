@@ -81,7 +81,7 @@ try {
         await page.screenshot({ path: `${screenshots}/${role}-mobile.png`, fullPage: true });
         assert.deepEqual(errors, []);
         if (role === 'admin') {
-          await page.goto(origin + '/admin');
+          await page.goto(origin + '/admin/operacion');
           const damaged = '{damaged-original';
           await page.evaluate(value => localStorage.setItem('granalla-norte-admin-demo-v1', value), damaged);
           await page.reload();

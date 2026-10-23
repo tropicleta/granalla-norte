@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
-import { configuredPassword, SESSION_COOKIE, verifySession } from "./admin-session";
+import { SESSION_COOKIE } from "./admin-session";
+import { verifyAdminSession } from "./admin-account";
 import { isSameOrigin } from "./request-origin";
 import { ContentError } from "./content-model";
 
 export async function requireAdmin(request?: Request) {
-  if (!await verifySession((await cookies()).get(SESSION_COOKIE)?.value, configuredPassword())) throw new ContentError("Inicia sesión para continuar.", 401);
+  if (!await verifyAdminSession((await cookies()).get(SESSION_COOKIE)?.value)) throw new ContentError("Inicia sesión para continuar.", 401);
   if (request && !isSameOrigin(request)) throw new ContentError("Solicitud no autorizada.", 403);
 }
 export async function limitedJson(request: Request, max = 100000): Promise<unknown> {

@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
-import { configuredPassword, SESSION_COOKIE, verifySession } from "@/lib/admin-session";
+import { SESSION_COOKIE } from "@/lib/admin-session";
+import { verifyAdminSession } from "@/lib/admin-account";
 import { publishedArticles } from "@/lib/content";
 import { publishedMonitoringEquipment } from "@/lib/monitoring";
 import { publishedMachines } from "@/lib/machinery";
@@ -10,7 +11,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ fil
   const { filename } = await params;
   if (!/^[a-f0-9-]{36}\.webp$/.test(filename)) return new Response(null, { status: 404 });
   try {
-    const admin = await verifySession((await cookies()).get(SESSION_COOKIE)?.value, configuredPassword());
+    const admin = await verifyAdminSession((await cookies()).get(SESSION_COOKIE)?.value);
     if (!admin) {
       const url = `/api/media/${filename}`;
       const [articles, machines, equipment] = await Promise.all([publishedArticles(), publishedMachines(), publishedMonitoringEquipment()]);

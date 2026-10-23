@@ -6,7 +6,7 @@ import { monitoringPhotoReferences } from "@/lib/monitoring-photos";
 import { MonitoringIllustration } from "@/components/MonitoringIllustration";
 import { publishedMonitoringEquipment } from "@/lib/monitoring";
 import { availabilityLabels } from "@/lib/machinery-model";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, rentalPageSchema, serializeJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 export const metadata = pageMetadata("/equipos-monitoreo", "Arriendo de geófonos y sismógrafos en Copiapó", "Sistemas Instantel Minimate Plus y geófonos triaxiales para monitoreo de vibraciones de tronaduras en Copiapó, Tierra Amarilla y Atacama. Consulta configuración, antecedentes técnicos y disponibilidad.");
@@ -32,5 +32,6 @@ export default async function Page() {
       <section className="mt-12 rounded-[var(--radius-card)] bg-sand-300 p-7 sm:p-9"><h2 className="font-display text-2xl font-semibold text-olive-900">Prepara el arriendo para tu operación</h2><p className="text-body mt-3 max-w-3xl leading-relaxed text-ink/75">Indícanos la ubicación de la faena, las fechas, la cantidad de puntos de medición y los requisitos técnicos del mandante. Confirmaremos la configuración, los accesorios, las condiciones de entrega y la documentación del equipo asignado.</p><Link href="/contacto" className="mt-6 inline-flex rounded-full bg-copper px-6 py-3 font-semibold text-white">Cotizar equipos de monitoreo →</Link></section>
       <LocalServiceCoverage serviceKey="equipos-monitoreo" />
     </Container><CtaBand />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(rentalPageSchema("/equipos-monitoreo", "Arriendo de geófonos y sismógrafos en Copiapó y Atacama", "Arriendo de equipos Instantel Minimate Plus y geófonos triaxiales para monitoreo de vibraciones de tronaduras. Configuración y disponibilidad a confirmar.")) }} />
   </>;
 }

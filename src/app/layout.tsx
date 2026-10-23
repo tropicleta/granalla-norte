@@ -41,7 +41,7 @@ const jsonLd = {
   areaServed: serviceArea,
   hasOfferCatalog: {
     "@type": "OfferCatalog", name: "Servicios de Granalla Norte en Atacama",
-    itemListElement: localServices.map(service => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: service.name, url: `${site.url}${service.path}`, description: service.description, provider: { "@id": businessId }, areaServed: serviceArea } })),
+    itemListElement: localServices.map(service => ({ "@type": "Offer", itemOffered: { "@type": "Service", "@id": `${site.url}${service.path}#servicio`, name: service.name, url: `${site.url}${service.path}`, description: service.description, provider: { "@id": businessId }, areaServed: serviceArea } })),
   },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",

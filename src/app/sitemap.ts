@@ -3,10 +3,11 @@ import { site } from "@/lib/site";
 import { publishedArticles } from "@/lib/content";
 import { serviceDetails } from "@/lib/service-details";
 import { projectContextModified, PROJECT_CONTEXT_UPDATED } from "@/lib/project-evidence";
+import { publishedMachines } from "@/lib/machinery";
 
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await publishedArticles();
+  const [posts, machines] = await Promise.all([publishedArticles(), publishedMachines()]);
   const pages = ["", "/nosotros", "/servicios", "/maquinaria", "/equipos-monitoreo", "/noticias", "/contacto"].map((p) => ({
     url: `${site.url}${p}`,
     ...(["/maquinaria", "/servicios"].includes(p) ? { lastModified: "2026-10-22" } : {}),
@@ -15,5 +16,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
   const news = posts.map((p) => ({ url: `${site.url}/noticias/${p.slug}`, lastModified: projectContextModified(p), priority: 0.6 }));
   const services = serviceDetails.map(s => ({ url: `${site.url}/servicios/${s.slug}`, lastModified: ["obras-civiles", "suministro-y-abastecimiento"].includes(s.slug) ? "2026-10-22" : PROJECT_CONTEXT_UPDATED, changeFrequency: "monthly" as const, priority: 0.9 }));
-  return [...pages, ...services, ...news];
+  const excavators = machines.some(machine => machine.type === "Excavadora" && !machine.demo)
+    ? [{ url: `${site.url}/maquinaria/excavadoras`, lastModified: "2026-10-22", changeFrequency: "monthly" as const, priority: 0.8 }]
+    : [];
+  return [...pages, ...services, ...excavators, ...news];
 }

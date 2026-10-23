@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 const origin = process.argv[2] || "http://localhost:3000";
 const domain = "https://www.granallanorte.cl";
 const services = ["mantencion-integral-de-caminos", "suministro-y-abastecimiento", "monitoreo-de-tronaduras", "obras-civiles"];
-const paths = ["/", "/servicios", "/maquinaria", "/equipos-monitoreo", "/nosotros", "/contacto", "/noticias", ...services.map(slug => `/servicios/${slug}`)];
+const paths = ["/", "/servicios", "/maquinaria", "/maquinaria/excavadoras", "/equipos-monitoreo", "/nosotros", "/contacto", "/noticias", ...services.map(slug => `/servicios/${slug}`)];
 const sitemapResponse = await fetch(`${origin}/sitemap.xml`);
 assert.equal(sitemapResponse.status, 200);
 const sitemap = await sitemapResponse.text();
@@ -21,9 +21,10 @@ for (const path of paths) {
   if (path === "/") {
     assert.ok(schemas.some(schema => schema["@type"] === "WebSite" && schema.name === "Granalla Norte" && schema.url === `${domain}/`), "home: site identity");
   }
-  if (path.startsWith("/servicios/")) {
+  if (path.startsWith("/servicios/") || path.startsWith("/maquinaria") || path === "/equipos-monitoreo") {
     const graph = schemas.find(schema => schema["@graph"])?.["@graph"];
     assert.ok(graph?.some(schema => schema["@type"] === "Service" && schema.provider["@id"] === `${domain}/#empresa`), `${path}: service`);
+    assert.ok(graph?.some(schema => schema["@type"] === "Service" && schema["@id"] === `${domain}${path}#servicio`), `${path}: stable service identity`);
     assert.ok(graph?.some(schema => schema["@type"] === "BreadcrumbList"), `${path}: breadcrumbs`);
   }
 }

@@ -38,6 +38,8 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li><Link href="/maquinaria" className="hover:text-cream">Arriendo de maquinaria</Link></li>
+            <li><Link href="/equipos-monitoreo" className="hover:text-cream">Arriendo de sismógrafos y geófonos</Link></li>
           </ul>
         </div>
 

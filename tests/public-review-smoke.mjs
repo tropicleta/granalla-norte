@@ -23,7 +23,7 @@ try {
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
   assert.ok(ready, output);
-  for (const file of ["quote-context-smoke.mjs", "seo-smoke.mjs", "service-navigation-smoke.mjs", "local-services-smoke.mjs", "project-evidence-smoke.mjs"]) {
+  for (const file of ["quote-context-smoke.mjs", "seo-smoke.mjs", "service-navigation-smoke.mjs", "local-services-smoke.mjs", "project-evidence-smoke.mjs", "excavator-visibility-smoke.mjs"]) {
     await new Promise((resolve, reject) => {
       const test = spawn(process.execPath, [`tests/${file}`, origin], { windowsHide: true, stdio: "inherit" });
       test.on("error", reject);

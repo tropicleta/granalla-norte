@@ -33,7 +33,7 @@ const publicNews = unstable_cache(async () => {
     articles = withEditorialNews(withRecovered(original));
   }
   return articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date));
-}, ["public-news"], { revalidate: 300, tags: ["public-news"] });
+}, ["public-news"], { revalidate: 3600, tags: ["public-news"] });
 export const publishedArticles = cache(publicNews);
 export async function saveArticle(article: Article, version: string, create: boolean) {
   article = { ...article, editorialRevision: NEWS_EDITORIAL_REVISION };

@@ -39,7 +39,7 @@ for (const [file, publicMethod, adminMethod] of [["content", "publishedArticles"
 }
 assert.equal(outage.writes(), 0, "Outage cannot overwrite stored data");
 assert.equal(outage.errors.length, 3, "Failures remain visible in server logs");
-assert.ok(outage.policies.every(policy => policy.revalidate === 300 && policy.tags.length === 1));
+assert.ok(outage.policies.every(policy => policy.revalidate === 3600 && policy.tags.length === 1));
 
 const healthy = scenario(async () => null);
 const news = healthy.load("content");

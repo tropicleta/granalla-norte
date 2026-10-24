@@ -37,7 +37,8 @@ acceso, pero conserva sus proyectos y documentos.
 
 ## Cargar y encontrar documentos
 
-Abre un proyecto y luego la parte que corresponda. Selecciona el archivo y la
+Abre un proyecto, elige **Parte para cargar documentos** y pulsa **Cargar documentos**.
+Se abrirá la carga de archivos de esa parte. Selecciona el archivo y la
 categoría: Informes, Contratos, Certificados, Planos, Fotografías u Otros. El nombre
 es opcional: si lo dejas vacío se usará el nombre del archivo.
 
@@ -47,6 +48,19 @@ admite hasta 3 MB: PDF, Word, Excel, CSV, TXT, JPG, PNG o ZIP.
 
 Para encontrarlo, usa **Buscar documento** o el filtro de categoría dentro del
 proyecto. Los archivos retirados dejan de aparecer a los mandantes.
+
+Al descargar aparece **Preparando descarga** y después **Descarga iniciada**, con
+el nombre del archivo. Revisa la carpeta de descargas del navegador. Durante la
+preparación no hace falta volver a pulsar: los clics repetidos se bloquean. Si
+ocurre un error, se muestra el aviso y puedes volver a intentar.
+
+## Si el almacenamiento no está disponible
+
+La página pública puede seguir abriendo con el catálogo incluido en el sitio.
+Los cambios recientes guardados en el almacenamiento pueden tardar en volver a
+mostrarse. Las cuentas y los archivos privados requieren que el almacenamiento
+esté activo: no se sustituyen por datos de ejemplo ni se confirman guardados que
+han fallado. Revisa el estado y los límites de Vercel antes de reintentar.
 
 ## Corregir un error
 

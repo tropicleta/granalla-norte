@@ -27,7 +27,7 @@ export const publishedMachines = cache(unstable_cache(async () => {
     console.error("Unable to load public machinery catalog", error);
     return brochureMachines.filter(m => m.status === "published");
   }
-}, ["public-machinery"], { revalidate: 300, tags: ["public-machinery"] }));
+}, ["public-machinery"], { revalidate: 3600, tags: ["public-machinery"] }));
 export async function saveMachine(machine: Machine, version: string, create: boolean) {
   const current = await machineryCatalog();
   if (version !== current.version) throw new ContentError("Otra sesión guardó cambios. Actualiza la lista antes de guardar.", 409);

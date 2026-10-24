@@ -24,7 +24,7 @@ export const publishedMonitoringEquipment = cache(unstable_cache(async () => {
     console.error("Unable to load public monitoring catalog", error);
     return initialMonitoringEquipment.filter(m => m.status === "published");
   }
-}, ["public-monitoring"], { revalidate: 300, tags: ["public-monitoring"] }));
+}, ["public-monitoring"], { revalidate: 3600, tags: ["public-monitoring"] }));
 export async function saveMonitoringEquipment(machine: MonitoringEquipment, version: string, create: boolean) {
   const current = await monitoringCatalog();
   if (version !== current.version) throw new ContentError("Otra sesión guardó cambios. Actualiza la lista antes de guardar.", 409);

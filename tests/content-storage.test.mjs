@@ -10,11 +10,15 @@ class ContentError extends Error { constructor(message, status) { super(message)
 class BlobPreconditionFailedError extends Error {}
 class BlobNotFoundError extends Error {}
 let value = 'first', version = 'storage-1', reads = 0, race = false, continuousRace = false;
+let metadataReads = 0, lastGetOptions, getFailure;
 const blob = {
   BlobPreconditionFailedError, BlobNotFoundError,
-  head: async () => { if (value === null) throw new BlobNotFoundError(); return { etag: version }; },
-  get: async () => {
+  head: async () => { metadataReads++; if (value === null) throw new BlobNotFoundError(); return { etag: version }; },
+  get: async (_path, options) => {
     reads++;
+    lastGetOptions = options;
+    if (getFailure) throw getFailure;
+    if (value === null) throw new BlobNotFoundError();
     const bytes = value;
     if (race || continuousRace) { value = 'concurrent'; version += '-next'; race = false; }
     return { statusCode: 200, stream: new Response(bytes).body, blob: { etag: 'W/"delivery-hash"' } };
@@ -44,4 +48,20 @@ continuousRace = true;
 await assert.rejects(exports.readBytes('articles.json'), error => error.status === 409);
 continuousRace = false; value = null;
 assert.equal(await exports.readBytes('articles.json'), null);
+value = '{"published":true}';
+const beforeReads = reads, beforeMetadata = metadataReads;
+const snapshot = await exports.readSnapshotJson('articles.json');
+assert.equal(snapshot.value.published, true);
+assert.equal(snapshot.etag, undefined, 'Snapshot cannot supply an ETag for writes');
+assert.equal(reads - beforeReads, 1, 'Public snapshot needs just one download');
+assert.equal(metadataReads, beforeMetadata, 'Snapshot avoids both metadata operations');
+assert.equal(lastGetOptions.useCache, false, 'Editable snapshot sees fresh content after tag invalidation');
+await exports.readSnapshotBytes('portal/files/immutable-upload', true);
+assert.equal(lastGetOptions.useCache, true, 'Immutable private file uses Blob CDN');
+assert.equal(lastGetOptions.access, 'private');
+value = null;
+assert.equal(await exports.readSnapshotBytes('missing.json'), null);
+getFailure = new Error('403 Forbidden');
+await assert.rejects(exports.readSnapshotJson('articles.json'), /403 Forbidden/);
+await assert.rejects(exports.readSnapshotBytes('../private'), /Invalid storage path/);
 console.log('Storage checks passed: weak delivery ETag, guarded writes, concurrent read retry, bounded retries, missing content.');

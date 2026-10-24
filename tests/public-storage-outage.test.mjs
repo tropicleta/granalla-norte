@@ -17,7 +17,7 @@ function scenario(read) {
     const require = name => {
       if (name === "react") return { cache: fn => fn };
       if (name === "next/cache") return { unstable_cache: (fn, keys, options) => { policies.push(options); return fn; }, revalidateTag: tag => tags.push(tag) };
-      if (name === "./content-storage") return { storageConfigured: () => true, readJson: read, writeJson: async () => { writes++; return "next-version"; } };
+      if (name === "./content-storage") return { storageConfigured: () => true, readJson: read, readSnapshotJson: read, writeJson: async () => { writes++; return "next-version"; } };
       if (name.startsWith(".")) {
         const target = resolve(dirname(file), name);
         return load(existsSync(target) ? target : target + ".ts");
@@ -39,7 +39,7 @@ for (const [file, publicMethod, adminMethod] of [["content", "publishedArticles"
 }
 assert.equal(outage.writes(), 0, "Outage cannot overwrite stored data");
 assert.equal(outage.errors.length, 3, "Failures remain visible in server logs");
-assert.ok(outage.policies.every(policy => policy.revalidate === 3600 && policy.tags.length === 1));
+assert.ok(outage.policies.every(policy => policy.revalidate === 21600 && policy.tags.length === 1));
 
 const healthy = scenario(async () => null);
 const news = healthy.load("content");

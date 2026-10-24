@@ -1,12 +1,12 @@
 import { cache } from "react";
 import { unstable_cache, revalidateTag } from "next/cache";
 import { ContentError } from "./content-model";
-import { readJson, writeJson, storageConfigured } from "./content-storage";
+import { readJson, readSnapshotJson, writeJson, storageConfigured } from "./content-storage";
 import { initialMonitoringEquipment, type MonitoringEquipment } from "./monitoring-model";
 
-export async function monitoringCatalog() {
+export async function monitoringCatalog(readOnly = false) {
   if (!storageConfigured()) return { machines: initialMonitoringEquipment, version: "initial", configured: false };
-  const stored = await readJson<MonitoringEquipment[]>("monitoring-equipment.json");
+  const stored = readOnly ? await readSnapshotJson<MonitoringEquipment[]>("monitoring-equipment.json") : await readJson<MonitoringEquipment[]>("monitoring-equipment.json");
   // Replace the former numbered unit list with model-level rental cards. Keep
   // administrator edits to the new cards and independently added equipment.
   const saved = (stored?.value ?? []).filter(m => !["instantel-equipo-2", "instantel-equipo-5", "instantel-equipo-6", "minimate-pro4", "minimate-pro6"].includes(m.id));
@@ -19,12 +19,12 @@ export async function monitoringCatalog() {
   return { machines: [...machines, ...saved.filter(m => !defaultIds.has(m.id))], version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedMonitoringEquipment = cache(unstable_cache(async () => {
-  try { return (await monitoringCatalog()).machines.filter(m => m.status === "published"); }
+  try { return (await monitoringCatalog(true)).machines.filter(m => m.status === "published"); }
   catch (error) {
     console.error("Unable to load public monitoring catalog", error);
     return initialMonitoringEquipment.filter(m => m.status === "published");
   }
-}, ["public-monitoring"], { revalidate: 3600, tags: ["public-monitoring"] }));
+}, ["public-monitoring"], { revalidate: 21600, tags: ["public-monitoring"] }));
 export async function saveMonitoringEquipment(machine: MonitoringEquipment, version: string, create: boolean) {
   const current = await monitoringCatalog();
   if (version !== current.version) throw new ContentError("Otra sesión guardó cambios. Actualiza la lista antes de guardar.", 409);

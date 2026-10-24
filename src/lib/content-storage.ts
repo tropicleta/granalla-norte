@@ -62,6 +62,26 @@ export async function readJson<T>(path: string) {
   const result = await readBytes(path);
   return result ? { value: JSON.parse(new TextDecoder().decode(result.bytes)) as T, etag: result.etag } : null;
 }
+// Read-only snapshots do not need the storage ETag used for conditional writes.
+// Editable catalogs bypass Blob's CDN so tag invalidation sees the latest save.
+// UUID-named uploads are immutable and can safely use Blob's private CDN cache.
+export async function readSnapshotBytes(path: string, useCache = false): Promise<{ bytes: Uint8Array } | null> {
+  ready(); safePath(path);
+  if (local()) return readBytes(path);
+  try {
+    const result = await get(`cms/${path}`, { access: "private", useCache });
+    if (!result) return null;
+    if (result.statusCode !== 200) throw new ContentError("No pudimos leer el archivo completo.", 503);
+    return { bytes: new Uint8Array(await new Response(result.stream).arrayBuffer()) };
+  } catch (error) {
+    if (error instanceof BlobNotFoundError) return null;
+    throw error;
+  }
+}
+export async function readSnapshotJson<T>(path: string) {
+  const result = await readSnapshotBytes(path);
+  return result ? { value: JSON.parse(new TextDecoder().decode(result.bytes)) as T, etag: undefined } : null;
+}
 export const writeJson = (path: string, value: unknown, etag?: string) => writeBytes(path, new TextEncoder().encode(JSON.stringify(value)), etag);
 export async function listMessages(cursor?: string) {
   ready();

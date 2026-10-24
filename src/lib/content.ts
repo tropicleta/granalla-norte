@@ -2,7 +2,7 @@ import { cache } from "react";
 import { unstable_cache, revalidateTag } from "next/cache";
 import { posts } from "./site";
 import { type Article, type InboxMessage, ContentError } from "./content-model";
-import { readJson, writeJson, storageConfigured } from "./content-storage";
+import { readJson, readSnapshotJson, writeJson, storageConfigured } from "./content-storage";
 import { createHash } from "node:crypto";
 import recoveredNews from "./recovered-news.json";
 import recoveredDraft from "./recovered-draft.json";
@@ -16,15 +16,15 @@ function withRecovered(articles: Article[]) {
   const known = new Set(articles.map(p => p.slug));
   return [...articles, ...recovered.filter(p => !known.has(p.slug))];
 }
-export async function catalog() {
+export async function catalog(readOnly = false) {
   if (!storageConfigured()) return { articles: withEditorialNews(withRecovered(original)), version: "initial", configured: false };
-  const stored = await readJson<Article[]>("articles.json");
+  const stored = readOnly ? await readSnapshotJson<Article[]>("articles.json") : await readJson<Article[]>("articles.json");
   return { articles: withEditorialNews(withRecovered(stored?.value ?? original)), version: stored?.etag ?? "initial", configured: true };
 }
 const publicNews = unstable_cache(async () => {
   let articles: Article[];
   try {
-    articles = (await catalog()).articles;
+    articles = (await catalog(true)).articles;
   } catch (error) {
     // A storage outage must not take down the public website. Only use the
     // bundled public archive here; administrative reads and writes still fail
@@ -33,7 +33,7 @@ const publicNews = unstable_cache(async () => {
     articles = withEditorialNews(withRecovered(original));
   }
   return articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date));
-}, ["public-news"], { revalidate: 3600, tags: ["public-news"] });
+}, ["public-news"], { revalidate: 21600, tags: ["public-news"] });
 export const publishedArticles = cache(publicNews);
 export async function saveArticle(article: Article, version: string, create: boolean) {
   article = { ...article, editorialRevision: NEWS_EDITORIAL_REVISION };

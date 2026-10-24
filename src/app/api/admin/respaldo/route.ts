@@ -1,7 +1,7 @@
 import { zipSync, strToU8 } from "fflate";
 import { requireAdmin, apiError } from "@/lib/admin-api";
 import { loadPortal, publicClient, publicDocument } from "@/lib/portal";
-import { readBytes } from "@/lib/content-storage";
+import { readSnapshotBytes } from "@/lib/content-storage";
 import { ContentError } from "@/lib/content-model";
 
 export const runtime = "nodejs";
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     const files: Record<string, Uint8Array> = Object.create(null); const fileIndex = [];
     let size = 0;
     for (const doc of documents) {
-      const file = await readBytes(doc.path);
+      const file = await readSnapshotBytes(doc.path, true);
       if (!file) throw new ContentError("Falta un archivo. El respaldo no se generó; revisa los documentos antes de continuar.", 503);
       size += file.bytes.length;
       if (size > 50 * 1024 * 1024) throw new ContentError("El respaldo supera 50 MB. Descárgalo por mandante.", 413);

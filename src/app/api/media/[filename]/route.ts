@@ -4,7 +4,7 @@ import { verifyAdminSession } from "@/lib/admin-account";
 import { publishedArticles } from "@/lib/content";
 import { publishedMonitoringEquipment } from "@/lib/monitoring";
 import { publishedMachines } from "@/lib/machinery";
-import { readBytes } from "@/lib/content-storage";
+import { readSnapshotBytes } from "@/lib/content-storage";
 
 export const runtime = "nodejs";
 export async function GET(_request: Request, { params }: { params: Promise<{ filename: string }> }) {
@@ -17,7 +17,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ fil
       const [articles, machines, equipment] = await Promise.all([publishedArticles(), publishedMachines(), publishedMonitoringEquipment()]);
       if (!articles.some(p => p.images.includes(url)) && !machines.some(m => m.image === url) && !equipment.some(m => m.image === url)) return new Response(null, { status: 404 });
     }
-    const file = await readBytes(`images/${filename}`);
+    const file = await readSnapshotBytes(`images/${filename}`, true);
     if (!file) return new Response(null, { status: 404 });
     return new Response(Buffer.from(file.bytes), { headers: { "Content-Type": "image/webp", "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff" } });
   } catch { return new Response(null, { status: 503 }); }

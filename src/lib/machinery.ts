@@ -1,12 +1,12 @@
 import { cache } from "react";
 import { unstable_cache, revalidateTag } from "next/cache";
 import { ContentError } from "./content-model";
-import { readJson, writeJson, storageConfigured } from "./content-storage";
+import { readJson, readSnapshotJson, writeJson, storageConfigured } from "./content-storage";
 import { brochureMachines, type Machine } from "./machinery-model";
 
-export async function machineryCatalog() {
+export async function machineryCatalog(readOnly = false) {
   if (!storageConfigured()) return { machines: brochureMachines, version: "initial", configured: false };
-  const stored = await readJson<Machine[]>("machinery.json");
+  const stored = readOnly ? await readSnapshotJson<Machine[]>("machinery.json") : await readJson<Machine[]>("machinery.json");
   // Keep edited records (including drafts); replace the old example fleet and
   // add brochure equipment that has not yet been saved in the administrator.
   const savedMachines = (stored?.value ?? [])
@@ -22,12 +22,12 @@ export async function machineryCatalog() {
   return { machines, version: stored?.etag ?? "initial", configured: true };
 }
 export const publishedMachines = cache(unstable_cache(async () => {
-  try { return (await machineryCatalog()).machines.filter(m => m.status === "published"); }
+  try { return (await machineryCatalog(true)).machines.filter(m => m.status === "published"); }
   catch (error) {
     console.error("Unable to load public machinery catalog", error);
     return brochureMachines.filter(m => m.status === "published");
   }
-}, ["public-machinery"], { revalidate: 3600, tags: ["public-machinery"] }));
+}, ["public-machinery"], { revalidate: 21600, tags: ["public-machinery"] }));
 export async function saveMachine(machine: Machine, version: string, create: boolean) {
   const current = await machineryCatalog();
   if (version !== current.version) throw new ContentError("Otra sesión guardó cambios. Actualiza la lista antes de guardar.", 409);

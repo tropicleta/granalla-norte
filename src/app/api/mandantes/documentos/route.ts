@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { requireAdmin, privateJson, apiError } from "@/lib/admin-api";
 import { SESSION_COOKIE } from "@/lib/admin-session";
 import { verifyAdminSession } from "@/lib/admin-account";
-import { readBytes, writeBytes } from "@/lib/content-storage";
+import { readSnapshotBytes, writeBytes } from "@/lib/content-storage";
 import { ContentError } from "@/lib/content-model";
 import { loadPortal, savePortal, requireMandante, text, adminPortalView, documentCategories } from "@/lib/portal";
 export const runtime = "nodejs";
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     const id = new URL(request.url).searchParams.get("id");
     const document = clients.flatMap(c => c.projects).flatMap(p => p.parts).flatMap(p => p.documents).find(d => d.id === id) ?? (store ? store.value.trash?.find(t => t.document.id === id)?.document : undefined);
     if (!document) throw new ContentError("Documento no encontrado.", 404);
-    const file = await readBytes(document.path); if (!file) throw new ContentError("Archivo no encontrado.", 404);
+    const file = await readSnapshotBytes(document.path, true); if (!file) throw new ContentError("Archivo no encontrado.", 404);
     return new Response(Buffer.from(file.bytes), { headers: { "Content-Type": "application/octet-stream", "Content-Length": String(file.bytes.length), "Content-Disposition": `attachment; filename="documento"; filename*=UTF-8''${encodeURIComponent(document.filename).replace(/'/g, "%27")}`, "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "X-Robots-Tag": "noindex, nofollow" } });
   } catch (error) { return apiError(error); }
 }

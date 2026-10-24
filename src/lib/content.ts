@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { unstable_cache, revalidateTag } from "next/cache";
 import { posts } from "./site";
 import { type Article, type InboxMessage, ContentError } from "./content-model";
 import { readJson, writeJson, storageConfigured } from "./content-storage";
@@ -20,7 +21,20 @@ export async function catalog() {
   const stored = await readJson<Article[]>("articles.json");
   return { articles: withEditorialNews(withRecovered(stored?.value ?? original)), version: stored?.etag ?? "initial", configured: true };
 }
-export const publishedArticles = cache(async () => (await catalog()).articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date)));
+const publicNews = unstable_cache(async () => {
+  let articles: Article[];
+  try {
+    articles = (await catalog()).articles;
+  } catch (error) {
+    // A storage outage must not take down the public website. Only use the
+    // bundled public archive here; administrative reads and writes still fail
+    // explicitly so an outage cannot overwrite saved changes.
+    console.error("Unable to load public news catalog", error);
+    articles = withEditorialNews(withRecovered(original));
+  }
+  return articles.filter(p => p.status === "published").sort((a, b) => b.date.localeCompare(a.date));
+}, ["public-news"], { revalidate: 300, tags: ["public-news"] });
+export const publishedArticles = cache(publicNews);
 export async function saveArticle(article: Article, version: string, create: boolean) {
   article = { ...article, editorialRevision: NEWS_EDITORIAL_REVISION };
   const current = await catalog();
@@ -31,6 +45,7 @@ export async function saveArticle(article: Article, version: string, create: boo
   const articles = create ? [...current.articles, article] : current.articles.map(p => p.slug === article.slug ? article : p);
   if (articles.length > 500) throw new ContentError("Se alcanzó el límite de 500 noticias.", 422);
   const next = await writeJson("articles.json", articles, version === "initial" ? undefined : version);
+  revalidateTag("public-news");
   return { article, version: next };
 }
 export function messagePath(id: string) {
